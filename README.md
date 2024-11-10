@@ -6,12 +6,15 @@
 
 This is a simple JavaFX game created using Java and JavaFX. The game features basic gameplay mechanics and is designed to demonstrate the use of JavaFX for creating graphical applications.
 
-## Features
+## Git Commits 
+The Git Commits in this Repo abides to the Atomic Commits style as best as possible for easier Commit tracing. Thus, a larger ammount of Commits are present and are expected due to the styling of Commits.
 
-- **Player Movement**: Control the player using keyboard inputs.
-- **Scoring System**: Keep track of the player's score.
-- **Animations**: Smooth animations using JavaFX's `Timeline` and `KeyFrame`.
-- **Background Image**: A background image is displayed using `ImageView`.
+## Bug Fixes
+- **NA**: NA
+
+## Additional Features
+
+- **NA**: NA
 
 ## Prerequisites
 
