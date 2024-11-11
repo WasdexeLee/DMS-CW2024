@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+
 import com.example.demo.LevelParent;
 
 public class Controller implements Observer {

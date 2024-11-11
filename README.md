@@ -10,7 +10,8 @@ This is a simple JavaFX game created using Java and JavaFX. The game features ba
 The Git Commits in this Repo abides to the Atomic Commits style as best as possible for easier Commit tracing. Thus, a larger ammount of Commits are present and are expected due to the styling of Commits.
 
 ## Bug Fixes
-- **NA**: NA
+- **Fixed InvocationTargetException Thrown Alert Box**: Exception thrown due to wrong naming and not using name constant declared | fixed by renaming and using constant
+![Fixed InvocationTargetException Thrown Alert Box](./readme-images/bug-fixes-1.png)
 
 ## Additional Features
 
@@ -22,6 +23,7 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 - JavaFX SDK (if not included with your JDK)
 - Maven (optional, for building and managing dependencies)
 
+add finalize() bllock to all for memory safe checking 
 </br>
 
 ---
