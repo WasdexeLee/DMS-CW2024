@@ -99,6 +99,14 @@ public abstract class LevelParent extends Observable {
 		timeline.getKeyFrames().add(gameLoop);
 	}
 
+    /**
+     * Protected method for subclass to call on to stop timeline
+     * Generally done when done with current level and stop game logic from continuing in endless loop
+     */
+    protected void stopTimeline() {
+        timeline.stop();
+    }
+
 	private void initializeBackground() {
 		background.setFocusTraversable(true);
 		background.setFitHeight(screenHeight);
@@ -247,5 +255,12 @@ public abstract class LevelParent extends Observable {
 	private void updateNumberOfEnemies() {
 		currentNumberOfEnemies = enemyUnits.size();
 	}
-
+ 
+    /**
+     * To be called by garbage collector to verify memory release
+     */
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println(getClass().getName() + " class is garbage collected");
+    }
 }

@@ -18,8 +18,12 @@ public class LevelOne extends LevelParent {
 		if (userIsDestroyed()) {
 			loseGame();
 		}
-		else if (userHasReachedKillTarget())
+        // If kill target reached
+        // Stop timeline of current level and go to next level 
+		else if (userHasReachedKillTarget()) { 
+            stopTimeline();
 			goToNextLevel(NEXT_LEVEL);
+        }
 	}
 
 	@Override
