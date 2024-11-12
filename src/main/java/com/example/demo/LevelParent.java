@@ -209,7 +209,7 @@ public abstract class LevelParent extends Observable {
 	}
 
 	private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
-		return Math.abs(enemy.getTranslateX()) > screenWidth;
+		return Math.abs(enemy.getTranslateX()) - enemy.getBoundsInParent().getWidth() > screenWidth;
 	}
 
 	protected void winGame() {
