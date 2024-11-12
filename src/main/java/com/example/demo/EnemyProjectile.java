@@ -20,5 +20,11 @@ public class EnemyProjectile extends Projectile {
 		updatePosition();
 	}
 
-
+    /**
+     * To be called by garbage collector to verify memory release
+     */
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println(getClass().getName() + " class is garbage collected");
+    }
 }

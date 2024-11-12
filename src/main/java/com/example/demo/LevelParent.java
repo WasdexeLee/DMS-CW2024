@@ -79,6 +79,8 @@ public abstract class LevelParent extends Observable {
 	}
 
 	private void updateScene() {
+        handleProjectileOutOfScreen(enemyProjectiles);
+        handleProjectileOutOfScreen(userProjectiles);
 		spawnEnemyUnits();
 		updateActors();
 		generateEnemyFire();
@@ -197,6 +199,19 @@ public abstract class LevelParent extends Observable {
 			}
 		}
 	}
+ 
+    /**
+     * Handles projectiles that go out of the screen view by destroying them.
+     * 
+     * @param projectiles The list of projectiles to be checked.
+     */
+    private void handleProjectileOutOfScreen(List<ActiveActorDestructible> projectiles) {
+        for (ActiveActorDestructible projectile : projectiles){
+            if (projectile.localToScene(projectile.getBoundsInLocal()).getMaxX() < 0 || projectile.localToScene(projectile.getBoundsInLocal()).getMinX() > screenWidth){
+                projectile.destroy();
+            }
+        }
+    }
 
 	private void updateLevelView() {
 		levelView.removeHearts(user.getHealth());
