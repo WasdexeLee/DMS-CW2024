@@ -32,7 +32,7 @@ public class LoggerUtil {
      */
     static {
         try {
-            // Configure the logger to log to a file
+                  // Configure the logger to log to a file
             FileHandler fileHandler = new FileHandler("SkyBattle.log");
             fileHandler.setLevel(Level.ALL);
             fileHandler.setFormatter(new SimpleFormatter());
