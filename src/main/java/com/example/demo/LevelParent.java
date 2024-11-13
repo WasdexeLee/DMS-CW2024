@@ -275,6 +275,6 @@ public abstract class LevelParent extends Observable {
      */
     @Override
     protected void finalize() throws Throwable {
-        System.out.println(getClass().getName() + " class is garbage collected");
+        LoggerUtil.logger.info(getClass().getName() + " class is garbage collected");
     }
 }

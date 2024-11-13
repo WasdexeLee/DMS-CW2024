@@ -14,4 +14,11 @@ public abstract class Projectile extends ActiveActorDestructible {
 	@Override
 	public abstract void updatePosition();
 
+    /**
+     * To be called by garbage collector to verify memory release
+     */
+    @Override
+    protected void finalize() throws Throwable {
+        LoggerUtil.logger.info(getClass().getName() + " class is garbage collected");
+    }
 }
