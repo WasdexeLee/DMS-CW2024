@@ -42,4 +42,8 @@ public class LevelView {
 		}
 	}
 
+    // To be replaced after refactor
+    // Probably replaced with updateLevelView and add all updates in 1 method
+    public void updateShield() { 
+    }
 }

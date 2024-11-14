@@ -3,7 +3,6 @@
 ---
 
 ## Overview
-
 This is a simple JavaFX game created using Java and JavaFX. The game features basic gameplay mechanics and is designed to demonstrate the use of JavaFX for creating graphical applications.
 
 ## Git Commits 
@@ -11,8 +10,22 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 ## Bug Fixes
 - **Fixed InvocationTargetException Thrown Alert Box**: Exception thrown due to wrong naming and not using name constant declared | fixed by renaming and using constant
-![Fixed InvocationTargetException Thrown Alert Box](./readme-images/bug-fixes-1.png)
+<!-- ![Fixed InvocationTargetException Thrown Alert Box](./readme-images/bug-fixes-1.png) -->
 
+- **Added stopTimeline to Stop Game Logic**: Added and called stopTimeline method to stop timeline from running game logic endlessly, which checks and calls goToNextLevel() method, which endlesssly create new LevelTwo instances until garbage collection
+
+- **Cropped Image to Fix HitBox Too Large**: Cropped image to reduce HitBox, recalculated and reassign image scalling
+
+- **Modified EnemyPlane Despawn**: Modified EnemyPlane to only despawn if entire plane has left screen view instead of only the front of the EnemyPlane touching the edge of screen
+
+- **Added Deletion of Projectiles**: Deletion of projectiles when projectiles have move out of the screen
+
+- **Added LoggerUtil Utility**: Add LoggerUtil for centralized logger for uniform debug and tracking log
+
+- **Added .gitignore Item**: Added .gitignore to ignore log file 
+
+- **Fixed InvocationTargetException Thrown Alert Box**: 
+- **Fixed InvocationTargetException Thrown Alert Box**: 
 ## Additional Features
 
 - **NA**: NA
