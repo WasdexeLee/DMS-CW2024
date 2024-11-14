@@ -20,17 +20,19 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 - **Added Deletion of Projectiles**: Deletion of projectiles when projectiles have move out of the screen
 
-- **Added LoggerUtil Utility**: Add LoggerUtil for centralized logger for uniform debug and tracking log
+- **Fixed ShieldImage Display**: Fixed BossPlane ShieldImage not displaying issue
 
-- **Added .gitignore Item**: Added .gitignore to ignore log file 
+- **Fixed EnemyPlane Penetration Bug**: Fixed EnemyPlane penetration triggering kill count +1 (Penetration of EnemyPlane was previously handled as an EnemyPlane kill)
 
-- **Fixed InvocationTargetException Thrown Alert Box**: 
-- **Fixed InvocationTargetException Thrown Alert Box**: 
 ## Additional Features
 
 - **NA**: NA
 
 ## Prerequisites
+- **Added LoggerUtil Utility**: Add LoggerUtil for centralized logger for uniform debug and tracking log
+
+- **Added .gitignore Item**: Added .gitignore to ignore log file 
+
 
 - Java Development Kit (JDK) 8 or later
 - JavaFX SDK (if not included with your JDK)

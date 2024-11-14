@@ -85,8 +85,9 @@ public abstract class LevelParent extends Observable {
 		spawnEnemyUnits();
 		updateActors();
 		generateEnemyFire();
-		updateNumberOfEnemies();
 		handleEnemyPenetration();
+		removeAllDestroyedActors();
+		updateNumberOfEnemies();
 		handleUserProjectileCollisions();
 		handleEnemyProjectileCollisions();
 		handlePlaneCollisions();
