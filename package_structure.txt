@@ -1,0 +1,41 @@
+com.mygame
+    ├── core
+    │   ├── Game.java
+    │   ├── GameLoop.java
+    │   ├── GameState.java
+    │   └── SceneManager.java
+    ├── scenes
+    │   ├── Scene.java
+    │   ├── MainMenuScene.java
+    │   └── levels
+    │       ├── LevelScene.java
+    │       ├── Level1Scene.java
+    │       ├── Level2Scene.java
+    │       └── Level3Scene.java
+    ├── entities
+    │   ├── ActiveActor.java
+    │   ├── ActiveActorDestructible.java
+    │   ├── Destructible.java
+    │   └── plane
+    │       ├── FighterPlane.java
+    │       ├── Boss.java
+    │       ├── UserPlane.java
+    │       └── EnemyPlane.java
+    │   └── projectile
+    │       ├── Projectile.java
+    │       ├── BossProjectile.java
+    │       ├── UserProjectile.java
+    │       └── EnemyProjectile.java
+    │   └── misc
+    │       └── ShieldImage.java
+    ├── ui
+    │   ├── HeartDisplay.java
+    │   ├── ScoreDisplay.java
+    │   ├── GameOverImage.java
+    │   ├── PauseUI.java
+    │   └── WinImage.java
+    ├── utils
+    │   ├── InputHandler.java
+    │   ├── LoggerUtil.java
+    │   └── CollisionUtil.java
+    └── Main.java

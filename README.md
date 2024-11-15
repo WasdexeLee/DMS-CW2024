@@ -24,6 +24,8 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 - **Fixed EnemyPlane Penetration Bug**: Fixed EnemyPlane penetration triggering kill count +1 (Penetration of EnemyPlane was previously handled as an EnemyPlane kill)
 
+- **Fixed EnemyPlane Collision Bug**: Fixed EnemyPlane collision with UserPlane triggering kill count +1 (Collision of UserPlane and EnemyPlane was previously handled as an EnemyPlane kill)
+
 ## Additional Features
 
 - **NA**: NA
