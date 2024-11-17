@@ -5,8 +5,12 @@
 ## Overview
 This is a simple JavaFX game created using Java and JavaFX. The game features basic gameplay mechanics and is designed to demonstrate the use of JavaFX for creating graphical applications.
 
+
+
 ## Git Commits 
 The Git Commits in this Repo abides to the Atomic Commits style as best as possible for easier Commit tracing. Thus, a larger ammount of Commits are present and are expected due to the styling of Commits.
+
+
 
 ## Bug Fixes
 - **Fixed InvocationTargetException Thrown Alert Box**: Exception thrown due to wrong naming and not using name constant declared | fixed by renaming and using constant
@@ -26,12 +30,47 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 - **Fixed EnemyPlane Collision Bug**: Fixed EnemyPlane collision with UserPlane triggering kill count +1 (Collision of UserPlane and EnemyPlane was previously handled as an EnemyPlane kill)
 
+
+
+## New Java Class
+- **LoggerUtil**: Add LoggerUtil class for static centralized logger for uniform debug and tracking log. Enables logging to both console and log file
+
+- **GameLoop**: 
+
+- **GameState**: 
+
+- **SceneManager**: 
+
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+
+
+
+## Modified Java Class
+- **Controller => Game**: Cetnralized controller for entire core of game 
+
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+- **GameState**: 
+
+
+
+
 ## Additional Features
 
 - **NA**: NA
 
 ## Prerequisites
-- **Added LoggerUtil Utility**: Add LoggerUtil for centralized logger for uniform debug and tracking log
 
 - **Added .gitignore Item**: Added .gitignore to ignore log file 
 

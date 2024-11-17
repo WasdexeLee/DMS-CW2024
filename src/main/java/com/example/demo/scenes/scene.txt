@@ -1,0 +1,40 @@
+package com.example.demo.scenes;
+
+public class Scene {
+    private int level;
+    private int score;
+    private int playerHealth;
+
+    private int level;
+    private int score;
+    private int playerHealth;
+
+    abstract set level score, playerhealth before scene start 
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        setPropChange("level", this.level, level);
+        this.level = level;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        setPropChange("score", this.score, score);
+        this.score = score;
+    }
+
+    public int getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public void setPlayerHealth(int playerHealth) {
+        setPropChange("playerHealth", this.playerHealth, playerHealth);
+        this.playerHealth = playerHealth;
+    }
+}
