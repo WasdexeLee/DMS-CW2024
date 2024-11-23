@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.example.demo.utils.LoggerUtil;
+
 public abstract class Projectile extends ActiveActorDestructible {
 
 	public Projectile(String imageName, int imageHeight, double initialXPos, double initialYPos) {

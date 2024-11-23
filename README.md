@@ -14,7 +14,6 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 ## Bug Fixes
 - **Fixed InvocationTargetException Thrown Alert Box**: Exception thrown due to wrong naming and not using name constant declared | fixed by renaming and using constant
-<!-- ![Fixed InvocationTargetException Thrown Alert Box](./readme-images/bug-fixes-1.png) -->
 
 - **Added stopTimeline to Stop Game Logic**: Added and called stopTimeline method to stop timeline from running game logic endlessly, which checks and calls goToNextLevel() method, which endlesssly create new LevelTwo instances until garbage collection
 
@@ -39,7 +38,20 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 - **GameState**: 
 
-- **SceneManager**: 
+- **GameSceneManager**: 
+
+- **GameSceneFactory**: Factory class for creating different game scenes
+
+- **LevelOne, LevelTwo**: Concrete implementations of `LevelScene` for the first and second levels
+
+- **ActorManager, CollisionManager, EnemyManager, KillManager, ProjectileManager**: Services to manage actors, collisions, enemies, kills, and projectiles respectively
+
+- **LevelState**: Manage Level State Component
+
+- **LevelView**: Manage Level View Component
+
+- **EnumUtil**: Contains enums for game states and scene types
+
 
 - **GameState**: 
 - **GameState**: 
@@ -52,9 +64,11 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 
 ## Modified Java Class
-- **Controller => Game**: Cetnralized controller for entire core of game 
+- **Controller => Game**: Centralized controller for entire core of game 
 
-- **GameState**: 
+- **LevelParent => GameScene + LevelScene**: Abstract class to be extended, managing game scenes and level scenes related resources, including background, root group, scene updates, enemy units, and projectiles
+
+
 - **GameState**: 
 - **GameState**: 
 - **GameState**: 

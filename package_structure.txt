@@ -3,16 +3,17 @@ com.mygame
     │   ├── Game.java
     │   ├── GameLoop.java
     │   ├── GameState.java
-    │   └── SceneManager.java
+    │   └── GameSceneManager.java
     ├── scenes
-    │   ├── Scene.java
+    │   ├── SceneFactory.java
+    │   ├── GameScene.java
     │   ├── MainMenuScene.java
     │   └── levels
     │       ├── LevelScene.java
     │       ├── Level1Scene.java
     │       ├── Level2Scene.java
     │       └── Level3Scene.java
-    ├── entities
+    ├── actors
     │   ├── ActiveActor.java
     │   ├── ActiveActorDestructible.java
     │   ├── Destructible.java
@@ -37,5 +38,6 @@ com.mygame
     ├── utils
     │   ├── InputHandler.java
     │   ├── LoggerUtil.java
+    │   ├── ActorUtil.java
     │   └── CollisionUtil.java
     └── Main.java

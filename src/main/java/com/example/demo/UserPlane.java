@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.example.demo.utils.LoggerUtil;
+
 public class UserPlane extends FighterPlane {
 
 	private static final String IMAGE_NAME = "userplane.png";

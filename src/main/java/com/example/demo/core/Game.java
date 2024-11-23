@@ -1,127 +1,159 @@
 package com.example.demo.core;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import com.example.demo.scenes.services.GameSceneManager;
+import com.example.demo.utils.EnumUtil.State;
 
 import javafx.stage.Stage;
 
-public class Game {
-    private Stage stage;
-    private GameState gameState;
-    private GameLoop gameLoop;
-    private SceneManager sceneManager;
+/**
+ * The main game class that manages the game loop, state, and scene management.
+ * 
+ * This class is a singleton and implements PropertyChangeListener to handle game state changes.
+ * It provides methods to initialize, update, and manage the game state and scene transitions.
+ * 
+ * @author Your Name
+ * @version 1.0
+ */
+public class Game implements PropertyChangeListener {
 
-    public Game(Stage stage) {
+    /** The singleton instance of the Game. */
+    private static Game instance;
+
+    /** The primary stage for the game. */
+    private Stage stage;
+    
+    /** The game state manager. */
+    private GameState gameState;
+    
+    /** The game loop manager. */
+    private GameLoop gameLoop;
+    
+    /** The game scene manager. */
+    private GameSceneManager gameSceneManager;
+
+    /**
+     * Private constructor to enforce singleton pattern.
+     * Initializes the game state, game loop, and game scene manager.
+     * 
+     * @param stage The primary stage for the game.
+     */
+    private Game(Stage stage) {
         this.stage = stage;
         this.gameState = GameState.getInstance();
         this.gameLoop = GameLoop.getInstance(this);
-        this.sceneManager = SceneManager.getInstance(this, this.stage);
+        this.gameSceneManager = GameSceneManager.getInstance(this, this.stage);
+
+        addGameStatePropChangeListener(this);
+    }
+    
+    /**
+     * Returns the singleton instance of the Game.
+     * 
+     * @param stage The primary stage for the game.
+     * @return The singleton instance of the Game.
+     */
+    public static Game getInstance(Stage stage) {
+        if (instance == null) {
+            instance = new Game(stage);
+        }
+
+        return instance;
     }
 
-    public void start() {
+    /**
+     * Initializes the game by setting the state to start the game and showing the primary stage.
+     */
+    public void init() {
+        setStateStartGame();
+        stage.show();
+    }
+
+    /**
+     * Updates the game scene manager.
+     */
+    public void update() {
+        gameSceneManager.update();
+    }
+
+    /**
+     * Starts the game loop.
+     */
+    private void startGameLoop() {
         gameLoop.start();
     }
 
-    public void update() {
-        sceneManager.update();
-    }
-
-    public void stop() {
+    /**
+     * Stops the game loop.
+     */
+    private void stopGameLoop() {
         gameLoop.stop();
     }
 
-    public void setStateGoToMenu() {
-        gameState.setStateGoToMenu();
-    }
-
+    /**
+     * Transitions the game state to RUNNING.
+     */
     public void setStateStartGame() {
         gameState.setStateStartGame();
     }
 
+    /**
+     * Transitions the game state to PAUSED.
+     */
     public void setStatePauseGame() {
         gameState.setStatePauseGame();
     }
 
+    /**
+     * Transitions the game state to RUNNING from PAUSED.
+     */
     public void setStateResumeGame() {
         gameState.setStateResumeGame();
     }
 
+    /**
+     * Transitions the game state to GAME_OVER.
+     */
     public void setStateEndGame() {
         gameState.setStateEndGame();
     }
 
+    /**
+     * Adds a PropertyChangeListener to the game state.
+     * 
+     * @param listener The PropertyChangeListener to add.
+     */
     public void addGameStatePropChangeListener(PropertyChangeListener listener) {
         gameState.addPropChangeListener(listener);
     }
+    
+    /**
+     * Handles property change events for the game state.
+     * 
+     * @param event The PropertyChangeEvent to handle.
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent event) {
+        switch (event.getPropertyName()) {
+            case "stateChange":
+                switch ((State) event.getNewValue()) {
+                    case RUNNING:
+                        startGameLoop();
+                        break;
+                    case PAUSED:
+                        stopGameLoop();
+                        break;
+                    case GAME_OVER:
+                        stopGameLoop();
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
-
-// package com.example.demo.controller;
-
-// import java.lang.reflect.Constructor;
-// import java.lang.reflect.InvocationTargetException;
-// import java.util.Observable;
-// import java.util.Observer;
-
-// import javafx.scene.Scene;
-// import javafx.scene.control.Alert;
-// import javafx.scene.control.Alert.AlertType;
-// import javafx.stage.Stage;
-
-// import com.example.demo.LevelParent;
-
-// public class Controller implements Observer {
-
-// // private static final String LEVEL_ONE_CLASS_NAME =
-// "com.example.demo.LevelTwo";
-// private final Stage stage;
-// private LevelParent myLevel;
-
-// public Controller(Stage stage) {
-// this.stage = stage;
-// }
-
-// public void launchGame() throws ClassNotFoundException,
-// NoSuchMethodException, SecurityException,
-// InstantiationException, IllegalAccessException, IllegalArgumentException,
-// InvocationTargetException {
-
-// stage.show();
-// goToLevel(LEVEL_ONE_CLASS_NAME);
-// }
-
-// private void goToLevel(String className) throws ClassNotFoundException,
-// NoSuchMethodException, SecurityException,
-// InstantiationException, IllegalAccessException, IllegalArgumentException,
-// InvocationTargetException {
-// Class<?> myClass = Class.forName(className);
-// Constructor<?> constructor = myClass.getConstructor(double.class,
-// double.class);
-// myLevel = (LevelParent) constructor.newInstance(stage.getHeight(),
-// stage.getWidth());
-// myLevel.addObserver(this);
-// Scene scene = myLevel.initializeScene();
-// stage.setScene(scene);
-// myLevel.startGame();
-
-// }
-
-// @Override
-// public void update(Observable arg0, Object arg1) {
-// try {
-// // Assign myLevel (previous finished level) to null and suggest garbage
-// collection
-// myLevel = null;
-// System.gc();
-
-// // Move to next level by passing level class path
-// goToLevel((String) arg1);
-// } catch (ClassNotFoundException | NoSuchMethodException | SecurityException |
-// InstantiationException
-// | IllegalAccessException | IllegalArgumentException |
-// InvocationTargetException e) {
-// Alert alert = new Alert(AlertType.ERROR);
-// alert.setContentText(e.getClass().toString());
-// alert.show();
-// }
-// }
-
-// }

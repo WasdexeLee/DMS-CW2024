@@ -3,6 +3,8 @@ package com.example.demo;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import com.example.demo.utils.LoggerUtil;
+
 import javafx.animation.*;
 import javafx.event.EventHandler;
 import javafx.scene.Group;

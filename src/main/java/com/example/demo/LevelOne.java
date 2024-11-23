@@ -21,7 +21,6 @@ public class LevelOne extends LevelParent {
         // If kill target reached
         // Stop timeline of current level and go to next level 
 		else if (userHasReachedKillTarget()) { 
-            stopTimeline();
 			goToNextLevel(NEXT_LEVEL);
         }
 	}
