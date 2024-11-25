@@ -1,4 +1,8 @@
-package com.example.demo;
+package com.example.demo.actors.enemy;
+
+import com.example.demo.actors.ActiveActorDestructible;
+import com.example.demo.actors.FighterPlane;
+import com.example.demo.actors.projectile.EnemyProjectile;
 
 public class EnemyPlane extends FighterPlane {
 
@@ -15,7 +19,7 @@ public class EnemyPlane extends FighterPlane {
     }
 
     @Override
-    public void updatePosition() {
+    public void updateActor() {
         moveHorizontally(HORIZONTAL_VELOCITY);
     }
 
@@ -27,10 +31,5 @@ public class EnemyPlane extends FighterPlane {
             return new EnemyProjectile(projectileXPosition, projectileYPostion);
         }
         return null;
-    }
-
-    @Override
-    public void updateActor() {
-        updatePosition();
     }
 }

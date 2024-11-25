@@ -38,7 +38,11 @@ public abstract class GameScene {
         gameSceneSupport.addPropertyChangeListener(listener);
     }
 
-    private void setPropChange(String propType, Object oldProp, Object newProp) {
+    public void removePropChangeListener(PropertyChangeListener listener) {
+        gameSceneSupport.removePropertyChangeListener(listener);
+    }
+
+    protected void setPropChange(String propType, Object oldProp, Object newProp) {
         gameSceneSupport.firePropertyChange(propType, oldProp, newProp);
     }
 

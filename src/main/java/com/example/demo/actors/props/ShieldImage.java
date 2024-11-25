@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.actors.props;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,8 +12,8 @@ public class ShieldImage extends ImageView {
         this.setImage(new Image(getClass().getResource(IMAGE_NAME).toExternalForm()));
         this.setLayoutX(xPosition);
         this.setLayoutY(yPosition);
-        this.setFitHeight(SHIELD_SIZE);
         this.setVisible(false);
+        this.setFitHeight(SHIELD_SIZE);
         this.setPreserveRatio(true);
     }
 

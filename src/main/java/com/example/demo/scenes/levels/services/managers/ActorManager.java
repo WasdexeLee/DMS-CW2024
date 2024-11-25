@@ -1,9 +1,9 @@
-package com.example.demo.scenes.levels.services;
-
-import com.example.demo.ActiveActorDestructible;
+package com.example.demo.scenes.levels.services.managers;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.example.demo.actors.ActiveActorDestructible;
 
 import javafx.scene.Group;
 
@@ -40,7 +40,7 @@ public class ActorManager {
      */
     public void removeDestroyedActors(List<ActiveActorDestructible> actors, Group root) {
         List<ActiveActorDestructible> destroyedActors = actors.stream()
-                .filter(actor -> actor.isDestroyed())
+                .filter(actor -> actor.getIsDestroyed())
                 .collect(Collectors.toList());
         root.getChildren().removeAll(destroyedActors);
         actors.removeAll(destroyedActors);

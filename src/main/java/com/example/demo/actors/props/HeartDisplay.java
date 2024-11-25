@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.actors.props;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -46,5 +46,4 @@ public class HeartDisplay {
 	public HBox getContainer() {
 		return container;
 	}
-
 }

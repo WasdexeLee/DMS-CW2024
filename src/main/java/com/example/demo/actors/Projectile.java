@@ -1,20 +1,26 @@
-package com.example.demo;
+package com.example.demo.actors;
 
 import com.example.demo.utils.LoggerUtil;
 
 public abstract class Projectile extends ActiveActorDestructible {
 
-	public Projectile(String imageName, int imageHeight, double initialXPos, double initialYPos) {
+    private final int horizontalVelocity;
+
+	public Projectile(String imageName, int imageHeight, double initialXPos, double initialYPos, int horizontalVelocity) {
 		super(imageName, imageHeight, initialXPos, initialYPos);
+
+        this.horizontalVelocity = horizontalVelocity;
 	}
+
+	@Override
+    public void updateActor() {
+        moveHorizontally(horizontalVelocity);
+    }
 
 	@Override
 	public void takeDamage() {
 		this.destroy();
 	}
-
-	@Override
-	public abstract void updatePosition();
 
     /**
      * To be called by garbage collector to verify memory release

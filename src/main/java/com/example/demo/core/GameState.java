@@ -31,7 +31,6 @@ public class GameState {
      */
     private GameState() {
         this.gameStateSupport = new PropertyChangeSupport(this);
-        setStateStartGame();
     }
 
     /**
@@ -108,9 +107,9 @@ public class GameState {
     }
 
     /**
-     * Transitions the game state to GAME_OVER.
+     * Transitions the game state to STOP.
      */
     public void setStateEndGame() {
-        setCurrentState(State.GAME_OVER);
+        setCurrentState(State.STOP);
     }
 }

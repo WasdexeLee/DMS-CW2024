@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.actors;
 
 public abstract class ActiveActorDestructible extends ActiveActor implements Destructible {
 
@@ -10,8 +10,6 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
 	}
 
 	@Override
-	public abstract void updatePosition();
-
 	public abstract void updateActor();
 
 	@Override
@@ -19,15 +17,10 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
 
 	@Override
 	public void destroy() {
-		setDestroyed(true);
+        this.isDestroyed = true;
 	}
 
-	protected void setDestroyed(boolean isDestroyed) {
-		this.isDestroyed = isDestroyed;
-	}
-
-	public boolean isDestroyed() {
+	public boolean getIsDestroyed() {
 		return isDestroyed;
 	}
-	
 }

@@ -1,7 +1,9 @@
-package com.example.demo.scenes.levels.services;
+package com.example.demo.scenes.levels.services.managers;
 
-import com.example.demo.ActiveActorDestructible;
-import com.example.demo.UserPlane;
+import com.example.demo.actors.ActiveActorDestructible;
+import com.example.demo.actors.user.UserPlane;
+import com.example.demo.scenes.levels.services.LevelState;
+import com.example.demo.scenes.levels.services.LevelView;
 
 import java.util.List;
 
@@ -45,7 +47,6 @@ public class KillManager {
             UserPlane userUnit, int userHealth) {
         int killEnemies = levelState.getCurrentNumberOfEnemies() - enemyUnits.size();
         for (int i = 0; i < killEnemies; i++) {
-            userUnit.incrementKillCount();
             levelState.incrementNumberOfKills();
         }
     }

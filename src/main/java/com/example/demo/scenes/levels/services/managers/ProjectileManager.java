@@ -1,7 +1,7 @@
-package com.example.demo.scenes.levels.services;
+package com.example.demo.scenes.levels.services.managers;
 
-import com.example.demo.ActiveActorDestructible;
-import com.example.demo.FighterPlane;
+import com.example.demo.actors.ActiveActorDestructible;
+import com.example.demo.actors.FighterPlane;
 
 import java.util.List;
 

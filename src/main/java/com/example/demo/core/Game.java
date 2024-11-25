@@ -11,11 +11,12 @@ import javafx.stage.Stage;
 /**
  * The main game class that manages the game loop, state, and scene management.
  * 
- * This class is a singleton and implements PropertyChangeListener to handle game state changes.
- * It provides methods to initialize, update, and manage the game state and scene transitions.
+ * This class is a singleton and implements PropertyChangeListener to handle
+ * game state changes.
+ * It provides methods to initialize, update, and manage the game state and
+ * scene transitions.
  * 
- * @author Your Name
- * @version 1.0
+ * @author Wasdexe Lee
  */
 public class Game implements PropertyChangeListener {
 
@@ -24,13 +25,13 @@ public class Game implements PropertyChangeListener {
 
     /** The primary stage for the game. */
     private Stage stage;
-    
+
     /** The game state manager. */
     private GameState gameState;
-    
+
     /** The game loop manager. */
     private GameLoop gameLoop;
-    
+
     /** The game scene manager. */
     private GameSceneManager gameSceneManager;
 
@@ -44,11 +45,13 @@ public class Game implements PropertyChangeListener {
         this.stage = stage;
         this.gameState = GameState.getInstance();
         this.gameLoop = GameLoop.getInstance(this);
-        this.gameSceneManager = GameSceneManager.getInstance(this, this.stage);
 
         addGameStatePropChangeListener(this);
+        setStateEndGame();
+
+        this.gameSceneManager = GameSceneManager.getInstance(this, this.stage);
     }
-    
+
     /**
      * Returns the singleton instance of the Game.
      * 
@@ -64,10 +67,10 @@ public class Game implements PropertyChangeListener {
     }
 
     /**
-     * Initializes the game by setting the state to start the game and showing the primary stage.
+     * Initializes the game by setting the state to start the game and showing the
+     * primary stage.
      */
     public void init() {
-        setStateStartGame();
         stage.show();
     }
 
@@ -76,20 +79,6 @@ public class Game implements PropertyChangeListener {
      */
     public void update() {
         gameSceneManager.update();
-    }
-
-    /**
-     * Starts the game loop.
-     */
-    private void startGameLoop() {
-        gameLoop.start();
-    }
-
-    /**
-     * Stops the game loop.
-     */
-    private void stopGameLoop() {
-        gameLoop.stop();
     }
 
     /**
@@ -128,7 +117,7 @@ public class Game implements PropertyChangeListener {
     public void addGameStatePropChangeListener(PropertyChangeListener listener) {
         gameState.addPropChangeListener(listener);
     }
-    
+
     /**
      * Handles property change events for the game state.
      * 
@@ -140,20 +129,19 @@ public class Game implements PropertyChangeListener {
             case "stateChange":
                 switch ((State) event.getNewValue()) {
                     case RUNNING:
-                        startGameLoop();
+                        gameLoop.start();
                         break;
                     case PAUSED:
-                        stopGameLoop();
+                        gameLoop.stop();
                         break;
-                    case GAME_OVER:
-                        stopGameLoop();
-                        break;
-                    default:
+                    case STOP:
+                        gameLoop.stop();
                         break;
                 }
                 break;
+
             default:
-                break;
+                throw new IllegalArgumentException("Unknown Property Change Name : " + event);
         }
     }
 }

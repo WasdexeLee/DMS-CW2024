@@ -4,7 +4,7 @@ public class EnumUtil {
     public enum State {
         RUNNING,
         PAUSED,
-        GAME_OVER,
+        STOP,
     }
 
     public enum SceneType {

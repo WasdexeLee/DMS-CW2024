@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.actors;
 
 import javafx.scene.image.*;
 
@@ -15,7 +15,9 @@ public abstract class ActiveActor extends ImageView {
 		this.setPreserveRatio(true);
 	}
 
-	public abstract void updatePosition();
+	public abstract void updateActor();
+
+    // public
 
 	protected void moveHorizontally(double horizontalMove) {
 		this.setTranslateX(getTranslateX() + horizontalMove);

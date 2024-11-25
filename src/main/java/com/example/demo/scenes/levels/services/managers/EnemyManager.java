@@ -1,10 +1,11 @@
-package com.example.demo.scenes.levels.services;
-
-import com.example.demo.ActiveActorDestructible;
+package com.example.demo.scenes.levels.services.managers;
 
 import java.util.List;
 
+import com.example.demo.actors.ActiveActorDestructible;
+
 import javafx.scene.Group;
+import javafx.scene.Node;
 
 /**
  * Manages enemy units in the game, including handling their penetration of the user's defenses
@@ -59,6 +60,10 @@ public class EnemyManager {
     public void addEnemyUnit(ActiveActorDestructible enemy, List<ActiveActorDestructible> enemyUnits, Group root) {
         enemyUnits.add(enemy);
         root.getChildren().add(enemy);
+    }
+
+    public void addEnemyProp(Node enemyProp, Group root) {
+        root.getChildren().add(enemyProp);
     }
 
     /**

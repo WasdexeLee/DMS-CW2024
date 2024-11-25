@@ -7,17 +7,14 @@ public class LevelState {
     private int numberOfKills;
 	private int currentNumberOfEnemies;
     private final double screenWidth;
-    private final double screenHeight;
 
-    private LevelState(double screenWidth, double screenHeight) {
-        this.numberOfKills = 0;
+    private LevelState(double screenWidth) {
         this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
     }
 
-    public static LevelState getInstance(double screenWidth, double screenHeight) {
+    public static LevelState getInstance(double screenWidth) {
         if (instance == null) {
-            instance = new LevelState(screenWidth, screenHeight);
+            instance = new LevelState(screenWidth);
         }
 
         return instance;
@@ -45,9 +42,5 @@ public class LevelState {
 
     public double getScreenWidth() {
         return screenWidth;
-    }
-
-    public double getScreenHeight() {
-        return screenHeight;
     }
 }

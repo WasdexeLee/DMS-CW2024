@@ -1,8 +1,8 @@
-package com.example.demo.scenes.levels.services;
-
-import com.example.demo.ActiveActorDestructible;
+package com.example.demo.scenes.levels.services.managers;
 
 import java.util.List;
+
+import com.example.demo.actors.ActiveActorDestructible;
 
 /**
  * Manages collision detection and handling between actors in the game.

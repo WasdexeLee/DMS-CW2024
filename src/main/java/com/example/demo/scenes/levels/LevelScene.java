@@ -1,16 +1,11 @@
 package com.example.demo.scenes.levels;
 
-import com.example.demo.ActiveActorDestructible;
-import com.example.demo.UserPlane;
+import com.example.demo.actors.ActiveActorDestructible;
+import com.example.demo.actors.user.UserPlane;
 import com.example.demo.core.Game;
 import com.example.demo.scenes.GameScene;
-import com.example.demo.scenes.levels.services.LevelView;
-import com.example.demo.scenes.levels.services.ProjectileManager;
-import com.example.demo.scenes.levels.services.ActorManager;
-import com.example.demo.scenes.levels.services.CollisionManager;
-import com.example.demo.scenes.levels.services.EnemyManager;
-import com.example.demo.scenes.levels.services.KillManager;
-import com.example.demo.scenes.levels.services.LevelState;
+import com.example.demo.scenes.levels.services.*;
+import com.example.demo.scenes.levels.services.managers.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +45,8 @@ public abstract class LevelScene extends GameScene {
         this.root = getRoot();
         this.levelView = new LevelView(this.root, PLAYER_INITIAL_HEALTH);
         this.levelView.showHeartDisplay();
-        this.levelState = LevelState.getInstance(screenWidth, screenHeight);
+        this.levelState = LevelState.getInstance(screenWidth);
+        this.levelState.setNumberOfKills(0);
         this.actorManager = ActorManager.getInstance();
         this.collisionManager = CollisionManager.getInstance();
         this.enemyManager = EnemyManager.getInstance();
@@ -86,22 +82,6 @@ public abstract class LevelScene extends GameScene {
         });
     }
 
-    protected void checkIfGameOver() {
-        if (userUnit.isDestroyed()) {
-            levelView.showGameOverImage();
-            Game.getInstance(null).setStateEndGame();
-        }
-        else if (userKillTargetLogic()) {
-            userKillTargetReachedAction();
-        }
-    };
-
-    protected abstract boolean userKillTargetLogic();
-
-    protected abstract void userKillTargetReachedAction();
-
-    protected abstract void spawnEnemyUnits();
-
     @Override
     public void update() {
         // Update kill count
@@ -122,7 +102,6 @@ public abstract class LevelScene extends GameScene {
         projectileManager.handleProjectileOutOfScreen(enemyProjectiles, levelState.getScreenWidth());
 
         // Call removal of all destroyed actors on screen
-        // actorManager.removeDestroyedActors(Arrays.asList(userUnit), root);
         actorManager.removeDestroyedActors(enemyUnits, root);
         actorManager.removeDestroyedActors(userProjectiles, root);
         actorManager.removeDestroyedActors(enemyProjectiles, root);
@@ -140,6 +119,22 @@ public abstract class LevelScene extends GameScene {
         // Check for game end
         checkIfGameOver();
     }
+
+    protected void checkIfGameOver() {
+        if (userUnit.getIsDestroyed()) {
+            levelView.showGameOverImage();
+            Game.getInstance(null).setStateEndGame();
+        }
+        else if (userKillTargetLogic()) {
+            userKillTargetReachedAction();
+        }
+    };
+
+    protected abstract boolean userKillTargetLogic();
+
+    protected abstract void userKillTargetReachedAction();
+
+    protected abstract void spawnEnemyUnits();
 
     protected LevelView getLevelView() {
         return levelView;

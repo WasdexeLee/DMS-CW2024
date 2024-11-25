@@ -1,8 +1,8 @@
 package com.example.demo.scenes.levels;
 
-import com.example.demo.Boss;
+import com.example.demo.actors.enemy.Boss;
 import com.example.demo.core.Game;
-import com.example.demo.scenes.levels.services.EnemyManager;
+import com.example.demo.scenes.levels.services.managers.EnemyManager;
 
 public class LevelTwo extends LevelScene {
 
@@ -21,7 +21,7 @@ public class LevelTwo extends LevelScene {
 
 	@Override
     protected boolean userKillTargetLogic() {
-        return boss.isDestroyed();
+        return boss.getIsDestroyed();
     }
 
     @Override
@@ -34,6 +34,7 @@ public class LevelTwo extends LevelScene {
 	protected void spawnEnemyUnits() {
 		if (getLevelState().getCurrentNumberOfEnemies() == 0) {
 			enemyManager.addEnemyUnit(boss, getEnemyUnits(), getRoot());
+            enemyManager.addEnemyProp(boss.getShieldImage(), getRoot());
 		}
 	}
 }

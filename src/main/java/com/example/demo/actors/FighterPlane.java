@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.actors;
 
 public abstract class FighterPlane extends ActiveActorDestructible {
 
@@ -8,15 +8,22 @@ public abstract class FighterPlane extends ActiveActorDestructible {
 		super(imageName, imageHeight, initialXPos, initialYPos);
 		this.health = health;
 	}
+	
+	@Override
+    public abstract void updateActor();
 
 	public abstract ActiveActorDestructible fireProjectile();
-	
+
 	@Override
 	public void takeDamage() {
 		health--;
 		if (healthAtZero()) {
 			this.destroy();
 		}
+	}
+
+	public int getHealth() {
+		return health;
 	}
 
 	protected double getProjectileXPosition(double xPositionOffset) {
@@ -30,9 +37,4 @@ public abstract class FighterPlane extends ActiveActorDestructible {
 	private boolean healthAtZero() {
 		return health == 0;
 	}
-
-	public int getHealth() {
-		return health;
-	}
-		
 }
