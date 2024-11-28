@@ -18,10 +18,7 @@ import javafx.scene.input.KeyEvent;
 
 public abstract class LevelScene extends GameScene {
 
-    private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
     private final int PLAYER_INITIAL_HEALTH;
-
-    private final double enemyMaximumYPosition;
 
     private final Group root;
     private LevelView levelView;
@@ -58,8 +55,6 @@ public abstract class LevelScene extends GameScene {
         this.enemyUnits = new ArrayList<>();
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
-
-        this.enemyMaximumYPosition = screenHeight - SCREEN_HEIGHT_ADJUSTMENT;
 
         getBackground().setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
@@ -150,9 +145,5 @@ public abstract class LevelScene extends GameScene {
 
     protected List<ActiveActorDestructible> getEnemyUnits() {
         return enemyUnits;
-    }
-
-    protected double getEnemyMaximumYPosition() {
-        return enemyMaximumYPosition;
     }
 }
