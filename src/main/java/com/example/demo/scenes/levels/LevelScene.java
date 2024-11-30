@@ -3,9 +3,11 @@ package com.example.demo.scenes.levels;
 import com.example.demo.actors.ActiveActorDestructible;
 import com.example.demo.actors.user.UserPlane;
 import com.example.demo.core.Game;
+import com.example.demo.core.GameLoop;
 import com.example.demo.scenes.GameScene;
 import com.example.demo.scenes.levels.services.*;
 import com.example.demo.scenes.levels.services.managers.*;
+import com.example.demo.utils.LoggerUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,6 +36,8 @@ public abstract class LevelScene extends GameScene {
     private final List<ActiveActorDestructible> userProjectiles;
     private final List<ActiveActorDestructible> enemyProjectiles;
 
+    private short frameCounter;
+
     public LevelScene(String backgroundImageName, double screenWidth, double screenHeight, int playerInitialHealth) {
         super(backgroundImageName, screenWidth, screenHeight);
 
@@ -56,23 +60,37 @@ public abstract class LevelScene extends GameScene {
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
 
+        this.frameCounter = 0;
+
         getBackground().setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 KeyCode kc = e.getCode();
-                if (kc == KeyCode.UP)
+                if (kc == KeyCode.LEFT || kc == KeyCode.A)
+                    userUnit.moveLeft();
+                if (kc == KeyCode.RIGHT || kc == KeyCode.D)
+                    userUnit.moveRight();
+                if (kc == KeyCode.UP || kc == KeyCode.W)
                     userUnit.moveUp();
-                if (kc == KeyCode.DOWN)
+                if (kc == KeyCode.DOWN || kc == KeyCode.S)
                     userUnit.moveDown();
                 if (kc == KeyCode.SPACE)
-                    projectileManager.spawnProjectile(Arrays.asList(userUnit), userProjectiles, root);
+                    userUnit.setIsFiring(true);
             }
         });
 
         getBackground().setOnKeyReleased(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 KeyCode kc = e.getCode();
-                if (kc == KeyCode.UP || kc == KeyCode.DOWN)
-                    userUnit.stop();
+                if (kc == KeyCode.LEFT || kc == KeyCode.A)
+                    userUnit.stopLeft();
+                if (kc == KeyCode.RIGHT || kc == KeyCode.D)
+                    userUnit.stopRight();
+                if (kc == KeyCode.UP || kc == KeyCode.W)
+                    userUnit.stopUp();
+                if (kc == KeyCode.DOWN || kc == KeyCode.S)
+                    userUnit.stopDown();
+                if (kc == KeyCode.SPACE)
+                    userUnit.setIsFiring(false);
             }
         });
     }
@@ -104,6 +122,14 @@ public abstract class LevelScene extends GameScene {
         // Then finally spawn in enemy and projectiles
         spawnEnemyUnits();
         projectileManager.spawnProjectile(enemyUnits, enemyProjectiles, root);
+
+        frameCounter++;
+        if (frameCounter == (int) GameLoop.getInstance(null).get_TARGET_FPS() / 10) {
+            if (userUnit.getIsFiring() && frameCounter == (int) GameLoop.getInstance(null).get_TARGET_FPS() / 10) {
+                projectileManager.spawnProjectile(Arrays.asList(userUnit), userProjectiles, root);
+            }
+            frameCounter = 0;
+        }
 
         // Update LevelView heart display
         levelView.removeHearts(userUnit.getHealth());
