@@ -17,7 +17,7 @@ public class GameLoop {
 
     /** The target frames per second for the game loop. */
     // private static final int TARGET_FPS = 60;
-    private static final int TARGET_FPS = 360;
+    private static final int TARGET_FPS = 144;
 
     /** The duration of each frame in milliseconds. */
     private static final Duration FRAME_DURATION = Duration.millis(1000.0 / TARGET_FPS);
@@ -81,7 +81,7 @@ public class GameLoop {
      * 
      * @return The duration of each frame in milliseconds.
      */
-    public double get_FRAME_DURATION_Double() {
-        return FRAME_DURATION.toMillis();
+    public int get_TARGET_FPS() {
+        return TARGET_FPS;
     }
 }

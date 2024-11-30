@@ -7,7 +7,6 @@ public abstract class ActiveActor extends ImageView {
 	private static final String IMAGE_LOCATION = "/com/example/demo/images/";
 
 	public ActiveActor(String imageName, int imageHeight, double initialXPos, double initialYPos) {
-		//this.setImage(new Image(IMAGE_LOCATION + imageName));
 		this.setImage(new Image(getClass().getResource(IMAGE_LOCATION + imageName).toExternalForm()));
 		this.setLayoutX(initialXPos);
 		this.setLayoutY(initialYPos);
@@ -17,8 +16,6 @@ public abstract class ActiveActor extends ImageView {
 
 	public abstract void updateActor();
 
-    // public
-
 	protected void moveHorizontally(double horizontalMove) {
 		this.setTranslateX(getTranslateX() + horizontalMove);
 	}
@@ -26,5 +23,4 @@ public abstract class ActiveActor extends ImageView {
 	protected void moveVertically(double verticalMove) {
 		this.setTranslateY(getTranslateY() + verticalMove);
 	}
-
 }

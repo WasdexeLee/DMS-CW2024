@@ -8,29 +8,34 @@ import com.example.demo.actors.ActiveActorDestructible;
 import com.example.demo.actors.FighterPlane;
 import com.example.demo.actors.projectile.BossProjectile;
 import com.example.demo.actors.props.ShieldImage;
+import com.example.demo.core.GameLoop;
+import com.example.demo.utils.LoggerUtil;
 
 public class Boss extends FighterPlane {
 
     private static final String IMAGE_NAME = "bossplane.png";
+    private static final int IMAGE_HEIGHT = 55;
+
     private static final double INITIAL_X_POSITION = 1000.0;
     private static final double INITIAL_Y_POSITION = 400;
+    private static final int Y_POSITION_UPPER_BOUND = 1;
+    private static final int Y_POSITION_LOWER_BOUND = 670;
     private static final int SHIELD_X_POSITION = 910;
     private static final int SHIELD_Y_POSITION = 350;
     private static final double PROJECTILE_Y_POSITION_OFFSET = 75.0;
-    private static final double BOSS_FIRE_RATE = .04;
-    // private static final double BOSS_SHIELD_PROBABILITY = .002;
-    private static final double BOSS_SHIELD_PROBABILITY = .01;
-    private static final int IMAGE_HEIGHT = 55;
-    private static final int VERTICAL_VELOCITY = 8;
+
+    private static final double BOSS_FIRE_RATE = .79 / GameLoop.getInstance(null).get_TARGET_FPS();
+    private static final double BOSS_SHIELD_PROBABILITY = .04 / GameLoop.getInstance(null).get_TARGET_FPS();
+
+    private static final double VERTICAL_VELOCITY = Math.ceil(150.0 / GameLoop.getInstance(null).get_TARGET_FPS());
     // private static final int HEALTH = 100;
     private static final int HEALTH = 5;
     private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
     private static final int ZERO = 0;
-    private static final int MAX_FRAMES_WITH_SAME_MOVE = 10;
-    private static final int Y_POSITION_UPPER_BOUND = 1;
-    private static final int Y_POSITION_LOWER_BOUND = 670;
-    private static final int MAX_FRAMES_WITH_SHIELD = 500;
-    private final List<Integer> movePattern;
+    private static final int MAX_FRAMES_WITH_SAME_MOVE = 1 * GameLoop.getInstance(null).get_TARGET_FPS();
+    private static final int MAX_FRAMES_WITH_SHIELD = 25 * GameLoop.getInstance(null).get_TARGET_FPS();
+
+    private final List<Double> movePattern;
     private boolean isShielded;
     private int consecutiveMovesInSameDirection;
     private int indexOfCurrentMove;
@@ -40,6 +45,7 @@ public class Boss extends FighterPlane {
 
     public Boss() {
         super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
+        LoggerUtil.logger.info(VERTICAL_VELOCITY + "");
         movePattern = new ArrayList<>();
         consecutiveMovesInSameDirection = 0;
         indexOfCurrentMove = 0;
@@ -77,7 +83,7 @@ public class Boss extends FighterPlane {
         for (int i = 0; i < MOVE_FREQUENCY_PER_CYCLE; i++) {
             movePattern.add(VERTICAL_VELOCITY);
             movePattern.add(-VERTICAL_VELOCITY);
-            movePattern.add(ZERO);
+            movePattern.add((double) ZERO);
         }
         Collections.shuffle(movePattern);
     }
@@ -102,8 +108,8 @@ public class Boss extends FighterPlane {
         }
     }
 
-    private int getNextMove() {
-        int currentMove = movePattern.get(indexOfCurrentMove);
+    private double getNextMove() {
+        double currentMove = movePattern.get(indexOfCurrentMove);
         consecutiveMovesInSameDirection++;
         if (consecutiveMovesInSameDirection == MAX_FRAMES_WITH_SAME_MOVE) {
             Collections.shuffle(movePattern);

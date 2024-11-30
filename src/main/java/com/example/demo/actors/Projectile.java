@@ -4,9 +4,9 @@ import com.example.demo.utils.LoggerUtil;
 
 public abstract class Projectile extends ActiveActorDestructible {
 
-    private final int horizontalVelocity;
+    private final double horizontalVelocity;
 
-	public Projectile(String imageName, int imageHeight, double initialXPos, double initialYPos, int horizontalVelocity) {
+	public Projectile(String imageName, int imageHeight, double initialXPos, double initialYPos, double horizontalVelocity) {
 		super(imageName, imageHeight, initialXPos, initialYPos);
 
         this.horizontalVelocity = horizontalVelocity;

@@ -3,6 +3,7 @@ package com.example.demo.actors.user;
 import com.example.demo.actors.ActiveActorDestructible;
 import com.example.demo.actors.FighterPlane;
 import com.example.demo.actors.projectile.UserProjectile;
+import com.example.demo.core.GameLoop;
 
 public class UserPlane extends FighterPlane {
 
@@ -13,7 +14,7 @@ public class UserPlane extends FighterPlane {
     private static final double Y_LOWER_BOUND = 685.0;
     private static final double INITIAL_X_POSITION = 5.0;
     private static final double INITIAL_Y_POSITION = 300.0;
-    private static final int VERTICAL_VELOCITY = 8;
+    private static final int VERTICAL_VELOCITY = (int) Math.ceil(230.0 / GameLoop.getInstance(null).get_TARGET_FPS());
 
     private static final int PROJECTILE_X_POSITION = 110;
     private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
