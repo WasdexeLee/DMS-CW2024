@@ -34,6 +34,8 @@ public abstract class GameScene {
         this.background.requestFocus();
     }
 
+    public abstract void update();
+
     public void addPropChangeListener(PropertyChangeListener listener) {
         gameSceneSupport.addPropertyChangeListener(listener);
     }
@@ -46,8 +48,6 @@ public abstract class GameScene {
         gameSceneSupport.firePropertyChange(propType, oldProp, newProp);
     }
 
-    public abstract void update();
-
     public void destroy() {
         root = null;
         background = null;
@@ -55,12 +55,12 @@ public abstract class GameScene {
         gameSceneSupport = null;
     }
 
-    public void goToScene(Object newScene) {
-        setPropChange("sceneChange", null, newScene);
-    }
-
     public Scene getScene() {
         return scene;
+    }
+
+    protected void goToScene(Object newScene) {
+        setPropChange("sceneChange", null, newScene);
     }
 
     protected Group getRoot() {

@@ -8,7 +8,9 @@ public class EnumUtil {
     }
 
     public enum SceneType {
+        MENU,
         LEVEL1,
         LEVEL2,
+        ENDSCREEN,
     }
 }
