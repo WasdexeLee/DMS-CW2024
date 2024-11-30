@@ -10,7 +10,7 @@ import com.example.demo.utils.EnumUtil.SceneType;
 public class LevelOne extends LevelScene {
 	
 	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpg";
-	private static final SceneType NEXT_LEVEL = SceneType.LEVEL2;
+	private static final SceneType NEXT_SCENE = SceneType.LEVEL2;
     private static final double ENEMY_MAXIMUM_Y_POS = 648;
 
 	private static final int TOTAL_ENEMIES = 5;
@@ -38,7 +38,7 @@ public class LevelOne extends LevelScene {
 
     @Override
     protected void userKillTargetReachedAction() {
-        goToScene(NEXT_LEVEL);
+        goToScene(NEXT_SCENE);
     }
     
 	@Override
