@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -24,18 +25,21 @@ public class MenuScene extends GameScene {
         title.setPreserveRatio(true); 
 
         // Buttons
-        Button startButton = createButton(346, getClass().getResource("/com/example/demo/images/menu/start_game.png").toExternalForm());
-        Button exitButton = createButton(185,getClass().getResource("/com/example/demo/images/menu/exit.png").toExternalForm() );
+        Button start = createButton(348, getClass().getResource("/com/example/demo/images/menu/start_game.png").toExternalForm());
+        Button exit = createButton(185,getClass().getResource("/com/example/demo/images/menu/exit.png").toExternalForm() );
         
         // Button Actions
-        startButton.setOnAction(e -> goToScene(NEXT_SCENE));
-        exitButton.setOnAction(e -> System.exit(0));
+        start.setOnAction(e -> goToScene(NEXT_SCENE));
+        exit.setOnAction(e -> System.exit(0));
+
+        StackPane startButton = new StackPane(start);
+        StackPane exitButton = new StackPane(exit);
 
         DropShadow shadow = new DropShadow();
-        shadow.setRadius(65.0); // Increase the blur radius to make it thicker
-        shadow.setOffsetX(5.0); // Increase horizontal offset
-        shadow.setOffsetY(10.0); // Increase vertical offset
-        shadow.setColor(Color.color(0.15, 0.15, 0.15, 1)); // Grey shadow with 75% opacity
+        shadow.setRadius(65.0); 
+        shadow.setOffsetX(5.0); 
+        shadow.setOffsetY(10.0);
+        shadow.setColor(Color.color(0, 0, 0, 1)); 
         
         // Apply the shadow to the ImageView
         startButton.setEffect(shadow);
@@ -46,9 +50,9 @@ public class MenuScene extends GameScene {
         buttonBox.setAlignment(Pos.CENTER);
 
         // Organize buttonBox and title
-        VBox mainLayout = new VBox(120, title, buttonBox);
+        VBox mainLayout = new VBox(140, title, buttonBox);
         mainLayout.setAlignment(Pos.TOP_CENTER);
-        mainLayout.setPadding(new Insets(100));
+        mainLayout.setPadding(new Insets(90));
         mainLayout.setPrefSize(screenWidth, screenHeight);
 
         getRoot().getChildren().add(mainLayout);
@@ -61,17 +65,18 @@ public class MenuScene extends GameScene {
 
     private Button createButton(double buttonWidth, String imagePath) {
         Button button = new Button();
-        // button.setStyle("-fx-background-color: #404040; -fx-text-fill: #D3D3D3; -fx-font-family: 'Monospaced'; -fx-font-size: 30; -fx-font-weight: bold;");
+
         button.setStyle(String.format(
             "-fx-background-color: transparent;" + 
             "-fx-background-image: url('%s');" +
-            "-fx-background-size: cover;" + // Make the image cover the button area
+            "-fx-background-size: cover;" + 
             "-fx-background-position: center;" +
             "-fx-background-repeat: no-repeat;" 
             , imagePath)
         );
         button.setPrefWidth(buttonWidth);
         button.setPrefHeight(70);
+
         return button;
     }
 }
