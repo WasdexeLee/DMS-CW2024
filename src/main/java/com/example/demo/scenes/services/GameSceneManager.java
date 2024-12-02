@@ -33,7 +33,8 @@ public class GameSceneManager implements PropertyChangeListener{
         this.screenWidth = (int) Math.round(this.stage.getWidth());
         this.screenHeight = (int) Math.round(this.stage.getHeight());
 
-        this.currentGameScene = this.gameSceneFactory.createScene(SceneType.MENU, this.screenWidth, this.screenHeight);
+        // this.currentGameScene = this.gameSceneFactory.createScene(SceneType.MENU, this.screenWidth, this.screenHeight);
+        this.currentGameScene = this.gameSceneFactory.createScene(SceneType.LOSESCENE, this.screenWidth, this.screenHeight);
         this.currentGameScene.addPropChangeListener(this);
 
         this.stage.setScene(this.currentGameScene.getScene());

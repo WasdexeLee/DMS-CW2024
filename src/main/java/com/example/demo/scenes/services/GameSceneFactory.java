@@ -1,9 +1,7 @@
 package com.example.demo.scenes.services;
 
-import com.example.demo.scenes.GameScene;
-import com.example.demo.scenes.MenuScene;
-import com.example.demo.scenes.levels.LevelOne;
-import com.example.demo.scenes.levels.LevelTwo;
+import com.example.demo.scenes.*;
+import com.example.demo.scenes.levels.*;
 import com.example.demo.utils.EnumUtil.SceneType;
 
 public class GameSceneFactory {
@@ -16,7 +14,10 @@ public class GameSceneFactory {
                 return new LevelOne(screenWidth, screenHeight);
             case LEVEL2:
                 return new LevelTwo(screenWidth, screenHeight);
-            case ENDSCREEN:
+            case LOSESCENE:
+                return new LoseScene(screenWidth, screenHeight);
+            case WINSCENE:
+                return new WinScene(screenWidth, screenHeight);
             default:
                 throw new IllegalArgumentException("Unknown screen type: " + sceneType);
         }

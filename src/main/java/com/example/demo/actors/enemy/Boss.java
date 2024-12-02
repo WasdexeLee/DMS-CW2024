@@ -45,7 +45,6 @@ public class Boss extends FighterPlane {
 
     public Boss() {
         super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
-        LoggerUtil.logger.info(VERTICAL_VELOCITY + "");
         movePattern = new ArrayList<>();
         consecutiveMovesInSameDirection = 0;
         indexOfCurrentMove = 0;

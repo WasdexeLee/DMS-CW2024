@@ -11,6 +11,7 @@ public class EnumUtil {
         MENU,
         LEVEL1,
         LEVEL2,
-        ENDSCREEN,
+        LOSESCENE,
+        WINSCENE,
     }
 }

@@ -7,7 +7,7 @@ import com.example.demo.core.GameLoop;
 import com.example.demo.scenes.GameScene;
 import com.example.demo.scenes.levels.services.*;
 import com.example.demo.scenes.levels.services.managers.*;
-import com.example.demo.utils.LoggerUtil;
+import com.example.demo.utils.EnumUtil.SceneType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 public abstract class LevelScene extends GameScene {
 
     private final int PLAYER_INITIAL_HEALTH;
+    private final SceneType LOSE_SCENE;
 
     private final Group root;
     private LevelView levelView;
@@ -42,6 +43,7 @@ public abstract class LevelScene extends GameScene {
         super(backgroundImageName, screenWidth, screenHeight);
 
         this.PLAYER_INITIAL_HEALTH = playerInitialHealth;
+        this.LOSE_SCENE = SceneType.LOSESCENE;
 
         this.root = getRoot();
         this.levelView = new LevelView(this.root, PLAYER_INITIAL_HEALTH);
@@ -73,8 +75,10 @@ public abstract class LevelScene extends GameScene {
                     userUnit.moveUp();
                 if (kc == KeyCode.DOWN || kc == KeyCode.S)
                     userUnit.moveDown();
-                if (kc == KeyCode.SPACE)
+                if (kc == KeyCode.SPACE){
                     userUnit.setIsFiring(true);
+                    projectileManager.spawnProjectile(Arrays.asList(userUnit), userProjectiles, root);
+                }
             }
         });
 
@@ -143,8 +147,9 @@ public abstract class LevelScene extends GameScene {
 
     protected void checkIfGameOver() {
         if (userUnit.getIsDestroyed()) {
-            levelView.showGameOverImage();
+            // levelView.showGameOverImage();
             Game.getInstance(null).setStateEndGame();
+            goToScene(LOSE_SCENE);
         }
         else if (userKillTargetLogic()) {
             userKillTargetReachedAction();

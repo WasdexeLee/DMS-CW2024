@@ -3,11 +3,13 @@ package com.example.demo.scenes.levels;
 import com.example.demo.actors.enemy.Boss;
 import com.example.demo.core.Game;
 import com.example.demo.scenes.levels.services.managers.EnemyManager;
+import com.example.demo.utils.EnumUtil.SceneType;
 
 public class LevelTwo extends LevelScene {
 
 	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background2.jpg";
 	private static final int PLAYER_INITIAL_HEALTH = 5;
+    private final SceneType WIN_SCENE = SceneType.WINSCENE;
 
 	private final Boss boss;
     private EnemyManager enemyManager;
@@ -26,8 +28,9 @@ public class LevelTwo extends LevelScene {
 
     @Override
     protected void userKillTargetReachedAction() {
-        getLevelView().showWinImage();
+        // getLevelView().showWinImage();
         Game.getInstance(null).setStateEndGame();
+        goToScene(WIN_SCENE);
     }
     
 	@Override
