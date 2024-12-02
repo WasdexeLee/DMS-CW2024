@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -79,5 +80,23 @@ public abstract class GameScene {
 
     protected double getScreenHeight() {
         return screenHeight;
+    }
+
+    protected Button createButton(int buttonWidth, int buttonHeight, String imagePath) {
+        Button button = new Button();
+
+        button.setStyle(String.format(
+            "-fx-background-color: transparent;" + 
+            "-fx-background-image: url('%s');" +
+            "-fx-background-size: cover;" + // Make the image cover the button area
+            "-fx-background-position: center;" +
+            "-fx-background-repeat: no-repeat;" 
+            , imagePath)
+        );
+
+        button.setPrefWidth(buttonWidth);
+        button.setPrefHeight(buttonHeight);
+
+        return button;
     }
 }

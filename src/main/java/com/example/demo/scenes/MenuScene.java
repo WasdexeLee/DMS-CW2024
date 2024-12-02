@@ -25,8 +25,8 @@ public class MenuScene extends GameScene {
         title.setPreserveRatio(true); 
 
         // Buttons
-        Button start = createButton(348, getClass().getResource("/com/example/demo/images/menu/start_game.png").toExternalForm());
-        Button exit = createButton(185,getClass().getResource("/com/example/demo/images/menu/exit.png").toExternalForm() );
+        Button start = createButton(348, 70, getClass().getResource("/com/example/demo/images/menu/start_game.png").toExternalForm());
+        Button exit = createButton(185, 70, getClass().getResource("/com/example/demo/images/menu/exit.png").toExternalForm() );
         
         // Button Actions
         start.setOnAction(e -> goToScene(NEXT_SCENE));
@@ -42,6 +42,7 @@ public class MenuScene extends GameScene {
         shadow.setColor(Color.color(0, 0, 0, 1)); 
         
         // Apply the shadow to the ImageView
+        title.setEffect(shadow);
         startButton.setEffect(shadow);
         exitButton.setEffect(shadow);
 
@@ -61,22 +62,5 @@ public class MenuScene extends GameScene {
     @Override
     public void update() {
         // Not needed
-    }
-
-    private Button createButton(double buttonWidth, String imagePath) {
-        Button button = new Button();
-
-        button.setStyle(String.format(
-            "-fx-background-color: transparent;" + 
-            "-fx-background-image: url('%s');" +
-            "-fx-background-size: cover;" + 
-            "-fx-background-position: center;" +
-            "-fx-background-repeat: no-repeat;" 
-            , imagePath)
-        );
-        button.setPrefWidth(buttonWidth);
-        button.setPrefHeight(70);
-
-        return button;
     }
 }

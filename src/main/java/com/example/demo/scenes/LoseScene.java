@@ -41,8 +41,8 @@ public class LoseScene extends GameScene {
         playAgain.setEffect(shadow);
 
         // Buttons
-        Button yesButton = createButton(getClass().getResource("/com/example/demo/images/end/yes.png").toExternalForm());
-        Button noButton = createButton(getClass().getResource("/com/example/demo/images/end/no.png").toExternalForm());
+        Button yesButton = createButton(140, 68, getClass().getResource("/com/example/demo/images/end/yes.png").toExternalForm());
+        Button noButton = createButton(140, 68, getClass().getResource("/com/example/demo/images/end/no.png").toExternalForm());
         
         // Button Actions
         yesButton.setOnAction(e -> goToScene(YES_SCENE));
@@ -68,20 +68,5 @@ public class LoseScene extends GameScene {
     @Override
     public void update() {
         // Not needed
-    }
-
-    private Button createButton(String imagePath) {
-        Button button = new Button();
-        button.setStyle(String.format(
-            "-fx-background-color: transparent;" + 
-            "-fx-background-image: url('%s');" +
-            "-fx-background-size: cover;" + // Make the image cover the button area
-            "-fx-background-position: center;" +
-            "-fx-background-repeat: no-repeat;" 
-            , imagePath)
-        );
-        button.setPrefWidth(140);
-        button.setPrefHeight(68);
-        return button;
     }
 }

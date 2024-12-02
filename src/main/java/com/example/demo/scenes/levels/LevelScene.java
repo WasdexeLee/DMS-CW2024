@@ -7,7 +7,6 @@ import com.example.demo.core.GameLoop;
 import com.example.demo.scenes.GameScene;
 import com.example.demo.scenes.levels.services.*;
 import com.example.demo.scenes.levels.services.managers.*;
-import com.example.demo.utils.LoggerUtil;
 import com.example.demo.utils.EnumUtil.*;
 
 import java.util.ArrayList;
@@ -206,8 +205,8 @@ public abstract class LevelScene extends GameScene {
         title.setPreserveRatio(true);
 
         // Buttons
-        Button continueButton = createButton(247, getClass().getResource("/com/example/demo/images/pause/continue.png").toExternalForm());
-        Button exitButton = createButton(166, getClass().getResource("/com/example/demo/images/pause/exit.png").toExternalForm());
+        Button continueButton = createButton(247, 63, getClass().getResource("/com/example/demo/images/pause/continue.png").toExternalForm());
+        Button exitButton = createButton(166, 63, getClass().getResource("/com/example/demo/images/pause/exit.png").toExternalForm());
 
         // Button Actions
         continueButton.setOnAction(e -> resumeGame());
@@ -243,22 +242,5 @@ public abstract class LevelScene extends GameScene {
             root.requestLayout();
         });
         Game.getInstance(null).setStateResumeGame();
-    }
-
-    private Button createButton(double buttonWidth, String imagePath) {
-        Button button = new Button();
-
-        button.setStyle(String.format(
-            "-fx-background-color: transparent;" + 
-            "-fx-background-image: url('%s');" +
-            "-fx-background-size: cover;" + // Make the image cover the button area
-            "-fx-background-position: center;" +
-            "-fx-background-repeat: no-repeat;" 
-            , imagePath)
-        );
-        button.setPrefWidth(buttonWidth);
-        button.setPrefHeight(63);
-
-        return button;
     }
 }
