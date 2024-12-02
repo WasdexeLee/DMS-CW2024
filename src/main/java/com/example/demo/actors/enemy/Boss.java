@@ -9,7 +9,6 @@ import com.example.demo.actors.FighterPlane;
 import com.example.demo.actors.projectile.BossProjectile;
 import com.example.demo.actors.props.ShieldImage;
 import com.example.demo.core.GameLoop;
-import com.example.demo.utils.LoggerUtil;
 
 public class Boss extends FighterPlane {
 
@@ -19,7 +18,7 @@ public class Boss extends FighterPlane {
     private static final double INITIAL_X_POSITION = 1000.0;
     private static final double INITIAL_Y_POSITION = 400;
     private static final int Y_POSITION_UPPER_BOUND = 1;
-    private static final int Y_POSITION_LOWER_BOUND = 670;
+    private static final int Y_POSITION_LOWER_BOUND = 580;
     private static final int SHIELD_X_POSITION = 910;
     private static final int SHIELD_Y_POSITION = 350;
     private static final double PROJECTILE_Y_POSITION_OFFSET = 75.0;
