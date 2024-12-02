@@ -37,6 +37,7 @@ public abstract class LevelScene extends GameScene {
 
     private final Group root;
     private final VBox pauseMenu;
+    private final Button pauseButton;
     private LevelView levelView;
     private LevelState levelState;
     private ActorManager actorManager;
@@ -61,6 +62,7 @@ public abstract class LevelScene extends GameScene {
 
         this.root = getRoot();
         this.pauseMenu = initPauseMenu();
+        this.pauseButton = initPauseButton();
         this.levelView = new LevelView(this.root, PLAYER_INITIAL_HEALTH);
         this.levelView.showHeartDisplay();
         this.levelState = LevelState.getInstance(screenWidth);
@@ -72,7 +74,6 @@ public abstract class LevelScene extends GameScene {
         this.projectileManager = ProjectileManager.getInstance();
 
         this.userUnit = new UserPlane(PLAYER_INITIAL_HEALTH);
-        this.root.getChildren().add(userUnit);
         this.enemyUnits = new ArrayList<>();
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
@@ -118,6 +119,8 @@ public abstract class LevelScene extends GameScene {
                     userUnit.setIsFiring(false);
             }
         });
+
+        this.root.getChildren().addAll(userUnit, pauseButton);
     }
 
     @Override
@@ -242,5 +245,15 @@ public abstract class LevelScene extends GameScene {
             root.requestLayout();
         });
         Game.getInstance(null).setStateResumeGame();
+    }
+
+    private Button initPauseButton() {
+        Button pauseButton = createButton(60, 56, getClass().getResource("/com/example/demo/images/pause/pause_button.png").toExternalForm());
+
+        pauseButton.setLayoutX((getScreenWidth() - 60) / 2);
+        pauseButton.setLayoutY(25);
+        pauseButton.setOnAction(e -> {if (Game.getInstance(null).getCurrentState() == State.RUNNING) showPauseMenu();});
+
+        return pauseButton;
     }
 }

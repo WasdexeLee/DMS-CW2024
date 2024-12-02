@@ -9,12 +9,13 @@ import com.example.demo.utils.EnumUtil.SceneType;
 
 public class LevelOne extends LevelScene {
 	
-	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpg";
+	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpeg";
 	private static final SceneType NEXT_SCENE = SceneType.LEVEL2;
     private static final double ENEMY_MAXIMUM_Y_POS = 648;
 
 	private static final int TOTAL_ENEMIES = 5;
-	private static final int KILLS_TO_ADVANCE = 1;
+	// private static final int KILLS_TO_ADVANCE = 10;
+	private static final int KILLS_TO_ADVANCE = 10;
 	private static final double ENEMY_SPAWN_PROBABILITY = 4.0 / (GameLoop.getInstance(null).get_TARGET_FPS());
     private double[] recentSpawnYCoord;
 
@@ -51,7 +52,7 @@ public class LevelOne extends LevelScene {
                     newEnemyInitialYPosition = Math.random() * ENEMY_MAXIMUM_Y_POS;
                 } while(planeClumping(newEnemyInitialYPosition));
 
-				ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition);
+				ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition, "enemyplane1.png", .2);
 				enemyManager.addEnemyUnit(newEnemy, getEnemyUnits(), getRoot());
 
                 recentSpawnYCoord[0] = recentSpawnYCoord[1];

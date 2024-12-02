@@ -14,6 +14,8 @@ public class GameSceneFactory {
                 return new LevelOne(screenWidth, screenHeight);
             case LEVEL2:
                 return new LevelTwo(screenWidth, screenHeight);
+            case LEVEL3:
+                return new LevelThree(screenWidth, screenHeight);
             case LOSESCENE:
                 return new LoseScene(screenWidth, screenHeight);
             case WINSCENE:
