@@ -82,7 +82,7 @@ public class GameState {
      */
     private void setCurrentState(State state) {
         setPropChange("stateChange", null, state);
-        this.currentState = state;
+        currentState = state;
     }
 
     /**

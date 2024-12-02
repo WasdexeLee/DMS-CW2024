@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 public abstract class GameScene {
 
     private final double screenWidth;
+    private final double screenHeight;
 
     private Group root;
     private ImageView background;
@@ -20,6 +21,7 @@ public abstract class GameScene {
 
     public GameScene(String backgroundImageName, double screenWidth, double screenHeight) {
         this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
 
         this.root = new Group();
         this.background = new ImageView(new Image(getClass().getResource(backgroundImageName).toExternalForm()));
@@ -70,7 +72,12 @@ public abstract class GameScene {
     protected ImageView getBackground() { 
         return background;
     }
+
     protected double getScreenWidth() {
         return screenWidth;
+    }
+
+    protected double getScreenHeight() {
+        return screenHeight;
     }
 }

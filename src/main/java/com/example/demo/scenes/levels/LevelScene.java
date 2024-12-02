@@ -7,23 +7,37 @@ import com.example.demo.core.GameLoop;
 import com.example.demo.scenes.GameScene;
 import com.example.demo.scenes.levels.services.*;
 import com.example.demo.scenes.levels.services.managers.*;
-import com.example.demo.utils.EnumUtil.SceneType;
+import com.example.demo.utils.LoggerUtil;
+import com.example.demo.utils.EnumUtil.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public abstract class LevelScene extends GameScene {
 
     private final int PLAYER_INITIAL_HEALTH;
     private final SceneType LOSE_SCENE;
+    private final SceneType MENU_SCENE;
 
     private final Group root;
+    private final VBox pauseMenu;
     private LevelView levelView;
     private LevelState levelState;
     private ActorManager actorManager;
@@ -44,8 +58,10 @@ public abstract class LevelScene extends GameScene {
 
         this.PLAYER_INITIAL_HEALTH = playerInitialHealth;
         this.LOSE_SCENE = SceneType.LOSESCENE;
+        this.MENU_SCENE = SceneType.MENU;
 
         this.root = getRoot();
+        this.pauseMenu = initPauseMenu();
         this.levelView = new LevelView(this.root, PLAYER_INITIAL_HEALTH);
         this.levelView.showHeartDisplay();
         this.levelState = LevelState.getInstance(screenWidth);
@@ -78,6 +94,12 @@ public abstract class LevelScene extends GameScene {
                 if (kc == KeyCode.SPACE){
                     userUnit.setIsFiring(true);
                     projectileManager.spawnProjectile(Arrays.asList(userUnit), userProjectiles, root);
+                }
+                if (kc == KeyCode.ESCAPE){
+                    if (Game.getInstance(null).getCurrentState() == State.PAUSED)
+                        resumeGame();
+                    else if (Game.getInstance(null).getCurrentState() == State.RUNNING)
+                        showPauseMenu();
                 }
             }
         });
@@ -147,7 +169,6 @@ public abstract class LevelScene extends GameScene {
 
     protected void checkIfGameOver() {
         if (userUnit.getIsDestroyed()) {
-            // levelView.showGameOverImage();
             Game.getInstance(null).setStateEndGame();
             goToScene(LOSE_SCENE);
         }
@@ -176,5 +197,68 @@ public abstract class LevelScene extends GameScene {
 
     protected List<ActiveActorDestructible> getEnemyUnits() {
         return enemyUnits;
+    }
+
+    private VBox initPauseMenu() {
+        // Create the pause label as an ImageView
+        ImageView title = new ImageView(new Image(getClass().getResource("/com/example/demo/images/pause/paused.png").toExternalForm()));
+        title.setFitWidth(410);
+        title.setPreserveRatio(true);
+
+        // Buttons
+        Button continueButton = createButton(247, getClass().getResource("/com/example/demo/images/pause/continue.png").toExternalForm());
+        Button exitButton = createButton(166, getClass().getResource("/com/example/demo/images/pause/exit.png").toExternalForm());
+
+        // Button Actions
+        continueButton.setOnAction(e -> resumeGame());
+        exitButton.setOnAction(e -> goToScene(MENU_SCENE));
+
+        // Organize buttons in a VBox
+        VBox buttonBox = new VBox(35, continueButton, exitButton); // 20px spacing between buttons
+        buttonBox.setAlignment(Pos.CENTER);
+
+        // Organize the entire layout in a VBox
+        VBox mainLayout = new VBox(100, title, buttonBox); // 50px spacing between the image and buttons
+        mainLayout.setAlignment(Pos.CENTER);
+        mainLayout.setPadding(new Insets(50, 30, 100, 30));
+
+        // Set a semi-transparent gray background
+        mainLayout.setBackground(new Background(new BackgroundFill(Color.rgb(70, 70, 70, 0.8), CornerRadii.EMPTY, Insets.EMPTY)));
+
+        // // Position the mainLayout at the center of the Group (or Scene)
+        mainLayout.setLayoutX((getScreenWidth() - 470) / 2); // Center horizontally
+        mainLayout.setLayoutY((getScreenHeight() - 618) / 2); // Center vertically
+
+        return mainLayout;
+    }
+
+    private void showPauseMenu() {
+        Game.getInstance(null).setStatePauseGame();
+        root.getChildren().add(pauseMenu);
+    }
+
+    private void resumeGame() {
+        Platform.runLater(() -> {
+            root.getChildren().removeLast();
+            root.requestLayout();
+        });
+        Game.getInstance(null).setStateResumeGame();
+    }
+
+    private Button createButton(double buttonWidth, String imagePath) {
+        Button button = new Button();
+
+        button.setStyle(String.format(
+            "-fx-background-color: transparent;" + 
+            "-fx-background-image: url('%s');" +
+            "-fx-background-size: cover;" + // Make the image cover the button area
+            "-fx-background-position: center;" +
+            "-fx-background-repeat: no-repeat;" 
+            , imagePath)
+        );
+        button.setPrefWidth(buttonWidth);
+        button.setPrefHeight(63);
+
+        return button;
     }
 }

@@ -109,6 +109,10 @@ public class Game implements PropertyChangeListener {
         gameState.setStateEndGame();
     }
 
+    public State getCurrentState() {
+        return gameState.getCurrentState();
+    }
+
     /**
      * Adds a PropertyChangeListener to the game state.
      * 
