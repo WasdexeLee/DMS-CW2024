@@ -1,5 +1,10 @@
 package com.example.demo.scenes;
 
+import java.util.concurrent.CompletableFuture;
+
+import com.example.demo.audio.services.AudioManager;
+import com.example.demo.utils.EnumUtil.BackgroundAudioType;
+import com.example.demo.utils.EnumUtil.EffectAudioType;
 import com.example.demo.utils.EnumUtil.SceneType;
 
 import javafx.geometry.Insets;
@@ -29,8 +34,11 @@ public class MenuScene extends GameScene {
         Button exit = createButton(185, 70, getClass().getResource("/com/example/demo/images/menu/exit.png").toExternalForm() );
         
         // Button Actions
-        start.setOnAction(e -> goToScene(NEXT_SCENE));
-        exit.setOnAction(e -> System.exit(0));
+        start.setOnAction(e -> {goToScene(NEXT_SCENE);
+                                AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK);});
+        exit.setOnAction(e -> CompletableFuture
+                               .runAsync(() -> AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK))
+                               .thenRun(() -> System.exit(0)));
 
         StackPane startButton = new StackPane(start);
         StackPane exitButton = new StackPane(exit);
@@ -57,6 +65,8 @@ public class MenuScene extends GameScene {
         mainLayout.setPrefSize(screenWidth, screenHeight);
 
         getRoot().getChildren().add(mainLayout);
+
+        AudioManager.getInstance().changeBackgroundAudio(BackgroundAudioType.MENU);
 	}
 
     @Override

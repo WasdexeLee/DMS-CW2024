@@ -3,7 +3,9 @@ package com.example.demo.actors.user;
 import com.example.demo.actors.ActiveActorDestructible;
 import com.example.demo.actors.FighterPlane;
 import com.example.demo.actors.projectile.UserProjectile;
+import com.example.demo.audio.services.AudioManager;
 import com.example.demo.core.GameLoop;
+import com.example.demo.utils.EnumUtil.EffectAudioType;
 
 public class UserPlane extends FighterPlane {
 
@@ -51,6 +53,7 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public ActiveActorDestructible fireProjectile() {
+        AudioManager.getInstance().fireEffectAudio(EffectAudioType.USERFIRE);
         return new UserProjectile(getProjectileXPosition(PROJECTILE_X_POSITION), getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
     }
 

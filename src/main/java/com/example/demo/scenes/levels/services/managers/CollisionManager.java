@@ -3,6 +3,8 @@ package com.example.demo.scenes.levels.services.managers;
 import java.util.List;
 
 import com.example.demo.actors.ActiveActorDestructible;
+import com.example.demo.audio.services.AudioManager;
+import com.example.demo.utils.EnumUtil.EffectAudioType;
 
 /**
  * Manages collision detection and handling between actors in the game.
@@ -36,12 +38,15 @@ public class CollisionManager {
      * @param actors1 The first list of actors.
      * @param actors2 The second list of actors.
      */
-    public void handleCollisions(List<ActiveActorDestructible> actors1, List<ActiveActorDestructible> actors2) {
+    public void handleCollisions(List<ActiveActorDestructible> actors1, List<ActiveActorDestructible> actors2, EffectAudioType effectAudioType) {
         for (ActiveActorDestructible act1 : actors1) {
             for (ActiveActorDestructible act2 : actors2) {
                 if (act1.getBoundsInParent().intersects(act2.getBoundsInParent())) {
                     act1.takeDamage();
                     act2.takeDamage();
+
+                    if (effectAudioType != null)
+                        AudioManager.getInstance().fireEffectAudio(effectAudioType);
                 }
             }
         }

@@ -1,5 +1,8 @@
 package com.example.demo.scenes;
 
+import com.example.demo.audio.services.AudioManager;
+import com.example.demo.utils.EnumUtil.BackgroundAudioType;
+import com.example.demo.utils.EnumUtil.EffectAudioType;
 import com.example.demo.utils.EnumUtil.SceneType;
 
 import javafx.geometry.Insets;
@@ -45,8 +48,10 @@ public class LoseScene extends GameScene {
         Button noButton = createButton(140, 68, getClass().getResource("/com/example/demo/images/end/no.png").toExternalForm());
         
         // Button Actions
-        yesButton.setOnAction(e -> goToScene(YES_SCENE));
-        noButton.setOnAction(e -> goToScene(NO_SCENE));
+        yesButton.setOnAction(e -> {goToScene(YES_SCENE);
+                                    AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK);});
+        noButton.setOnAction(e -> {goToScene(NO_SCENE);
+                                   AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK);});
 
         // Organize Buttons in a VBox
         HBox buttonBox = new HBox(70, yesButton, noButton);
@@ -63,6 +68,8 @@ public class LoseScene extends GameScene {
         mainLayout.setPrefSize(screenWidth, screenHeight);
 
         getRoot().getChildren().add(mainLayout);
+
+        AudioManager.getInstance().changeBackgroundAudio(BackgroundAudioType.LOSESCENE);
 	}
 
     @Override

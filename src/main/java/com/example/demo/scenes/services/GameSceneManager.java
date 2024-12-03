@@ -28,8 +28,6 @@ public class GameSceneManager implements PropertyChangeListener{
         this.stage = stage;
         this.gameSceneFactory = new GameSceneFactory();
 
-        // straight go to menu screen on loadk
-
         this.screenWidth = (int) Math.round(this.stage.getWidth());
         this.screenHeight = (int) Math.round(this.stage.getHeight());
 
@@ -67,11 +65,8 @@ public class GameSceneManager implements PropertyChangeListener{
             case "sceneChange":
                 goToScene((SceneType) event.getNewValue());
                 break;
-
             case "stateChange":
-            // add pause menu gameend screen change logic 
-                break;
-                
+                break;  
             default:
                 throw new IllegalArgumentException("Unknown Property Change Name : " + event);
         }

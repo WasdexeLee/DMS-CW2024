@@ -2,9 +2,11 @@ package com.example.demo.scenes.levels;
 
 import com.example.demo.actors.ActiveActorDestructible;
 import com.example.demo.actors.enemy.EnemyPlane;
+import com.example.demo.audio.services.AudioManager;
 import com.example.demo.core.GameLoop;
 import com.example.demo.core.GameState;
 import com.example.demo.scenes.levels.services.managers.EnemyManager;
+import com.example.demo.utils.EnumUtil.BackgroundAudioType;
 import com.example.demo.utils.EnumUtil.SceneType;
 
 public class LevelOne extends LevelScene {
@@ -30,6 +32,8 @@ public class LevelOne extends LevelScene {
         recentSpawnYCoord = new double[]{0.0, 0.0, 0.0};
         GameState.getInstance().setStateStartGame();
         this.enemyManager = EnemyManager.getInstance();
+
+        AudioManager.getInstance().changeBackgroundAudio(BackgroundAudioType.LEVEL);
 	}
 
 	@Override

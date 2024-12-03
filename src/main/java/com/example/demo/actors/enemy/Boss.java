@@ -8,7 +8,9 @@ import com.example.demo.actors.ActiveActorDestructible;
 import com.example.demo.actors.FighterPlane;
 import com.example.demo.actors.projectile.BossProjectile;
 import com.example.demo.actors.props.ShieldImage;
+import com.example.demo.audio.services.AudioManager;
 import com.example.demo.core.GameLoop;
+import com.example.demo.utils.EnumUtil.EffectAudioType;
 
 public class Boss extends FighterPlane {
 
@@ -23,7 +25,7 @@ public class Boss extends FighterPlane {
     private static final int SHIELD_Y_POSITION = 350;
     private static final double PROJECTILE_Y_POSITION_OFFSET = 75.0;
 
-    private static final double BOSS_FIRE_RATE = .79 / GameLoop.getInstance(null).get_TARGET_FPS();
+    private static final double BOSS_FIRE_RATE = .99 / GameLoop.getInstance(null).get_TARGET_FPS();
     private static final double BOSS_SHIELD_PROBABILITY = .04 / GameLoop.getInstance(null).get_TARGET_FPS();
 
     private static final double VERTICAL_VELOCITY = Math.ceil(150.0 / GameLoop.getInstance(null).get_TARGET_FPS());
@@ -63,7 +65,12 @@ public class Boss extends FighterPlane {
 
     @Override
     public ActiveActorDestructible fireProjectile() {
-        return bossFiresInCurrentFrame() ? new BossProjectile(getProjectileInitialPosition()) : null;
+        if (bossFiresInCurrentFrame()) {
+            AudioManager.getInstance().fireEffectAudio(EffectAudioType.ENEMYFIRE);
+            return new BossProjectile(getProjectileInitialPosition());
+        } 
+        else
+            return null;
     }
 
     @Override

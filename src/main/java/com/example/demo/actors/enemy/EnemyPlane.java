@@ -3,7 +3,9 @@ package com.example.demo.actors.enemy;
 import com.example.demo.actors.ActiveActorDestructible;
 import com.example.demo.actors.FighterPlane;
 import com.example.demo.actors.projectile.EnemyProjectile;
+import com.example.demo.audio.services.AudioManager;
 import com.example.demo.core.GameLoop;
+import com.example.demo.utils.EnumUtil.EffectAudioType;
 
 public class EnemyPlane extends FighterPlane {
 
@@ -30,6 +32,9 @@ public class EnemyPlane extends FighterPlane {
         if (Math.random() < FIRE_RATE) {
             double projectileXPosition = getProjectileXPosition(PROJECTILE_X_POSITION_OFFSET);
             double projectileYPostion = getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET);
+
+            AudioManager.getInstance().fireEffectAudio(EffectAudioType.ENEMYFIRE);
+
             return new EnemyProjectile(projectileXPosition, projectileYPostion);
         }
         return null;

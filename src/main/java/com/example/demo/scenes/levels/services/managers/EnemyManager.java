@@ -3,6 +3,8 @@ package com.example.demo.scenes.levels.services.managers;
 import java.util.List;
 
 import com.example.demo.actors.ActiveActorDestructible;
+import com.example.demo.audio.services.AudioManager;
+import com.example.demo.utils.EnumUtil.EffectAudioType;
 
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -46,6 +48,8 @@ public class EnemyManager {
             if (enemyHasPenetratedDefenses(enemy, screenWidth)) {
                 userUnit.takeDamage();
                 enemy.destroy();
+
+                AudioManager.getInstance().fireEffectAudio(EffectAudioType.DAMAGE);
             }
         }
     }

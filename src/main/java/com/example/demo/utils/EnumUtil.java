@@ -15,4 +15,22 @@ public class EnumUtil {
         LOSESCENE,
         WINSCENE,
     }
+
+    public enum BackgroundAudioType {
+        MENU,
+        LEVEL,
+        LOSESCENE,
+        WINSCENE,
+    }
+
+    public enum EffectAudioType {
+        USERFIRE,
+        ENEMYFIRE,
+        KILL,
+        DAMAGE,
+        CLICK,
+        PAUSE,
+        TRANSITION,
+        GAME_OVER,
+    }
 }

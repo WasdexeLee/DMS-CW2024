@@ -2,6 +2,7 @@ package com.example.demo.scenes.levels;
 
 import com.example.demo.actors.ActiveActorDestructible;
 import com.example.demo.actors.user.UserPlane;
+import com.example.demo.audio.services.AudioManager;
 import com.example.demo.core.Game;
 import com.example.demo.core.GameLoop;
 import com.example.demo.scenes.GameScene;
@@ -128,14 +129,14 @@ public abstract class LevelScene extends GameScene {
         // Update kill count
         // Handle for user projectile and enemy plane collision as kill
         levelState.setCurrentNumberOfEnemies(enemyUnits.size());
-        collisionManager.handleCollisions(userProjectiles, enemyUnits); // UserProjectile collide with EnemyUnits 
+        collisionManager.handleCollisions(userProjectiles, enemyUnits, EffectAudioType.KILL); // UserProjectile collide with EnemyUnits 
         actorManager.removeDestroyedActors(enemyUnits, root);
         killManager.updateKillCount(levelState, levelView, enemyUnits, userUnit, userUnit.getHealth());
 
         // Handle actor collision
-        collisionManager.handleCollisions(enemyProjectiles, Arrays.asList(userUnit)); // EnemyProjectile collide with UserUnit
-        collisionManager.handleCollisions(Arrays.asList(userUnit), enemyUnits); // UserUnit collide with EnemyUnits
-        collisionManager.handleCollisions(userProjectiles, enemyUnits); // UserProjectile collide with EnemyUnits
+        collisionManager.handleCollisions(enemyProjectiles, Arrays.asList(userUnit), EffectAudioType.DAMAGE); // EnemyProjectile collide with UserUnit
+        collisionManager.handleCollisions(Arrays.asList(userUnit), enemyUnits, EffectAudioType.DAMAGE); // UserUnit collide with EnemyUnits
+        // collisionManager.handleCollisions(userProjectiles, enemyUnits); // UserProjectile collide with EnemyUnits
 
         // Handle for EnemyPlane and Projectile out of screen
         enemyManager.handleEnemyPenetration(userUnit, enemyUnits, levelState.getScreenWidth());
@@ -172,9 +173,11 @@ public abstract class LevelScene extends GameScene {
     protected void checkIfGameOver() {
         if (userUnit.getIsDestroyed()) {
             Game.getInstance(null).setStateEndGame();
+            AudioManager.getInstance().fireEffectAudio(EffectAudioType.GAME_OVER);
             goToScene(LOSE_SCENE);
         }
         else if (userKillTargetLogic()) {
+            AudioManager.getInstance().fireEffectAudio(EffectAudioType.TRANSITION);
             userKillTargetReachedAction();
         }
     };
@@ -212,8 +215,10 @@ public abstract class LevelScene extends GameScene {
         Button exitButton = createButton(166, 63, getClass().getResource("/com/example/demo/images/pause/exit.png").toExternalForm());
 
         // Button Actions
-        continueButton.setOnAction(e -> resumeGame());
-        exitButton.setOnAction(e -> goToScene(MENU_SCENE));
+        continueButton.setOnAction(e -> {resumeGame();
+                                         AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK);});
+        exitButton.setOnAction(e -> {goToScene(MENU_SCENE);
+                                     AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK);});
 
         // Organize buttons in a VBox
         VBox buttonBox = new VBox(35, continueButton, exitButton); // 20px spacing between buttons
@@ -237,6 +242,7 @@ public abstract class LevelScene extends GameScene {
     private void showPauseMenu() {
         Game.getInstance(null).setStatePauseGame();
         root.getChildren().add(pauseMenu);
+        AudioManager.getInstance().fireEffectAudio(EffectAudioType.PAUSE);
     }
 
     private void resumeGame() {
