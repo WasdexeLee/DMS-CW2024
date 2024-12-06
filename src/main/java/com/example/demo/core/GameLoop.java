@@ -16,7 +16,6 @@ import javafx.util.Duration;
 public class GameLoop {
 
     /** The target frames per second for the game loop. */
-    // private static final int TARGET_FPS = 60;
     private static final int TARGET_FPS = 144;
 
     /** The duration of each frame in milliseconds. */
