@@ -28,7 +28,6 @@ public class LevelThree extends LevelScene {
 
     @Override
     protected void userKillTargetReachedAction() {
-        // getLevelView().showWinImage();
         Game.getInstance(null).setStateEndGame();
         goToScene(WIN_SCENE);
     }
