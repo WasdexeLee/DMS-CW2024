@@ -77,7 +77,8 @@ public class LevelTwoTest extends ApplicationTest {
     public void testSpawnEnemyUnits() {
         when(mockLevelState.getCurrentNumberOfEnemies()).thenReturn(0);
 
-        levelTwo.spawnEnemyUnits();
+        for (int i = 0; i < 100; i++)
+            levelTwo.spawnEnemyUnits();
 
         verify(mockEnemyManager, atLeastOnce()).addEnemyUnit(any(ActiveActorDestructible.class), any(List.class),
                 any(Group.class));

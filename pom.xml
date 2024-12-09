@@ -11,7 +11,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit.version>5.9.2</junit.version>  
+    <junit.version>5.11.0</junit.version>  
   </properties>
 
   <dependencies>
@@ -64,14 +64,14 @@
     <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>5.6.0</version> 
+        <version>5.14.0</version> 
         <scope>test</scope>
     </dependency>
 
     <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-junit-jupiter</artifactId>
-        <version>5.6.0</version>
+        <version>5.14.0</version>
         <scope>test</scope>
     </dependency>
   </dependencies>
@@ -112,9 +112,14 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.5.0</version>
         <configuration>
-            <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED</argLine>
+            <argLine>--add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED -DcleanUp=true</argLine>
+              <!-- Ensure tests run sequentially -->
+              <parallel>none</parallel>
+              <!-- Fork a new JVM for each test class -->
+              <forkCount>30</forkCount>
+              <reuseForks>false</reuseForks>
         </configuration>
       </plugin>
     </plugins>
