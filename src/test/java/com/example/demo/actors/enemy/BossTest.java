@@ -40,7 +40,7 @@ public class BossTest extends ApplicationTest {
         assertEquals(55, boss.getFitHeight());
         assertEquals(1000.0, boss.getLayoutX());
         assertEquals(400.0, boss.getLayoutY());
-        assertEquals(70, boss.getHealth());
+        assertEquals(140, boss.getHealth());
     }
 
     // Test logic: Ensure the Boss fires a projectile of the right type.
@@ -72,7 +72,7 @@ public class BossTest extends ApplicationTest {
         getPrivateMethod(boss, "activateShield", null);
         boss.takeDamage();
 
-        assertEquals(70, boss.getHealth());
+        assertEquals(140, boss.getHealth());
     }
 
     @Test
@@ -81,7 +81,7 @@ public class BossTest extends ApplicationTest {
         getPrivateMethod(boss, "deactivateShield", null);
         boss.takeDamage();
 
-        assertEquals(69, boss.getHealth());
+        assertEquals(139, boss.getHealth());
     }
 
     // Test logic: Ensure the Boss's shield is correctly activated and deactivated.

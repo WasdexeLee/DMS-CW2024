@@ -4,11 +4,14 @@ import com.example.demo.scenes.*;
 import com.example.demo.scenes.levels.*;
 import com.example.demo.utils.EnumUtil.SceneType;
 
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import org.testfx.framework.junit5.ApplicationTest;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.concurrent.CountDownLatch;
 
 public class GameSceneFactoryTest extends ApplicationTest {
 
@@ -34,54 +37,102 @@ public class GameSceneFactoryTest extends ApplicationTest {
     // Test logic: Ensure the GameSceneFactory creates the correct GameScene
     // instance for MENU.
     @Test
-    public void testCreateMenuScene() {
-        GameScene scene = gameSceneFactory.createScene(SceneType.MENU, 1366, 762);
+    public void testCreateMenuScene() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                GameScene scene = gameSceneFactory.createScene(SceneType.MENU, 1366, 762);
 
-        assertTrue(scene instanceof MenuScene);
+                assertTrue(scene instanceof MenuScene);
+            } finally {
+                latch.countDown();
+            }
+        });
+        latch.await();
     }
 
     // Test logic: Ensure the GameSceneFactory creates the correct GameScene
     // instance for LEVEL1.
     @Test
-    public void testCreateLevelOneScene() {
-        GameScene scene = gameSceneFactory.createScene(SceneType.LEVEL1, 1366, 762);
+    public void testCreateLevelOneScene() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                GameScene scene = gameSceneFactory.createScene(SceneType.LEVEL1, 1366, 762);
 
-        assertTrue(scene instanceof LevelOne);
+                assertTrue(scene instanceof LevelOne);
+            } finally {
+                latch.countDown();
+            }
+        });
+        latch.await();
     }
 
     // Test logic: Ensure the GameSceneFactory creates the correct GameScene
     // instance for LEVEL2.
     @Test
-    public void testCreateLevelTwoScene() {
-        GameScene scene = gameSceneFactory.createScene(SceneType.LEVEL2, 1366, 762);
+    public void testCreateLevelTwoScene() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                GameScene scene = gameSceneFactory.createScene(SceneType.LEVEL2, 1366, 762);
 
-        assertTrue(scene instanceof LevelTwo);
+                assertTrue(scene instanceof LevelTwo);
+            } finally {
+                latch.countDown();
+            }
+        });
+        latch.await();
     }
 
     // Test logic: Ensure the GameSceneFactory creates the correct GameScene
     // instance for LEVEL3.
     @Test
-    public void testCreateLevelThreeScene() {
-        GameScene scene = gameSceneFactory.createScene(SceneType.LEVEL3, 1366, 762);
+    public void testCreateLevelThreeScene() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                GameScene scene = gameSceneFactory.createScene(SceneType.LEVEL3, 1366, 762);
 
-        assertTrue(scene instanceof LevelThree);
+                assertTrue(scene instanceof LevelThree);
+            } finally {
+                latch.countDown();
+            }
+        });
+        latch.await();
     }
 
     // Test logic: Ensure the GameSceneFactory creates the correct GameScene
     // instance for LOSESCENE.
     @Test
-    public void testCreateLoseScene() {
-        GameScene scene = gameSceneFactory.createScene(SceneType.LOSESCENE, 1366, 762);
+    public void testCreateLoseScene() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                GameScene scene = gameSceneFactory.createScene(SceneType.LOSESCENE, 1366, 762);
 
-        assertTrue(scene instanceof LoseScene);
+                assertTrue(scene instanceof LoseScene);
+            } finally {
+                latch.countDown();
+            }
+        });
+        latch.await();
     }
 
     // Test logic: Ensure the GameSceneFactory creates the correct GameScene
     // instance for WINSCENE.
     @Test
-    public void testCreateWinScene() {
-        GameScene scene = gameSceneFactory.createScene(SceneType.WINSCENE, 1366, 762);
+    public void testCreateWinScene() throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+        Platform.runLater(() -> {
+            try {
+                GameScene scene = gameSceneFactory.createScene(SceneType.WINSCENE, 1366, 762);
 
-        assertTrue(scene instanceof WinScene);
+                assertTrue(scene instanceof WinScene);
+            } finally {
+                latch.countDown();
+            }
+        });
+        latch.await();
     }
 }

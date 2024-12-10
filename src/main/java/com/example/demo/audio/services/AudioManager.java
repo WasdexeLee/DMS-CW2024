@@ -39,13 +39,11 @@ public class AudioManager {
     }
 
     public void playBackgroundAudio() { 
-        // if (hasSound)
-            currentBackgroundAudio.playAudio();
+        currentBackgroundAudio.playAudio();
     }
 
     public void pauseBackgroundAudio() { 
-        // if (!hasSound)
-            currentBackgroundAudio.pauseAudio();
+        currentBackgroundAudio.pauseAudio();
     }
  
     public void fireEffectAudio(EffectAudioType effectAudioType) { 

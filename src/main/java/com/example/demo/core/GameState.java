@@ -6,37 +6,35 @@ import java.beans.PropertyChangeSupport;
 import com.example.demo.utils.EnumUtil.State;
 
 /**
- * Manages the state of the game and provides methods to transition between different states.
+ * Manages the state of the game and notifies listeners of state changes.
+ * This class uses the {@link PropertyChangeSupport} mechanism to handle
+ * state change events.
  * 
- * This class is a singleton and uses the PropertyChangeSupport mechanism to notify
- * listeners about changes in the game state. The possible states are defined in the
- * {@link State} enum.
- * 
- * @author Wasdexe Lee
+ * @author WasdexeLee (Lee Jia Zhe)
  */
 public class GameState {
 
-    /** The singleton instance of the GameState. */
+    /** The singleton instance of the GameState class. */
     private static GameState instance;
-    
-    /** The PropertyChangeSupport object to manage property change listeners. */
+
+    /** The support object for managing property change listeners. */
     private final PropertyChangeSupport gameStateSupport;
-    
+
     /** The current state of the game. */
     private State currentState;
 
     /**
-     * Private constructor to enforce singleton pattern.
-     * Initializes the PropertyChangeSupport and sets the initial state to RUNNING.
+     * Private constructor to enforce the singleton pattern.
+     * Initializes the property change support.
      */
     private GameState() {
         this.gameStateSupport = new PropertyChangeSupport(this);
     }
 
     /**
-     * Returns the singleton instance of the GameState.
+     * Returns the singleton instance of the GameState class.
      * 
-     * @return The singleton instance of the GameState.
+     * @return The singleton instance of the GameState class.
      */
     public static GameState getInstance() {
         if (instance == null) {
@@ -47,18 +45,18 @@ public class GameState {
     }
 
     /**
-     * Adds a PropertyChangeListener to the game state.
+     * Adds a property change listener to the game state.
      * 
-     * @param listener The PropertyChangeListener to add.
+     * @param listener The listener to be added.
      */
     public void addPropChangeListener(PropertyChangeListener listener) {
         gameStateSupport.addPropertyChangeListener(listener);
     }
 
     /**
-     * Fires a property change event to notify listeners about a change in the game state.
+     * Fires a property change event with the specified property type, old value, and new value.
      * 
-     * @param propType The type of property that changed.
+     * @param propType The type of the property being changed.
      * @param oldProp The old value of the property.
      * @param newProp The new value of the property.
      */
@@ -67,7 +65,7 @@ public class GameState {
     }
 
     /**
-     * Returns the current state of the game.
+     * Retrieves the current state of the game.
      * 
      * @return The current state of the game.
      */
@@ -76,9 +74,9 @@ public class GameState {
     }
 
     /**
-     * Sets the current state of the game and notifies listeners about the change.
+     * Sets the current state of the game and notifies listeners.
      * 
-     * @param state The new state of the game.
+     * @param state The new state to set.
      */
     private void setCurrentState(State state) {
         setPropChange("stateChange", null, state);
@@ -86,28 +84,28 @@ public class GameState {
     }
 
     /**
-     * Transitions the game state to RUNNING.
+     * Sets the game state to "Start Game" (RUNNING).
      */
     public void setStateStartGame() {
         setCurrentState(State.RUNNING);
     }
 
     /**
-     * Transitions the game state to PAUSED.
+     * Sets the game state to "Pause Game" (PAUSED).
      */
     public void setStatePauseGame() {
         setCurrentState(State.PAUSED);
     }
 
     /**
-     * Transitions the game state to RUNNING from PAUSED.
+     * Sets the game state to "Resume Game" (RUNNING).
      */
     public void setStateResumeGame() {
         setCurrentState(State.RUNNING);
     }
 
     /**
-     * Transitions the game state to STOP.
+     * Sets the game state to "End Game" (STOP).
      */
     public void setStateEndGame() {
         setCurrentState(State.STOP);

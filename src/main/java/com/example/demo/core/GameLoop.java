@@ -5,39 +5,37 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 
 /**
- * Manages the game loop and updates the game state at a fixed frame rate.
+ * Manages the game loop, ensuring the game updates at a consistent frame rate.
+ * This class uses JavaFX's {@link Timeline} and {@link KeyFrame} to achieve the
+ * desired frame rate.
  * 
- * This class is a singleton and provides methods to start, stop, and retrieve the frame duration
- * of the game loop. The game loop is responsible for updating the game state at a fixed frame rate.
- * 
- * @author Your Name
- * @version 1.0
+ * @author WasdexeLee (Lee Jia Zhe)
  */
 public class GameLoop {
 
-    /** The target frames per second for the game loop. */
+    /** The target frames per second (FPS) for the game loop. */
     private static final int TARGET_FPS = 144;
 
-    /** The duration of each frame in milliseconds. */
+    /** The duration of each frame in milliseconds, calculated based on the target FPS. */
     private static final Duration FRAME_DURATION = Duration.millis(1000.0 / TARGET_FPS);
 
-    /** The singleton instance of the GameLoop. */
+    /** The singleton instance of the GameLoop class. */
     private static GameLoop instance;
 
-    /** The game instance associated with this game loop. */
+    /** The game instance that this game loop updates. */
     private final Game game;
 
-    /** The keyframe used in the timeline. */
+    /** The keyframe used to define the frame duration and update action. */
     private KeyFrame keyframe;
-    
+
     /** The timeline that manages the game loop. */
     private Timeline timeline;
 
     /**
-     * Private constructor to enforce singleton pattern.
+     * Private constructor to enforce the singleton pattern.
      * Initializes the keyframe and timeline for the game loop.
      * 
-     * @param game The game instance associated with this game loop.
+     * @param game The game instance that this game loop updates.
      */
     private GameLoop(Game game) {
         this.game = game;
@@ -48,10 +46,10 @@ public class GameLoop {
     }
 
     /**
-     * Returns the singleton instance of the GameLoop.
+     * Returns the singleton instance of the GameLoop class.
      * 
-     * @param game The game instance associated with this game loop.
-     * @return The singleton instance of the GameLoop.
+     * @param game The game instance that this game loop updates.
+     * @return The singleton instance of the GameLoop class.
      */
     public static GameLoop getInstance(Game game) {
         if (instance == null) {
@@ -76,9 +74,9 @@ public class GameLoop {
     }
 
     /**
-     * Returns the duration of each frame in milliseconds.
+     * Retrieves the target frames per second (FPS) for the game loop.
      * 
-     * @return The duration of each frame in milliseconds.
+     * @return The target FPS.
      */
     public int get_TARGET_FPS() {
         return TARGET_FPS;

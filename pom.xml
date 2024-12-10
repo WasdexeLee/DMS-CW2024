@@ -118,7 +118,7 @@
               <!-- Ensure tests run sequentially -->
               <parallel>none</parallel>
               <!-- Fork a new JVM for each test class -->
-              <forkCount>30</forkCount>
+              <forkCount>20</forkCount>
               <reuseForks>false</reuseForks>
         </configuration>
       </plugin>

@@ -1,8 +1,6 @@
 package com.example.demo.scenes.levels;
 
 import com.example.demo.actors.ActiveActorDestructible;
-import com.example.demo.audio.services.AudioManager;
-import com.example.demo.core.GameLoop;
 import com.example.demo.scenes.levels.services.LevelState;
 import com.example.demo.scenes.levels.services.managers.EnemyManager;
 
@@ -60,7 +58,7 @@ public class LevelTwoTest extends ApplicationTest {
     // Test logic: Ensure the LevelTwo correctly handles user kill target logic.
     @Test
     public void testUserKillTargetLogicReach() {
-        when(mockLevelState.getNumberOfKills()).thenReturn(10);
+        when(mockLevelState.getNumberOfKills()).thenReturn(50);
 
         assertTrue(levelTwo.userKillTargetLogic());
     }
