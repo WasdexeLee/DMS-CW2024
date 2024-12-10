@@ -1,7 +1,5 @@
 package com.example.demo.scenes;
 
-import java.util.concurrent.CompletableFuture;
-
 import com.example.demo.audio.services.AudioManager;
 import com.example.demo.utils.EnumUtil.BackgroundAudioType;
 import com.example.demo.utils.EnumUtil.EffectAudioType;
@@ -36,9 +34,8 @@ public class MenuScene extends GameScene {
         // Button Actions
         start.setOnAction(e -> {goToScene(NEXT_SCENE);
                                 AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK);});
-        exit.setOnAction(e -> CompletableFuture
-                               .runAsync(() -> AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK))
-                               .thenRun(() -> System.exit(0)));
+        exit.setOnAction(e -> { AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK);
+                                System.exit(0);});
 
         StackPane startButton = new StackPane(start);
         StackPane exitButton = new StackPane(exit);

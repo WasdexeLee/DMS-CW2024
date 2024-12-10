@@ -4,8 +4,10 @@ import com.example.demo.actors.ActiveActorDestructible;
 import com.example.demo.actors.projectile.BossProjectile;
 import com.example.demo.actors.props.ShieldImage;
 import com.example.demo.audio.services.AudioManager;
+import com.example.demo.scenes.levels.services.LevelView;
 import com.example.demo.utils.EnumUtil.EffectAudioType;
 
+import javafx.scene.Group;
 import javafx.stage.Stage;
 
 import org.testfx.framework.junit5.ApplicationTest;
@@ -27,7 +29,7 @@ public class BossTest extends ApplicationTest {
 
     @BeforeEach
     public void setUp() {
-        boss = new Boss();
+        boss = new Boss(new LevelView(new Group(), 5));
     }
 
     // Test logic: Ensure the Boss is correctly initialized with the expected
@@ -38,7 +40,7 @@ public class BossTest extends ApplicationTest {
         assertEquals(55, boss.getFitHeight());
         assertEquals(1000.0, boss.getLayoutX());
         assertEquals(400.0, boss.getLayoutY());
-        assertEquals(100, boss.getHealth());
+        assertEquals(70, boss.getHealth());
     }
 
     // Test logic: Ensure the Boss fires a projectile of the right type.
@@ -70,7 +72,7 @@ public class BossTest extends ApplicationTest {
         getPrivateMethod(boss, "activateShield", null);
         boss.takeDamage();
 
-        assertEquals(100, boss.getHealth());
+        assertEquals(70, boss.getHealth());
     }
 
     @Test
@@ -79,7 +81,7 @@ public class BossTest extends ApplicationTest {
         getPrivateMethod(boss, "deactivateShield", null);
         boss.takeDamage();
 
-        assertEquals(99, boss.getHealth());
+        assertEquals(69, boss.getHealth());
     }
 
     // Test logic: Ensure the Boss's shield is correctly activated and deactivated.

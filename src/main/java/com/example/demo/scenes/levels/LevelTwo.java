@@ -14,14 +14,12 @@ public class LevelTwo extends LevelScene {
     private static final double ENEMY_MAXIMUM_Y_POS = 648;
     private static final String[] ENEMY_PLANE_IMAGE_NAME = {"enemyplane2.png", "enemyplane3.png"};
 
-	private static final int TOTAL_ENEMIES = 8;
-	// private static final int KILLS_TO_ADVANCE = 20;
-	private static final int KILLS_TO_ADVANCE = 10;
+	private static final int TOTAL_ENEMIES = 7;
+	private static final int KILLS_TO_ADVANCE = 50;
 	private static final double ENEMY_SPAWN_PROBABILITY = 7.0 / (GameLoop.getInstance(null).get_TARGET_FPS());
     private double[] recentSpawnYCoord;
 
-	// private static final int PLAYER_INITIAL_HEALTH = 5;
-	private static final int PLAYER_INITIAL_HEALTH = 10;
+	private static final int PLAYER_INITIAL_HEALTH = 7;
 
     private EnemyManager enemyManager;
 
@@ -55,7 +53,7 @@ public class LevelTwo extends LevelScene {
 
                 int imageIndex = (int) Math.round(Math.random());
 
-				ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition, ENEMY_PLANE_IMAGE_NAME[imageIndex], .42);
+				ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition, ENEMY_PLANE_IMAGE_NAME[imageIndex], .36);
 				enemyManager.addEnemyUnit(newEnemy, getEnemyUnits(), getRoot());
 
                 recentSpawnYCoord[0] = recentSpawnYCoord[1];

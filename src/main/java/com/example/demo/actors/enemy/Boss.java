@@ -10,6 +10,7 @@ import com.example.demo.actors.projectile.BossProjectile;
 import com.example.demo.actors.props.ShieldImage;
 import com.example.demo.audio.services.AudioManager;
 import com.example.demo.core.GameLoop;
+import com.example.demo.scenes.levels.services.LevelView;
 import com.example.demo.utils.EnumUtil.EffectAudioType;
 
 public class Boss extends FighterPlane {
@@ -26,16 +27,17 @@ public class Boss extends FighterPlane {
     private static final double PROJECTILE_Y_POSITION_OFFSET = 75.0;
 
     private static final double BOSS_FIRE_RATE = .99 / GameLoop.getInstance(null).get_TARGET_FPS();
-    private static final double BOSS_SHIELD_PROBABILITY = .04 / GameLoop.getInstance(null).get_TARGET_FPS();
+    private static final double BOSS_SHIELD_PROBABILITY = .07 / GameLoop.getInstance(null).get_TARGET_FPS();
 
-    private static final double VERTICAL_VELOCITY = Math.ceil(150.0 / GameLoop.getInstance(null).get_TARGET_FPS());
-    private static final int HEALTH = 70;
+    private static final int HEALTH = 140;
     private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
     private static final int ZERO = 0;
+    private static final double VERTICAL_VELOCITY = Math.ceil(150.0 / GameLoop.getInstance(null).get_TARGET_FPS());
     private static final int MAX_FRAMES_WITH_SAME_MOVE = 1 * GameLoop.getInstance(null).get_TARGET_FPS();
-    private static final int MAX_FRAMES_WITH_SHIELD = 20 * GameLoop.getInstance(null).get_TARGET_FPS();
+    private static final int MAX_FRAMES_WITH_SHIELD = 6 * GameLoop.getInstance(null).get_TARGET_FPS();
 
     private final List<Double> movePattern;
+    private final LevelView levelView;
     private boolean isShielded;
     private int consecutiveMovesInSameDirection;
     private int indexOfCurrentMove;
@@ -43,7 +45,7 @@ public class Boss extends FighterPlane {
     private double shieldNextMove;
     private ShieldImage shieldImage;
 
-    public Boss() {
+    public Boss(LevelView levelView) {
         super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
         movePattern = new ArrayList<>();
         consecutiveMovesInSameDirection = 0;
@@ -52,6 +54,8 @@ public class Boss extends FighterPlane {
         isShielded = false;
         shieldNextMove = 0;
         this.shieldImage = new ShieldImage(SHIELD_X_POSITION, SHIELD_Y_POSITION);
+        this.levelView = levelView;
+        levelView.showHealthBarDisplay(HEALTH);
         initializeMovePattern();
     }
 
@@ -60,6 +64,7 @@ public class Boss extends FighterPlane {
         updatePosition();
         updateShield();
         updateShieldView();
+        levelView.updateHealthBarDisplay(getHealth());
     }
 
     @Override

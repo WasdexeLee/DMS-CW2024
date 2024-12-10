@@ -8,7 +8,7 @@ import com.example.demo.utils.EnumUtil.SceneType;
 public class LevelThree extends LevelScene {
 
 	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background3.jpeg";
-	private static final int PLAYER_INITIAL_HEALTH = 5;
+	private static final int PLAYER_INITIAL_HEALTH = 7;
     private final SceneType WIN_SCENE = SceneType.WINSCENE;
 
 	private final Boss boss;
@@ -17,7 +17,7 @@ public class LevelThree extends LevelScene {
 	public LevelThree(double screenHeight, double screenWidth) {
 		super(BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
 
-		this.boss = new Boss();
+		this.boss = new Boss(getLevelView());
         this.enemyManager = EnemyManager.getInstance();
 	}
 

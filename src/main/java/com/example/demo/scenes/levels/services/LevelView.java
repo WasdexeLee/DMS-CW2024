@@ -1,5 +1,6 @@
 package com.example.demo.scenes.levels.services;
 
+import com.example.demo.actors.props.HealthBarDisplay;
 import com.example.demo.actors.props.HeartDisplay;
 
 import javafx.scene.Group;
@@ -12,6 +13,7 @@ public class LevelView {
 
 	private final Group root;
 	private final HeartDisplay heartDisplay;
+	private HealthBarDisplay healthBarDisplay;
 	
 	public LevelView(Group root, int heartsToDisplay) {
 		this.root = root;
@@ -31,5 +33,14 @@ public class LevelView {
 		for (int i = 0; i < currentNumberOfHearts - heartsRemaining; i++) {
 			heartDisplay.removeHeart();
 		}
+	}
+
+	public void showHealthBarDisplay(int maxHealth) {
+		healthBarDisplay = new HealthBarDisplay(maxHealth);
+		root.getChildren().add(healthBarDisplay.getHealthBar());
+	}
+
+	public void updateHealthBarDisplay(int health) {
+		healthBarDisplay.updateHealth(health);
 	}
 }

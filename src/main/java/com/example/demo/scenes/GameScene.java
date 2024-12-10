@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import com.example.demo.audio.services.AudioManager;
+import com.example.demo.utils.EnumUtil.EffectAudioType;
 
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -134,15 +135,17 @@ public abstract class GameScene {
     }
       
     protected Button initSoundButton() {
+        AudioManager audioManagerInstance = AudioManager.getInstance();
         Button soundButton;
-        if (AudioManager.getInstance().getHasSound())
+        if (audioManagerInstance.getHasSound())
             soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/sound_yes.png").toExternalForm());
         else
             soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/sound_no.png").toExternalForm());
 
         soundButton.setLayoutX(getScreenWidth() - 105);
         soundButton.setLayoutY(25);
-        soundButton.setOnAction(e -> { if (AudioManager.getInstance().getHasSound()) {
+        soundButton.setOnAction(e -> { if (audioManagerInstance.getHasSound()) {
+                                            audioManagerInstance.fireEffectAudio(EffectAudioType.CLICK);
                                             soundButton.setStyle(String.format("-fx-background-color: transparent;" +
                                                     "-fx-background-image: url('%s');" +
                                                     "-fx-background-size: cover;" +
@@ -150,8 +153,8 @@ public abstract class GameScene {
                                                     "-fx-background-repeat: no-repeat;",
                                                     getClass().getResource("/com/example/demo/images/sound_no.png").toExternalForm()));
 
-                                            AudioManager.getInstance().setHasSound(false);
-                                            AudioManager.getInstance().pauseBackgroundAudio();
+                                            audioManagerInstance.setHasSound(false);
+                                            audioManagerInstance.pauseBackgroundAudio();
                                        } 
                                        else {
                                             soundButton.setStyle(String.format("-fx-background-color: transparent;" +
@@ -160,8 +163,9 @@ public abstract class GameScene {
                                                    "-fx-background-position: center;" +
                                                    "-fx-background-repeat: no-repeat;" , getClass().getResource("/com/example/demo/images/sound_yes.png").toExternalForm()));
 
-                                            AudioManager.getInstance().setHasSound(true);
-                                            AudioManager.getInstance().playBackgroundAudio();
+                                            audioManagerInstance.setHasSound(true);
+                                            audioManagerInstance.playBackgroundAudio();
+                                            audioManagerInstance.fireEffectAudio(EffectAudioType.CLICK);
                                        }
                                     });
         soundButton.setFocusTraversable(false);
