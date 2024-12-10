@@ -21,7 +21,7 @@ public class LevelOne extends LevelScene {
     private double[] recentSpawnYCoord;
 
 	// private static final int PLAYER_INITIAL_HEALTH = 5;
-	private static final int PLAYER_INITIAL_HEALTH = 50;
+	private static final int PLAYER_INITIAL_HEALTH = 10;
 
     private EnemyManager enemyManager;
 

@@ -2,8 +2,15 @@ package com.example.demo.scenes;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
+import com.example.demo.audio.services.AudioManager;
+
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -19,6 +26,7 @@ public abstract class GameScene {
     private Scene scene;
 
     private PropertyChangeSupport gameSceneSupport;
+    protected ArrayList<Node> topNode;
 
     public GameScene(String backgroundImageName, double screenWidth, double screenHeight) {
         this.screenWidth = screenWidth;
@@ -35,7 +43,32 @@ public abstract class GameScene {
         this.background.setFitHeight(screenHeight);
         this.root.getChildren().add(this.background);
         this.background.requestFocus();
-    }
+        
+        this.topNode = new ArrayList<Node>();
+
+        Button tempButton = initSoundButton();
+        this.root.getChildren().add(tempButton);
+        this.topNode.add(tempButton);
+
+        this.root.getChildren().addListener((ListChangeListener<Node>) change -> {
+            while (change.next()) {
+                ObservableList<Node> tempChildren = this.root.getChildren();
+                if (change.wasAdded()) {
+                    if (!(change.getAddedSubList().stream().anyMatch(topNode::contains))) {
+                        for (Node node : topNode) {
+                            if (tempChildren.contains(node)) {
+                                Platform.runLater(() -> {
+                                    this.root.getChildren().remove(node);
+                                    this.root.getChildren().add(node);
+                                });
+
+                            }
+                        }
+                    }
+                }
+            }
+        }); 
+   }
 
     public abstract void update();
 
@@ -88,7 +121,7 @@ public abstract class GameScene {
         button.setStyle(String.format(
             "-fx-background-color: transparent;" + 
             "-fx-background-image: url('%s');" +
-            "-fx-background-size: cover;" + // Make the image cover the button area
+            "-fx-background-size: cover;" + 
             "-fx-background-position: center;" +
             "-fx-background-repeat: no-repeat;" 
             , imagePath)
@@ -98,5 +131,41 @@ public abstract class GameScene {
         button.setPrefHeight(buttonHeight);
 
         return button;
+    }
+      
+    protected Button initSoundButton() {
+        Button soundButton;
+        if (AudioManager.getInstance().getHasSound())
+            soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/sound_yes.png").toExternalForm());
+        else
+            soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/sound_no.png").toExternalForm());
+
+        soundButton.setLayoutX(getScreenWidth() - 105);
+        soundButton.setLayoutY(25);
+        soundButton.setOnAction(e -> { if (AudioManager.getInstance().getHasSound()) {
+                                            soundButton.setStyle(String.format("-fx-background-color: transparent;" +
+                                                    "-fx-background-image: url('%s');" +
+                                                    "-fx-background-size: cover;" +
+                                                    "-fx-background-position: center;" +
+                                                    "-fx-background-repeat: no-repeat;",
+                                                    getClass().getResource("/com/example/demo/images/sound_no.png").toExternalForm()));
+
+                                            AudioManager.getInstance().setHasSound(false);
+                                            AudioManager.getInstance().pauseBackgroundAudio();
+                                       } 
+                                       else {
+                                            soundButton.setStyle(String.format("-fx-background-color: transparent;" +
+                                                   "-fx-background-image: url('%s');" +
+                                                   "-fx-background-size: cover;" +
+                                                   "-fx-background-position: center;" +
+                                                   "-fx-background-repeat: no-repeat;" , getClass().getResource("/com/example/demo/images/sound_yes.png").toExternalForm()));
+
+                                            AudioManager.getInstance().setHasSound(true);
+                                            AudioManager.getInstance().playBackgroundAudio();
+                                       }
+                                    });
+        soundButton.setFocusTraversable(false);
+
+        return soundButton;
     }
 }

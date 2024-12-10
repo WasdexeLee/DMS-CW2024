@@ -122,6 +122,9 @@ public abstract class LevelScene extends GameScene {
         });
 
         this.root.getChildren().addAll(userUnit, pauseButton);
+        topNode.add(pauseButton);
+        topNode.add(levelView.getHeartDisplay());
+        topNode.add(pauseMenu);
     }
 
     @Override
@@ -136,7 +139,6 @@ public abstract class LevelScene extends GameScene {
         // Handle actor collision
         collisionManager.handleCollisions(enemyProjectiles, Arrays.asList(userUnit), EffectAudioType.DAMAGE); // EnemyProjectile collide with UserUnit
         collisionManager.handleCollisions(Arrays.asList(userUnit), enemyUnits, EffectAudioType.DAMAGE); // UserUnit collide with EnemyUnits
-        // collisionManager.handleCollisions(userProjectiles, enemyUnits); // UserProjectile collide with EnemyUnits
 
         // Handle for EnemyPlane and Projectile out of screen
         enemyManager.handleEnemyPenetration(userUnit, enemyUnits, levelState.getScreenWidth());
@@ -256,7 +258,7 @@ public abstract class LevelScene extends GameScene {
     private Button initPauseButton() {
         Button pauseButton = createButton(60, 56, getClass().getResource("/com/example/demo/images/pause/pause_button.png").toExternalForm());
 
-        pauseButton.setLayoutX((getScreenWidth() - 60) / 2);
+        pauseButton.setLayoutX(getScreenWidth() - 185);
         pauseButton.setLayoutY(25);
         pauseButton.setOnAction(e -> {if (Game.getInstance(null).getCurrentState() == State.RUNNING) showPauseMenu();});
 

@@ -3,6 +3,7 @@ package com.example.demo.scenes.levels.services;
 import com.example.demo.actors.props.HeartDisplay;
 
 import javafx.scene.Group;
+import javafx.scene.layout.HBox;
 
 public class LevelView {
 	
@@ -19,6 +20,10 @@ public class LevelView {
 	
 	public void showHeartDisplay() {
 		root.getChildren().add(heartDisplay.getContainer());
+	}
+
+	public HBox getHeartDisplay() {
+		return heartDisplay.getContainer();
 	}
 
 	public void removeHearts(int heartsRemaining) {

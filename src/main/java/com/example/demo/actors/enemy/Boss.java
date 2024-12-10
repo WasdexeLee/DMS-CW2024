@@ -29,11 +29,11 @@ public class Boss extends FighterPlane {
     private static final double BOSS_SHIELD_PROBABILITY = .04 / GameLoop.getInstance(null).get_TARGET_FPS();
 
     private static final double VERTICAL_VELOCITY = Math.ceil(150.0 / GameLoop.getInstance(null).get_TARGET_FPS());
-    private static final int HEALTH = 100;
+    private static final int HEALTH = 70;
     private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
     private static final int ZERO = 0;
     private static final int MAX_FRAMES_WITH_SAME_MOVE = 1 * GameLoop.getInstance(null).get_TARGET_FPS();
-    private static final int MAX_FRAMES_WITH_SHIELD = 25 * GameLoop.getInstance(null).get_TARGET_FPS();
+    private static final int MAX_FRAMES_WITH_SHIELD = 20 * GameLoop.getInstance(null).get_TARGET_FPS();
 
     private final List<Double> movePattern;
     private boolean isShielded;

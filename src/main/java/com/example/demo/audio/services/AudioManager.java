@@ -11,9 +11,11 @@ public class AudioManager {
 
     private BackgroundAudio currentBackgroundAudio;
 
+    private boolean hasSound;
 
     private AudioManager() {
         this.audioFactory = new AudioFactory();   
+        this.hasSound = true;
 
         currentBackgroundAudio = audioFactory.createBackgroundAudio(BackgroundAudioType.MENU);
     }
@@ -31,17 +33,31 @@ public class AudioManager {
         currentBackgroundAudio.destroy();
 
         currentBackgroundAudio = audioFactory.createBackgroundAudio(backgroundAudioType);
+
+        if (!hasSound)
+            pauseBackgroundAudio();
     }
 
     public void playBackgroundAudio() { 
-        currentBackgroundAudio.playAudio();
+        // if (hasSound)
+            currentBackgroundAudio.playAudio();
     }
 
     public void pauseBackgroundAudio() { 
-        currentBackgroundAudio.pauseAudio();
+        // if (!hasSound)
+            currentBackgroundAudio.pauseAudio();
     }
  
     public void fireEffectAudio(EffectAudioType effectAudioType) { 
-        audioFactory.fireEffectAudio(effectAudioType);
+        if (hasSound)
+            audioFactory.fireEffectAudio(effectAudioType);
+    }
+
+    public void setHasSound(boolean value){
+        hasSound = value;
+    }
+
+    public boolean getHasSound() {
+        return hasSound;
     }
 }

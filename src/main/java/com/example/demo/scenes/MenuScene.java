@@ -65,7 +65,7 @@ public class MenuScene extends GameScene {
         mainLayout.setPrefSize(screenWidth, screenHeight);
 
         getRoot().getChildren().add(mainLayout);
-
+        
         AudioManager.getInstance().changeBackgroundAudio(BackgroundAudioType.MENU);
 	}
 
