@@ -73,7 +73,7 @@ public class LevelOneTest extends ApplicationTest {
     // Test logic: Ensure the LevelOne correctly handles user kill target logic.
     @Test
     public void testUserKillTargetLogicReach() {
-        when(mockLevelState.getNumberOfKills()).thenReturn(10);
+        when(mockLevelState.getNumberOfKills()).thenReturn(35);
 
         assertTrue(levelOne.userKillTargetLogic());
     }

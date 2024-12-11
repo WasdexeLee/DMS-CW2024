@@ -9,43 +9,41 @@ import com.example.demo.utils.EnumUtil.State;
 import javafx.stage.Stage;
 
 /**
- * The main game class that manages the game loop, state, and scene management.
+ * The core game manager that handles the game's lifecycle, state management,
+ * and scene updates. This class implements {@link PropertyChangeListener} to
+ * listen for state changes and react accordingly.
  * 
- * This class is a singleton and implements PropertyChangeListener to handle
- * game state changes.
- * It provides methods to initialize, update, and manage the game state and
- * scene transitions.
- * 
- * @author Wasdexe Lee
+ * @author WasdexeLee (Lee Jia Zhe)
  */
 public class Game implements PropertyChangeListener {
 
-    /** The singleton instance of the Game. */
+    /** The singleton instance of the Game class. */
     private static Game instance;
 
-    /** The primary stage for the game. */
+    /** The JavaFX stage where the game is displayed. */
     private Stage stage;
 
-    /** The game state manager. */
+    /** The game state manager of the game. */
     private GameState gameState;
 
-    /** The game loop manager. */
+    /** The game loop responsible for updating the game. */
     private GameLoop gameLoop;
 
-    /** The game scene manager. */
+    /** The manager for handling game scenes. */
     private GameSceneManager gameSceneManager;
 
     /**
-     * Private constructor to enforce singleton pattern.
-     * Initializes the game state, game loop, and game scene manager.
+     * Private constructor to enforce the singleton pattern.
+     * Initializes the game state manager, game loop, and scene manager.
      * 
-     * @param stage The primary stage for the game.
+     * @param stage The JavaFX stage where the game is displayed.
      */
     private Game(Stage stage) {
         this.stage = stage;
         this.gameState = GameState.getInstance();
         this.gameLoop = GameLoop.getInstance(this);
 
+        // Add this instance as a listener for game state changes
         addGameStatePropChangeListener(this);
         setStateEndGame();
 
@@ -53,10 +51,10 @@ public class Game implements PropertyChangeListener {
     }
 
     /**
-     * Returns the singleton instance of the Game.
+     * Returns the singleton instance of the Game class.
      * 
-     * @param stage The primary stage for the game.
-     * @return The singleton instance of the Game.
+     * @param stage The JavaFX stage where the game is displayed.
+     * @return The singleton instance of the Game class.
      */
     public static Game getInstance(Stage stage) {
         if (instance == null) {
@@ -67,65 +65,69 @@ public class Game implements PropertyChangeListener {
     }
 
     /**
-     * Initializes the game by setting the state to start the game and showing the
-     * primary stage.
+     * Initializes and displays the game stage.
      */
     public void init() {
         stage.show();
     }
 
     /**
-     * Updates the game scene manager.
+     * Calls update on the game scene manager.
      */
     public void update() {
         gameSceneManager.update();
     }
 
     /**
-     * Transitions the game state to RUNNING.
+     * Sets the game state to "Start Game".
      */
     public void setStateStartGame() {
         gameState.setStateStartGame();
     }
 
     /**
-     * Transitions the game state to PAUSED.
+     * Sets the game state to "Pause Game".
      */
     public void setStatePauseGame() {
         gameState.setStatePauseGame();
     }
 
     /**
-     * Transitions the game state to RUNNING from PAUSED.
+     * Sets the game state to "Resume Game".
      */
     public void setStateResumeGame() {
         gameState.setStateResumeGame();
     }
 
     /**
-     * Transitions the game state to GAME_OVER.
+     * Sets the game state to "End Game".
      */
     public void setStateEndGame() {
         gameState.setStateEndGame();
     }
 
+    /**
+     * Retrieves the current state of the game.
+     * 
+     * @return The current state of the game.
+     */
     public State getCurrentState() {
         return gameState.getCurrentState();
     }
 
     /**
-     * Adds a PropertyChangeListener to the game state.
+     * Adds a property change listener to the game state.
      * 
-     * @param listener The PropertyChangeListener to add.
+     * @param listener The listener to be added.
      */
     public void addGameStatePropChangeListener(PropertyChangeListener listener) {
         gameState.addPropChangeListener(listener);
     }
 
     /**
-     * Handles property change events for the game state.
+     * Handles property change events from the game state.
      * 
-     * @param event The PropertyChangeEvent to handle.
+     * @param event The property change event.
      */
     @Override
     public void propertyChange(PropertyChangeEvent event) {
@@ -145,7 +147,7 @@ public class Game implements PropertyChangeListener {
                 break;
 
             default:
-                throw new IllegalArgumentException("Unknown Property Change Name : " + event);
+                throw new IllegalArgumentException("Unknown Property Change Name: " + event);
         }
     }
 }

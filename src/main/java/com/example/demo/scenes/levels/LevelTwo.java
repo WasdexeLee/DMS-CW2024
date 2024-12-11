@@ -15,7 +15,8 @@ public class LevelTwo extends LevelScene {
     private static final String[] ENEMY_PLANE_IMAGE_NAME = {"enemyplane2.png", "enemyplane3.png"};
 
 	private static final int TOTAL_ENEMIES = 7;
-	private static final int KILLS_TO_ADVANCE = 50;
+	// private static final int KILLS_TO_ADVANCE = 50;
+	private static final int KILLS_TO_ADVANCE = 5;
 	private static final double ENEMY_SPAWN_PROBABILITY = 7.0 / (GameLoop.getInstance(null).get_TARGET_FPS());
     private double[] recentSpawnYCoord;
 
