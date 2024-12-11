@@ -5,8 +5,21 @@ import com.example.demo.audio.effect.EffectAudio;
 import com.example.demo.utils.EnumUtil.BackgroundAudioType;
 import com.example.demo.utils.EnumUtil.EffectAudioType;
 
+/**
+ * A factory class responsible for creating different types of audio.
+ * This includes background audio and effect audio.
+ *
+ * @author WasdexeLee (Lee Jia Zhe)
+ */
 public class AudioFactory {
 
+    /**
+     * Creates a {@link BackgroundAudio} based on the specified {@link BackgroundAudioType}.
+     *
+     * @param backgroundAudioType The type of background audio to create.
+     * @return A {@link BackgroundAudio} instance corresponding to the specified type.
+     * @throws IllegalArgumentException If an unknown audio type is provided.
+     */
     public BackgroundAudio createBackgroundAudio(BackgroundAudioType backgroundAudioType) {
         switch (backgroundAudioType) {
             case MENU:
@@ -22,6 +35,12 @@ public class AudioFactory {
         }
     }
 
+    /**
+     * Plays an {@link EffectAudio} based on the specified {@link EffectAudioType}.
+     *
+     * @param effectAudioType The type of effect audio to play.
+     * @throws IllegalArgumentException If an unknown audio type is provided.
+     */
     public void fireEffectAudio(EffectAudioType effectAudioType) {
         switch (effectAudioType) {
             case USERFIRE:
