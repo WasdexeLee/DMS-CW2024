@@ -51,10 +51,10 @@ public class Boss extends FighterPlane {
     private static final double PROJECTILE_Y_POSITION_OFFSET = 75.0;
 
     /** The fire rate of the boss, calculated based on the target FPS. */
-    private static final double BOSS_FIRE_RATE = .99 / GameLoop.getInstance(null).get_TARGET_FPS();
+    private static final double BOSS_FIRE_RATE = 1.35 / GameLoop.getInstance(null).get_TARGET_FPS();
 
     /** The probability of the boss activating its shield, calculated based on the target FPS. */
-    private static final double BOSS_SHIELD_PROBABILITY = .07 / GameLoop.getInstance(null).get_TARGET_FPS();
+    private static final double BOSS_SHIELD_PROBABILITY = .095 / GameLoop.getInstance(null).get_TARGET_FPS();
 
     /** The initial health of the boss. */
     private static final int HEALTH = 140;
@@ -72,7 +72,7 @@ public class Boss extends FighterPlane {
     private static final int MAX_FRAMES_WITH_SAME_MOVE = 1 * GameLoop.getInstance(null).get_TARGET_FPS();
 
     /** The maximum number of frames the boss can have its shield activated. */
-    private static final int MAX_FRAMES_WITH_SHIELD = 6 * GameLoop.getInstance(null).get_TARGET_FPS();
+    private static final int MAX_FRAMES_WITH_SHIELD = 3 * GameLoop.getInstance(null).get_TARGET_FPS();
 
     private final List<Double> movePattern;
     private final LevelView levelView;

@@ -16,9 +16,10 @@ import javafx.scene.Node;
  * This class is a singleton and provides methods to handle enemy penetration, add new enemy units,
  * and manage their lifecycle within the game scene.
  * 
- * @author Wasdexe Lee
+ * @author WasdexeLee (Lee Jia Zhe)
  */
 public class EnemyManager {
+
     /** The singleton instance of the EnemyManager. */
     private static EnemyManager instance;
 
@@ -37,6 +38,9 @@ public class EnemyManager {
 
     /**
      * Handles enemy penetration by damaging the user unit and destroying the penetrating enemy.
+     * Damaging user unit to deal health decrease.
+     * Destroying the enemy directly as they are already out of screen view and will not be making any actions in the future.
+     * Beneficial to freeing up memory, keeping game responsive.
      * 
      * @param userUnit The user unit to take damage.
      * @param enemyUnits The list of enemy units to check for penetration.
@@ -56,6 +60,8 @@ public class EnemyManager {
 
     /**
      * Adds a new enemy unit to the list of enemy units and the root group.
+     * Universal method to be called to add any type of enemy to the list of enemy units.
+     * Segregating the logic of adding into the enemy list and reducing repetitive code.
      * 
      * @param enemy The enemy unit to add.
      * @param enemyUnits The list of enemy units.

@@ -14,10 +14,10 @@ import javafx.scene.Group;
  * This class is a singleton and provides methods to handle projectiles going out of the screen,
  * spawn new projectiles, and manage their lifecycle within the game scene.
  * 
- * @author Your Name
- * @version 1.0
+ * @author WasdexeLee (Lee Jia Zhe)
  */
 public class ProjectileManager {
+
     /** The singleton instance of the ProjectileManager. */
     private static ProjectileManager instance;
 
@@ -36,9 +36,10 @@ public class ProjectileManager {
 
     /**
      * Handles projectiles that go out of the screen view by destroying them.
+     * Checks the position of the projectile against the screenWidth to determine whether it is out of screen view.
      * 
      * @param projectiles The list of projectiles to be checked.
-     * @param screenWidth The width of the screen.
+     * @param screenWidth The width of the screen to check whether the projectile is out of screen view.
      */
     public void handleProjectileOutOfScreen(List<ActiveActorDestructible> projectiles, double screenWidth) {
         for (ActiveActorDestructible projectile : projectiles) {
@@ -51,6 +52,8 @@ public class ProjectileManager {
 
     /**
      * Spawns projectiles from fighter planes and adds them to the list of projectiles and the root group.
+     * Calls respective spawn projectile method (fireProjectile) and let the fighter planes to handle the logic 
+     * based on the type of fighter planes they are.
      * 
      * @param fighterPlanes The list of fighter planes.
      * @param projectilesList The list of projectiles.

@@ -12,9 +12,10 @@ import com.example.demo.utils.EnumUtil.EffectAudioType;
  * This class is a singleton and provides methods to detect and handle collisions
  * between different lists of actors, causing them to take damage upon collision.
  * 
- * @author Wasdexe Lee
+ * @author WasdexeLee (Lee Jia Zhe)
  */
 public class CollisionManager {
+
     /** The singleton instance of the CollisionManager. */
     private static CollisionManager instance;
 
@@ -34,17 +35,22 @@ public class CollisionManager {
     /**
      * Handles collisions between two lists of actors by causing each actor involved
      * in the collision to take damage.
+     * Given actors collide, both will take damage.
      * 
-     * @param actors1 The first list of actors.
-     * @param actors2 The second list of actors.
+     * @param actors1          The first list of actors.
+     * @param actors2          The second list of actors.
+     * @param effectAudioType  The type of effect audio to play upon collision.
      */
     public void handleCollisions(List<ActiveActorDestructible> actors1, List<ActiveActorDestructible> actors2, EffectAudioType effectAudioType) {
         for (ActiveActorDestructible act1 : actors1) {
             for (ActiveActorDestructible act2 : actors2) {
+                // Check if the bounding boxes of the actors intersect
                 if (act1.getBoundsInParent().intersects(act2.getBoundsInParent())) {
+                    // Cause both actors to take damage
                     act1.takeDamage();
                     act2.takeDamage();
 
+                    // Play the specified effect audio if provided
                     if (effectAudioType != null)
                         AudioManager.getInstance().fireEffectAudio(effectAudioType);
                 }
