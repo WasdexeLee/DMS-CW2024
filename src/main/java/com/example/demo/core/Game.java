@@ -23,7 +23,7 @@ public class Game implements PropertyChangeListener {
     /** The JavaFX stage where the game is displayed. */
     private Stage stage;
 
-    /** The current state of the game. */
+    /** The game state manager of the game. */
     private GameState gameState;
 
     /** The game loop responsible for updating the game. */
@@ -34,7 +34,7 @@ public class Game implements PropertyChangeListener {
 
     /**
      * Private constructor to enforce the singleton pattern.
-     * Initializes the game state, game loop, and scene manager.
+     * Initializes the game state manager, game loop, and scene manager.
      * 
      * @param stage The JavaFX stage where the game is displayed.
      */
@@ -72,7 +72,7 @@ public class Game implements PropertyChangeListener {
     }
 
     /**
-     * Updates the game scene manager.
+     * Calls update on the game scene manager.
      */
     public void update() {
         gameSceneManager.update();

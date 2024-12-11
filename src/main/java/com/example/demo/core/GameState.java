@@ -84,28 +84,28 @@ public class GameState {
     }
 
     /**
-     * Sets the game state to "Start Game" (RUNNING).
+     * Sets the game state to (RUNNING) "Start Game".
      */
     public void setStateStartGame() {
         setCurrentState(State.RUNNING);
     }
 
     /**
-     * Sets the game state to "Pause Game" (PAUSED).
+     * Sets the game state to (PAUSED) "Pause Game".
      */
     public void setStatePauseGame() {
         setCurrentState(State.PAUSED);
     }
 
     /**
-     * Sets the game state to "Resume Game" (RUNNING).
+     * Sets the game state to (RUNNING) "Resume Game".
      */
     public void setStateResumeGame() {
         setCurrentState(State.RUNNING);
     }
 
     /**
-     * Sets the game state to "End Game" (STOP).
+     * Sets the game state to (STOP) "End Game".
      */
     public void setStateEndGame() {
         setCurrentState(State.STOP);

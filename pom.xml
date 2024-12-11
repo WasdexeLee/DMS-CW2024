@@ -122,6 +122,29 @@
               <reuseForks>false</reuseForks>
         </configuration>
       </plugin>
+
+      <!-- Javadoc plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>generate-javadoc</id>
+            <goals>
+              <goal>javadoc</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <reportOutputDirectory>${project.build.directory}/site/apidocs</reportOutputDirectory>
+          <source>21</source>
+          <doclint>none</doclint> 
+          <show>private</show>
+          <subpackages>com.example.demo</subpackages> <!-- Root package -->
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 </project>
