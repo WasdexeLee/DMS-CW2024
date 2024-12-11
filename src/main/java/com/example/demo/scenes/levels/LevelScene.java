@@ -245,6 +245,12 @@ public abstract class LevelScene extends GameScene {
         Game.getInstance(null).setStatePauseGame();
         root.getChildren().add(pauseMenu);
         AudioManager.getInstance().fireEffectAudio(EffectAudioType.PAUSE);
+
+        userUnit.stopLeft();
+        userUnit.stopRight();
+        userUnit.stopUp();
+        userUnit.stopDown();
+        userUnit.setIsFiring(false);
     }
 
     private void resumeGame() {
