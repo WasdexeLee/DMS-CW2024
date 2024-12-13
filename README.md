@@ -1,30 +1,23 @@
 # Sky Battle
 
 
-
-## Background Music Toggle Feature
-[Background Music Toggle Feature](#background-music-toggle-feature)
-  <a id="invocationtargetexception-fix"></a>
+<br>
 
 
+## Controls
+- **Arrow Keys / WASD Keys**: Move the player character Left, Right, Up, Down.
+- **Spacebar Tap**: Shoot Projectile.
+- **Spacebar Hold**: Burt Fire Projectile.
 
 
-## Overview
-This is a simple JavaFX game created using Java and JavaFX. The game features basic gameplay mechanics and is designed to demonstrate the use of JavaFX for creating graphical applications.
-
-
-
-### Controls
-
-- **Arrow Keys**: Move the player character.
-- **Spacebar**: Perform an action (e.g., jump, shoot).
-
+<br>
 
 
 ## Git Commits 
 The Git Commits in this Repo abides to the Atomic Commits style as best as possible for easier Commit tracing. Thus, a larger ammount of Commits are present and are expected due to the styling of Commits.
 
 
+<br>
 
 
 ## GitHub Repository
@@ -79,23 +72,1249 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 ## Implemented and Working Properly
 
-- **Feature 1: User Authentication**
-  - Description: Users can sign up and log in securely. Passwords are hashed and stored securely.
-  - Location: `src/main/java/com/example/auth/UserAuth.java`
+1. **Added Main Menu Scene**
+  - **Why is this feature needed?**
+    - A main menu is essential for any game as it provides a user-friendly interface for players to start the game, exit, or access other options (in future implementations). It enhances the user experience by allowing players to navigate the game easily and provides a clear starting point.
+
+  <br>
+
+  - **How is it implemented?**
+    - A new `MenuScene` class is created under `src/main/java/com/example/demo/scenes/MenuScene.java`. This class extends the abstract `GameScene` class and implements the main menu UI.
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **Class Definition and Constructor:**
+      - The `MenuScene` class is defined with a constructor that takes the screen width and height as parameters.
+      - The constructor initializes the background image and sets up the UI components.
+
+      ```java
+      public class MenuScene extends GameScene {
+          private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/menu_background.jpg";
+          private static final SceneType NEXT_SCENE = SceneType.LEVEL1;
+
+          public MenuScene(double screenWidth, double screenHeight) {
+              super(BACKGROUND_IMAGE_NAME, screenWidth, screenHeight);
+              // UI setup code here
+          }
+      }
+      ```
+
+    <br>
+
+    2. **UI Components:**
+      - A `Text` object is created to display the game title.
+      - Two `Button` objects are created for "Start Game" and "Exit".
+
+      ```java
+      Text title = new Text("Sky Battle");
+      title.setFill(Color.WHITE);
+      title.setFont(Font.font("Monospaced", FontWeight.BOLD, 120));
+      title.setFill(Color.web("#D3D3D3"));
+      title.setStroke(Color.BLACK);
+      title.setStrokeWidth(4);
+
+      Button startButton = createButton("Start Game", 240);
+      Button exitButton = createButton("Exit", 170);
+      ```
+
+    <br>
+    
+    3. **Button Actions:**
+      - The `startButton` triggers the transition to the next scene (`LEVEL1`).
+      - The `exitButton` exits the application.
+
+      ```java
+      startButton.setOnAction(e -> {
+          System.out.println("Start Game selected");
+          goToScene(NEXT_SCENE);
+      });
+
+      exitButton.setOnAction(e -> System.exit(0));
+      ```
+
+    <br>
+
+    4. **Layout:**
+      - The buttons and title are organized in a `VBox` layout for proper alignment.
+
+      ```java
+      VBox buttonBox = new VBox(40, startButton, exitButton);
+      buttonBox.setAlignment(Pos.CENTER);
+
+      VBox mainLayout = new VBox(120, title, buttonBox);
+      mainLayout.setAlignment(Pos.TOP_CENTER);
+      mainLayout.setPadding(new Insets(100));
+      mainLayout.setPrefSize(screenWidth, screenHeight);
+
+      getRoot().getChildren().add(mainLayout);
+      ```
+
+    <br>
+
+    5. **Integration with GameSceneManager and GameSceneFactory:**
+      - The `MenuScene` is integrated into the game by adding it to the `GameSceneFactory` and initializing it in `GameSceneManager`.
+
+      ```java
+      public class GameSceneFactory {
+          public GameScene createScene(SceneType sceneType, double screenWidth, double screenHeight) {
+              switch (sceneType) {
+                  case MENU:
+                      return new MenuScene(screenWidth, screenHeight);
+                  // Other cases
+              }
+          }
+      }
+
+      public class GameSceneManager {
+          public GameSceneManager(Stage stage) {
+              this.currentGameScene = this.gameSceneFactory.createScene(SceneType.MENU, this.screenWidth, this.screenHeight);
+          }
+      }
+      ```
+
+  <br>
+
+  - **Future Improvements:**
+    - Add more menu options (e.g., settings, credits, high scores).
+    - Implement animations or transitions when switching between scenes.
+
+
+<br>
+
+
+2. **Updated Game Initialization to Start from Main Menu**
+  - **Why is this feature needed?**
+    - Starting the game directly from the main menu ensures a consistent and user-friendly flow. It prevents the game from launching into a level without player interaction and aligns with standard game design practices.
+
+  <br>
+
+  - **How is it implemented?**
+    - The `GameSceneManager` is updated to initialize the game with the `MenuScene` instead of directly loading the first level (`LEVEL1`).
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **Modify GameSceneManager:**
+      - The `GameSceneManager` constructor is updated to create the `MenuScene` as the initial scene.
+      ```java
+      public class GameSceneManager {
+          public GameSceneManager(Stage stage) {
+              this.currentGameScene = this.gameSceneFactory.createScene(SceneType.MENU, this.screenWidth, this.screenHeight);
+              this.stage.setScene(this.currentGameScene.getScene());
+          }
+      }
+      ```
+
+    <br>
+
+    2. **Ensure MenuScene is Created:**
+      - The `GameSceneFactory` is updated to handle the `MENU` scene type.
+      ```java
+      public class GameSceneFactory {
+          public GameScene createScene(SceneType sceneType, double screenWidth, double screenHeight) {
+              switch (sceneType) {
+                  case MENU:
+                      return new MenuScene(screenWidth, screenHeight);
+                  // Other cases
+              }
+          }
+      }
+      ```
+
+  <br>
+
+  - **Future Improvements:**
+    - Add a splash screen before the main menu to enhance the game's presentation.
+    - Allow players to select different game modes (e.g., easy, medium, hard) from the menu.
+
+
+<br>
+
+
+3. **Left and Right Movement of UserPlane**
+  - **Why is this feature needed?**
+    - The `UserPlane` class now supports left and right movement in addition to the existing up and down movement. This allows the player to navigate the plane horizontally within the game screen. Horizontal movement is essential for a 2D shooter game to provide more dynamic gameplay. It allows the player to dodge enemy attacks more effectively and position the plane for better firing angles.
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **Addition of Horizontal Bounds:**
+      - The `X_LEFT_BOUND` and `X_RIGHT_BOUND` constants were added to define the horizontal boundaries of the game screen.
+      ```java
+      private static final double X_LEFT_BOUND = 0;
+      private static final double X_RIGHT_BOUND = 400;
+      ```
+
+    <br>
+
+    2. **Horizontal Movement Logic:**
+      - The `moveLeft()` and `moveRight()` methods were added to handle the horizontal movement.
+      ```java
+      public void moveLeft() {
+          leftPressed = true;
+          xVelocityMultiplier = -1;
+      }
+
+      public void moveRight() {
+          rightPressed = true;
+          xVelocityMultiplier = 1;
+      }
+      ```
+
+    <br>
+
+    3. **Stopping Horizontal Movement:**
+      - The `stopLeft()` and `stopRight()` methods were added to stop the horizontal movement when the corresponding keys are released.
+      ```java
+      public void stopLeft() {
+          leftPressed = false;
+          if (rightPressed)
+              xVelocityMultiplier = 1;
+          else
+              xVelocityMultiplier = 0;
+      }
+
+      public void stopRight() {
+          rightPressed = false;
+          if (leftPressed)
+              xVelocityMultiplier = -1;
+          else
+              xVelocityMultiplier = 0;
+      }
+      ```
+
+    <br>
+
+    4. **Updating Position:**
+      - The `updatePosition()` method was modified to handle horizontal movement.
+      ```java
+      private void updatePosition() {
+          if (isMovingX()){
+              double initialTranslateX = getTranslateX();
+              this.moveHorizontally(VERTICAL_VELOCITY * xVelocityMultiplier);
+              double newPosition = getLayoutX() + getTranslateX();
+
+              if (newPosition < X_LEFT_BOUND || newPosition > X_RIGHT_BOUND) {
+                  this.setTranslateX(initialTranslateX);
+              }
+          }
+      }
+      ```
+
+    <br>
+
+    5. **Checking Horizontal Movement:**
+      - The `isMovingX()` method was added to check if the plane is moving horizontally.
+      ```java
+      private boolean isMovingX() {
+          return xVelocityMultiplier != 0;
+      }
+      ```
+
+    <br>
+
+  - **Future Improvements:**
+    - **Variable Speed:** Implementing variable speed for horizontal movement based on the duration of key press.
+    - **Smooth Movement:** Adding acceleration and deceleration to make the movement feel more natural.
+
+
+<br>
+
+
+4. **Continuous Firing for UserPlane Despite Moving**
+  - **Why is this feature needed?**
+    - The `UserPlane` can now continuously fire projectiles while moving, allowing for more continuous and dynamic gameplay. Continuous firing is a common feature in shooter games, allowing the player to maintain a steady stream of projectiles without needing to repeatedly press the fire button.
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **Firing State Management:**
+      - The `isFiring` boolean variable was added to track whether the player is currently firing.
+      ```java
+      private boolean isFiring;
+
+      public void setIsFiring(boolean isFiring) { 
+          this.isFiring = isFiring;
+      }
+
+      public boolean getIsFiring() { 
+          return isFiring;
+      }
+      ```
+
+    <br>
+
+    2. **Key Event Handling:**
+      - The `setOnKeyPressed` and `setOnKeyReleased` methods were modified to set the `isFiring` state when the space bar is pressed or released.
+      ```java
+      getBackground().setOnKeyPressed(new EventHandler<KeyEvent>() {
+          public void handle(KeyEvent e) {
+              KeyCode kc = e.getCode();
+              if (kc == KeyCode.SPACE)
+                  userUnit.setIsFiring(true);
+          }
+      });
+
+      getBackground().setOnKeyReleased(new EventHandler<KeyEvent>() {
+          public void handle(KeyEvent e) {
+              KeyCode kc = e.getCode();
+              if (kc == KeyCode.SPACE)
+                  userUnit.setIsFiring(false);
+          }
+      });
+      ```
+
+    <br>
+
+    3. **Projectile Spawning:**
+      - The `frameCounter` was added to control the rate of projectile spawning. The `projectileManager.spawnProjectile` method is called every 1/10th of a second if the player is firing.
+      ```java
+      frameCounter++;
+      if (frameCounter == (int) GameLoop.getInstance(null).get_TARGET_FPS() / 10) {
+          if (userUnit.getIsFiring() && frameCounter == (int) GameLoop.getInstance(null).get_TARGET_FPS() / 10) {
+              projectileManager.spawnProjectile(Arrays.asList(userUnit), userProjectiles, root);
+          }
+          frameCounter = 0;
+      }
+      ```
+
+  <br>
+  - **Future Improvements:**
+    - **Fire Rate Control:** Implementing a fire rate control system to allow players to adjust the rate of fire.
+    - **Weapon Upgrades:** Adding weapon upgrades that can increase the fire rate or change the type of projectiles fired.
+
+<br>
+
+5. **Multi-Key Press Control and Release**
+  - **Why is this feature needed?**
+    - The `UserPlane` can now handle multiple key presses simultaneously, allowing for more complex control schemes. Multi-key press control is essential for allowing players to perform complex maneuvers, such as moving diagonally or firing while moving.
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **Key State Tracking:**
+      - The `leftPressed`, `rightPressed`, `upPressed`, and `downPressed` boolean variables were added to track the state of each key.
+      ```java
+      private boolean leftPressed;
+      private boolean rightPressed;
+      private boolean upPressed;
+      private boolean downPressed;
+      ```
+
+    <br>
+
+    2. **Key Event Handling:**
+      - The `setOnKeyPressed` and `setOnKeyReleased` methods were modified to update the state of each key when pressed or released.
+      ```java
+      getBackground().setOnKeyPressed(new EventHandler<KeyEvent>() {
+          public void handle(KeyEvent e) {
+              KeyCode kc = e.getCode();
+              if (kc == KeyCode.LEFT || kc == KeyCode.A)
+                  userUnit.moveLeft();
+              if (kc == KeyCode.RIGHT || kc == KeyCode.D)
+                  userUnit.moveRight();
+              if (kc == KeyCode.UP || kc == KeyCode.W)
+                  userUnit.moveUp();
+              if (kc == KeyCode.DOWN || kc == KeyCode.S)
+                  userUnit.moveDown();
+          }
+      });
+
+      getBackground().setOnKeyReleased(new EventHandler<KeyEvent>() {
+          public void handle(KeyEvent e) {
+              KeyCode kc = e.getCode();
+              if (kc == KeyCode.LEFT || kc == KeyCode.A)
+                  userUnit.stopLeft();
+              if (kc == KeyCode.RIGHT || kc == KeyCode.D)
+                  userUnit.stopRight();
+              if (kc == KeyCode.UP || kc == KeyCode.W)
+                  userUnit.stopUp();
+              if (kc == KeyCode.DOWN || kc == KeyCode.S)
+                  userUnit.stopDown();
+          }
+      });
+      ```
+
+    <br>
+
+    3. **Velocity Multiplier Adjustment:**
+      - The `xVelocityMultiplier` and `yVelocityMultiplier` variables were adjusted based on the state of the keys.
+      ```java
+      public void stopLeft() {
+          leftPressed = false;
+          if (rightPressed)
+              xVelocityMultiplier = 1;
+          else
+              xVelocityMultiplier = 0;
+      }
+
+      public void stopRight() {
+          rightPressed = false;
+          if (leftPressed)
+              xVelocityMultiplier = -1;
+          else
+              xVelocityMultiplier = 0;
+      }
+      ```
+
+  <br>
+
+  - **Future Improvements:**
+    - **Diagonal Movement:** Implementing diagonal movement by combining horizontal and vertical velocity multipliers.
+    - **Custom Key Bindings:** Allowing players to customize key bindings for movement and firing.
+
+<br>
+
+6. **Added Win and Lose Scenes**
+  - **Why is this feature needed?**
+    - Win and Lose scenes are essential for providing feedback to the player about the outcome of the game. They enhance the user experience by clearly indicating whether the player has won or lost, and they provide options to replay the game or return to the main menu.
+
+  <br>
+
+  - **How is it implemented?**
+    - Two new classes, `WinScene` and `LoseScene`, are created under `src/main/java/com/example/demo/scenes/`. These classes extend the abstract `GameScene` class and implement the UI for the "You Win" and "Game Over" screens, respectively.
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **Class Definitions and Constructors:**
+      - Both `WinScene` and `LoseScene` classes are defined with constructors that take the screen width and height as parameters.
+      - The constructors initialize the background image and set up the UI components.
+
+      ```java
+      public class WinScene extends GameScene {
+          private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/end/end_background.jpeg";
+          private static final SceneType YES_SCENE = SceneType.LEVEL1;
+          private static final SceneType NO_SCENE = SceneType.MENU;
+
+          public WinScene(double screenWidth, double screenHeight) {
+              super(BACKGROUND_IMAGE_NAME, screenWidth, screenHeight);
+              // UI setup code here
+          }
+      }
+      ```
+
+    <br>
+  
+    2. **UI Components:**
+      - An `ImageView` is used to display the "You Win" or "Game Over" title.
+      - Another `ImageView` is used to display the "Play Again" text.
+      - Two `Button` objects are created for "Yes" (to replay the game) and "No" (to return to the main menu).
+
+      ```java
+      ImageView title = new ImageView(new Image(getClass().getResource("/com/example/demo/images/end/you_win.png").toExternalForm()));
+      title.setFitWidth(750); 
+      title.setPreserveRatio(true); 
+
+      ImageView playAgain = new ImageView(new Image(getClass().getResource("/com/example/demo/images/end/play_again.png").toExternalForm()));
+      playAgain.setFitWidth(450); 
+      playAgain.setPreserveRatio(true); 
+
+      Button yesButton = createButton(getClass().getResource("/com/example/demo/images/end/yes.png").toExternalForm());
+      Button noButton = createButton(getClass().getResource("/com/example/demo/images/end/no.png").toExternalForm());
+      ```
+
+    <br>
+
+    3. **Button Actions:**
+      - The `yesButton` triggers a scene transition to `LEVEL1`.
+      - The `noButton` triggers a scene transition to `MENU`.
+
+      ```java
+      yesButton.setOnAction(e -> goToScene(YES_SCENE));
+      noButton.setOnAction(e -> goToScene(NO_SCENE));
+      ```
+
+    <br>
+
+    4. **Layout:**
+      - The buttons and images are organized in a `VBox` layout for proper alignment.
+
+      ```java
+      VBox mainLayout = new VBox(40, title, spacer, playAgain, buttonBox);
+      mainLayout.setAlignment(Pos.TOP_CENTER);
+      mainLayout.setPadding(new Insets(100));
+      mainLayout.setPrefSize(screenWidth, screenHeight);
+
+      getRoot().getChildren().add(mainLayout);
+      ```
+
+    <br>
+
+    5. **Integration with GameSceneManager and GameSceneFactory:**
+      - The `WinScene` and `LoseScene` are integrated into the game by adding them to the `GameSceneFactory` and initializing them in `GameSceneManager`.
+
+      ```java
+      public class GameSceneFactory {
+          public GameScene createScene(SceneType sceneType, double screenWidth, double screenHeight) {
+              switch (sceneType) {
+                  case LOSESCENE:
+                      return new LoseScene(screenWidth, screenHeight);
+                  case WINSCENE:
+                      return new WinScene(screenWidth, screenHeight);
+                  // Other cases
+              }
+          }
+      }
+      ```
+
+  <br>
+
+  - **Future Improvements:**
+    - Add animations or transitions when switching to the Win or Lose scenes.
+    - Include additional options, such as viewing high scores or sharing the result on social media.
+
+
+<br>
+  
+
+7. **Added New Playable Level**
+  - **Why is this feature needed?**
+    - Adding new levels to the game increases its replayability and complexity. It allows players to experience new challenges and keeps the gameplay engaging. By introducing a new `LevelTwo` and moving the previous `LevelTwo` to `LevelThree`, the game now has a structured progression system.
+
+  <br>
+
+  - **How is it implemented?**
+    - The previous `LevelTwo` class is renamed to `LevelThree`, and a new `LevelTwo` class is created to introduce a new level with different enemy types and gameplay mechanics. 
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **Create New LevelTwo:**
+      - A new `LevelTwo` class is created with updated gameplay mechanics, including a highernumber of enemies and a different spawn probability.
+      ```java
+      public class LevelTwo extends LevelScene {
+          private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/imagesbackground2.jpg";
+          private static final SceneType NEXT_SCENE = SceneType.LEVEL3;
+          private static final int TOTAL_ENEMIES = 8;
+          private static final int KILLS_TO_ADVANCE = 10;
+          private static final double ENEMY_SPAWN_PROBABILITY = 7.0 / (GameLoop.getInstanc(null).get_TARGET_FPS());
+
+          public LevelTwo(double screenWidth, double screenHeight) {
+              super(BACKGROUND_IMAGE_NAME, screenWidth, screenHeight, PLAYER_INITIAL_HEALTH);
+              // New level setup
+          }
+
+          @Override
+          protected void userKillTargetReachedAction() {
+              goToScene(NEXT_SCENE);
+          }
+      }
+      ```
+
+  <br>
+
+  - **Future Improvements:**
+  - Add more levels with increasing difficulty.
+  - Introduce unique mechanics or objectives for each level (e.g. time limits).
+  - Include level-specific rewards or achievements.
+
+
+<br>
+
+
+8. **Updated Creation of Enemy Planes**
+  - **Why is this feature needed?**
+    - Varied enemy types make the game more challenging and interesting. By allowing different image names and fire rates for enemy planes, the game can introduce more diverse enemies, enhancing the gameplay experience.
+
+  <br>
+
+  - **How is it implemented?**
+    - The `EnemyPlane` class is updated to accept different image names and fire rates, enabling the creation of varied enemy types.
+
+  <br>
+  
+  - **Implementation Steps:**
+    1. **Modify EnemyPlane Constructor:**
+      - The `EnemyPlane` constructor is updated to accept an image name and fire rate as parameters.
+
+      ```java
+      public EnemyPlane(double initialXPos, double initialYPos, String imageName, double fireRate) {
+          super(imageName, IMAGE_HEIGHT, initialXPos, initialYPos, INITIAL_HEALTH);
+          this.FIRE_RATE = fireRate / GameLoop.getInstance(null).get_TARGET_FPS();
+      }
+      ```
+
+    <br>
+
+    2. **Update LevelOne and LevelTwo to Use Varied Enemies:**
+      - In `LevelOne`, the `EnemyPlane` is created with a specific image (`enemyplane1.png`) and fire rate.
+
+      ```java
+      ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition, "enemyplane1.png", .2);
+      ```
+
+      - In `LevelTwo`, multiple enemy types are created using different images (`enemyplane2.png` and `enemyplane3.png`) and fire rates.
+
+      ```java
+      int imageIndex = (int) Math.round(Math.random());
+      ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition, ENEMY_PLANE_IMAGE_NAME[imageIndex], .42);
+      ```
+
+  <br>
+
+  - **Future Improvements:**
+    - Add more enemy types with unique behaviors (e.g., faster movement, stronger projectiles).
+    - Introduce enemy variations that require different strategies to defeat.
+    - Include enemy animations or special effects.
+
+<br>
+
+9. **Added Pause Button**
+  - **Why is this feature needed?**
+    - A pause button provides an alternative way for players to access the pause menu, making the game more user-friendly. It allows players to pause the game without relying solely on the ESC key, which may not be intuitive for all users.
+
+  <br>
+
+  - **How is it implemented?**
+    - A pause button is added to the `LevelScene` class, which triggers the pause menu when clicked.
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **Add Pause Button to LevelScene:**
+      - A `Button` object is created and added to the `LevelScene` layout.
+
+      ```java
+      private final Button pauseButton;
+
+      public LevelScene(String backgroundImageName, double screenWidth, double screenHeight, int playerInitialHealth) {
+          this.pauseButton = initPauseButton();
+          // Other initialization code
+      }
+      ```
+
+    <br>
+
+    2. **Initialize Pause Button:**
+      - The `initPauseButton` method creates the pause button, sets its position, and defines its action (showing the pause menu).
+
+      ```java
+      private Button initPauseButton() {
+          Button pauseButton = createButton(60, 56, getClass().getResource("/com/example/demo/images/pause/pause_button.png").toExternalForm());
+
+          pauseButton.setLayoutX((getScreenWidth() - 60) / 2);
+          pauseButton.setLayoutY(25);
+          pauseButton.setOnAction(e -> {
+              if (Game.getInstance(null).getCurrentState() == State.RUNNING) {
+                  showPauseMenu();
+              }
+          });
+
+          return pauseButton;
+      }
+      ```
+
+    <br>
+
+    3. **Add Pause Button to Root Layout:**
+      - The pause button is added to the root layout of the scene.
+
+      ```java
+      this.root.getChildren().addAll(userUnit, pauseButton);
+      ```
+
+  - **Future Improvements:**
+    - Add hover effects or animations to the pause button.
+    - Include a "Resume" button in the pause menu for better accessibility.
+    - Allow players to customize the pause button's position or appearance.
+
+
+<br>
+
+
+10. **Comprehensive Audio System with Background Music and Sound Effects**
+  - **Why is this feature needed?**
+    - A comprehensive audio system has been implemented, including background music for different scenes (Menu, Level, Lose Scene, Win Scene) and sound effects for various actions (user fire, enemy fire, kill, damage, click, pause, transition, game over). Audio enhances the overall gaming experience by providing immersive background music and responsive sound effects for actions. It helps to create a more engaging and dynamic environment, making the game feel more alive and interactive.
+    
+  <br>
+
+  - **Implementation Steps:**
+    1. **Dependencies:**
+     - The `pom.xml` file was updated to include the `javafx-media` dependency, which provides support for audio playback in JavaFX applications.
+     ```xml
+     <dependency>
+         <groupId>org.openjfx</groupId>
+         <artifactId>javafx-media</artifactId>
+         <version>19.0.2</version>
+     </dependency>
+     ```
+
+    <br>
+
+    2. **Audio Classes:**
+      - **`Audio` Class:**
+        - A base class for all audio types, providing a `MediaPlayer` for playing audio files.
+        ```java
+        public class Audio {
+            protected MediaPlayer audioPlayer;
+
+            public Audio(String audioPath) {
+                this.audioPlayer = new MediaPlayer(new Media(getClass().getResource(audioPath).toExternalForm()));
+            }
+
+            public void destroy() {
+                audioPlayer = null;
+            }
+        }
+        ```
+
+      - **`BackgroundAudio` Class:**
+        - Extends `Audio` to handle background music, which loops indefinitely and has a volume setting.
+        ```java
+        public class BackgroundAudio extends Audio {
+            public BackgroundAudio(String audioPath) {
+                super(audioPath);
+                audioPlayer.setVolume(0.6); 
+                audioPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Loop the music
+                playAudio();
+            }
+
+            public void playAudio() {
+                audioPlayer.play();
+            }
+
+            public void pauseAudio() {
+                audioPlayer.pause();
+            }
+        }
+        ```
+
+      - **`EffectAudio` Class:**
+        - Extends `Audio` to handle sound effects, which play once and then dispose of the `MediaPlayer`.
+        ```java
+        public class EffectAudio extends Audio {
+            public EffectAudio(String audioPath) {
+                super(audioPath);
+                audioPlayer.setVolume(0.7);
+                audioPlayer.setOnEndOfMedia(audioPlayer::dispose);
+                audioPlayer.play();
+            }
+        }
+         ```
+
+    <br>
+
+    3. **Audio Factory:**
+      - The `AudioFactory` class is responsible for creating different types of audio (background and effect) based on the provided type.
+      ```java
+      public class AudioFactory {
+          public BackgroundAudio createBackgroundAudio(BackgroundAudioType backgroundAudioType) {
+              switch (backgroundAudioType) {
+                  case MENU:
+                      return new BackgroundAudio("/com/example/demo/audio/background/menu.mp3");
+                  default:
+                      throw new IllegalArgumentException("Unknown audio type: " + backgroundAudioType);
+              }
+          }
+
+          public void fireEffectAudio(EffectAudioType effectAudioType) {
+              switch (effectAudioType) {
+                  case USERFIRE:
+                      new EffectAudio("/com/example/demo/audio/effect/user_fire.mp3");
+                      break;
+                  default:
+                      throw new IllegalArgumentException("Unknown audio type: " + effectAudioType);
+              }
+          }
+      }
+      ```
+
+    <br>
+
+    4. **Audio Manager:**
+      - The `AudioManager` class manages the background music and sound effects, providing methods to change the background music, play/pause it, and fire sound effects.
+      ```java
+      public class AudioManager {
+          private static AudioManager instance;
+          private final AudioFactory audioFactory;
+          private BackgroundAudio currentBackgroundAudio;
+
+          private AudioManager() {
+              this.audioFactory = new AudioFactory();   
+              currentBackgroundAudio = audioFactory.createBackgroundAudio(BackgroundAudioType.MENU);
+          }
+
+          public static AudioManager getInstance() {
+              if (instance == null) {
+                  instance = new AudioManager();
+              }
+              return instance;
+          }
+      }
+      ```
+
+    5. **Integration with Scenes:**
+      - Each scene (Menu, Level, Lose Scene, Win Scene) initializes its background music when it is loaded.
+      ```java
+      public class MenuScene extends GameScene {
+          // ...
+          AudioManager.getInstance().changeBackgroundAudio(BackgroundAudioType.MENU);
+      }
+
+      public class LevelOne extends LevelScene {
+          // ...
+          AudioManager.getInstance().changeBackgroundAudio(BackgroundAudioType.LEVEL);
+      }
+      ```
+      
+    <br>
+
+    6. **Sound Effects Integration:**
+      - Sound effects are triggered for various actions, such as firing projectiles, collisions, and game events.
+      ```java
+      public class UserPlane extends FighterPlane {
+          @Override
+          public ActiveActorDestructible fireProjectile() {
+              AudioManager.getInstance().fireEffectAudio(EffectAudioType.USERFIRE);
+              return new UserProjectile(getProjectileXPosition(PROJECTILE_X_POSITION), getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
+          }
+      }
+
+      public class CollisionManager {
+          public void handleCollisions(List<ActiveActorDestructible> actors1, List<ActiveActorDestructible> actors2, EffectAudioType effectAudioType) {
+              for (ActiveActorDestructible act1 : actors1) {
+                  for (ActiveActorDestructible act2 : actors2) {
+                      if (act1.getBoundsInParent().intersects(act2.getBoundsInParent())) {
+                          act1.takeDamage();
+                          act2.takeDamage();
+                          if (effectAudioType != null)
+                              AudioManager.getInstance().fireEffectAudio(effectAudioType);
+                      }
+                  }
+              }
+          }
+      }
+      ```
+
+  <br>
+
+  - **Future Improvements:**
+    - **Volume Control:** Implement a volume control system to allow players to adjust the volume of background music and sound effects.
+    - **Dynamic Audio Switching:** Add logic to dynamically switch background music based on game events (e.g., increasing intensity during boss fights).
+    - **Audio Caching:** Cache frequently used sound effects to reduce loading times and improve performance.
+
+
+<br>
+
+
+11. **Implemented Sound Toggle Button**
+  - **Why is this feature needed?**
+		- A sound toggle button allows players to enable or disable sound effects and background music during gameplay. This feature is essential for players who prefer to play without sound or who may need to mute the game in certain environments.
+
+  <br>
+
+	- **How is it implemented?**
+		- A sound toggle button is added to the game interface, allowing players to switch between sound on and sound off states. The button changes its appearance based on the current sound state and updates the `AudioManager` accordingly.
+
+  <br>
+
+	- **Implementation Steps:**
+		1. **Add Sound Toggle Button to GameScene:**
+			- The `GameScene` class is updated to include a sound toggle button. This button is initialized in the constructor and added to the root layout.
+
+			```java
+			protected ArrayList<Node> topNode;
+
+			public GameScene(String backgroundImageName, double screenWidth, double screenHeight) {
+					// Existing code
+					Button tempButton = initSoundButton();
+					this.root.getChildren().add(tempButton);
+					this.topNode.add(tempButton);
+			}
+			```
+
+  	<br>
+
+		2. **Initialize Sound Toggle Button:**
+			- The `initSoundButton` method creates the sound toggle button, sets its position, and defines its action (toggling sound on/off).
+
+			```java
+			protected Button initSoundButton() {
+					Button soundButton;
+					if (AudioManager.getInstance().getHasSound())
+							soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/sound_yes.png").toExternalForm());
+					else
+							soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/sound_no.png").toExternalForm());
+
+					// ......
+
+					return soundButton;
+			}
+			```
+
+  	<br>
+
+		3. **Update AudioManager to Handle Sound State:**
+			- The `AudioManager` class is updated to include a `hasSound` boolean flag, which determines whether sound effects and background music should be played.
+
+			```java
+			public class AudioManager {
+					private boolean hasSound;
+
+					// existing code	
+			}
+			```
+
+  <br>
+
+	- **Future Improvements:**
+		- Add a visual indicator (e.g., tooltip) to explain the button's function when hovered over.
+		- Allow players to customize the sound volume separately for background music and sound effects.
+		- Save the sound state in a configuration file so it persists across game sessions.
+
+
+<br>
+
+
+12. **Top Node Management for UI Elements**
+	- **Why is this feature needed?**
+		- Ensuring that UI elements like the pause button, heart display, and sound toggle button remain on top of other game elements (e.g., enemies, projectiles) is crucial for a smooth user experience. This prevents these elements from being obscured by game objects.
+		
+	<br>
+
+	- **How is it implemented?**
+		- A `topNode` list is introduced in the `GameScene` class to manage UI elements that should always remain on top. A `ListChangeListener` is used to ensure that these elements are repositioned to the top of the scene's node hierarchy whenever new elements are added.
+
+	<br>
+
+	- **Implementation Steps:**
+		1. **Add Top Node List to GameScene:**
+			- The `topNode` list is initialized in the `GameScene` constructor and populated with UI elements.
+
+			```java
+			protected ArrayList<Node> topNode;
+
+			public GameScene(String backgroundImageName, double screenWidth, double screenHeight) {
+					// Existing code
+					this.topNode = new ArrayList<Node>();
+
+					Button tempButton = initSoundButton();
+					this.root.getChildren().add(tempButton);
+					this.topNode.add(tempButton);
+			}
+			```
+
+		<br>
+
+		2. **Add ListChangeListener to Manage Top Nodes:**
+			- A `ListChangeListener` is added to the root's children to ensure that top nodes are always repositioned to the top of the hierarchy.
+
+			```java
+			this.root.getChildren().addListener((ListChangeListener<Node>) change -> {
+					while (change.next()) {
+							ObservableList<Node> tempChildren = this.root.getChildren();
+							if (change.wasAdded()) {
+									if (!(change.getAddedSubList().stream().anyMatch(topNode::contains))) {
+											for (Node node : topNode) {
+													if (tempChildren.contains(node)) {
+															Platform.runLater(() -> {
+																	this.root.getChildren().remove(node);
+																	this.root.getChildren().add(node);
+															});
+													}
+											}
+									}
+							}
+					}
+			});
+			```
+
+		<br>
+
+		3. **Add UI Elements to Top Node List:**
+			- UI elements like the pause button, heart display, and pause menu are added to the `topNode` list in the `LevelScene` class.
+
+			```java
+			this.root.getChildren().addAll(userUnit, pauseButton);
+			topNode.add(pauseButton);
+			topNode.add(levelView.getHeartDisplay());
+			topNode.add(pauseMenu);
+			```
+
+	<br>
+
+	- **Future Improvements:**
+		- Extend the `topNode` management to include other UI elements (e.g., score display, boss health bar).
+		- Allow developers to dynamically add or remove top nodes without modifying the core logic.
+		- Add unit tests to ensure that top nodes are always positioned correctly.
+
+
+<br>
+
+
+13. **Added Boss Health Bar**
+  - **Why is this feature needed?**
+    - A health bar has been introduced for the boss in `LevelThree`, providing players with real-time feedback on the boss's remaining health. A health bar for the boss is essential for gameplay clarity and player engagement. It allows players to gauge the boss's remaining health, making the battle more strategic and engaging.
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **HealthBarDisplay Class:**
+      - A new class `HealthBarDisplay` was created to manage the health bar's appearance and functionality.
+      ```java
+      public class HealthBarDisplay {
+          private static final double BAR_WIDTH = 500;
+          private static final double BAR_HEIGHT = 25;
+          private final ProgressBar healthBar;
+          private int maxHealth;
+
+          public HealthBarDisplay(int maxHealth) {
+              this.maxHealth = maxHealth;
+              healthBar = new ProgressBar(1.0);
+              healthBar.setPrefWidth(BAR_WIDTH);
+              healthBar.setPrefHeight(BAR_HEIGHT);
+              healthBar.setLayoutX((1366 - 500) / 2);
+              healthBar.setLayoutY(25);
+              healthBar.setStyle("-fx-accent: red;"); 
+          }
+
+          public void updateHealth(int currentHealth) {
+              double healthRatio = (double) currentHealth / maxHealth;
+              healthBar.setProgress(healthRatio);
+              if (healthRatio > 0.3) {
+                  healthBar.setStyle("-fx-accent: red;");
+              } else {
+                  healthBar.setStyle("-fx-accent: yellow;");
+              } 
+          }
+
+          public ProgressBar getHealthBar() {
+              return healthBar;
+          }
+      }
+      ```
+
+    <br>
+
+    2. **Integration with Boss Class:**
+     - The `Boss` class was modified to include a reference to `LevelView` and to update the health bar whenever the boss's health changes.
+     ```java
+     public class Boss extends FighterPlane {
+         private final LevelView levelView;
+
+         public Boss(LevelView levelView) {
+             super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
+             this.levelView = levelView;
+             levelView.showHealthBarDisplay(HEALTH);
+         }
+
+         @Override
+         public void update() {
+             updatePosition();
+             updateShield();
+             updateShieldView();
+             levelView.updateHealthBarDisplay(getHealth());
+         }
+     }
+     ```
+
+    <br>
+
+    3. **LevelView Class:**
+      - The `LevelView` class was updated to manage the health bar display.
+      ```java
+      public class LevelView {
+          private HealthBarDisplay healthBarDisplay;
+
+          public void showHealthBarDisplay(int maxHealth) {
+              healthBarDisplay = new HealthBarDisplay(maxHealth);
+              root.getChildren().add(healthBarDisplay.getHealthBar());
+          }
+
+          public void updateHealthBarDisplay(int health) {
+              healthBarDisplay.updateHealth(health);
+          }
+      }
+      ```
+
+  <br>
+
+  - **Future Improvements:**
+    - **Health Bar Animation:** Add animations to the health bar to make it more visually appealing when health changes.
+    - **Health Bar Positioning:** Allow customization of the health bar's position and size based on the game's layout.
+
+
+<br><br><br>
 
 
 ## Implemented but Not Working Properly
 
-- **Feature 3: Email Notifications**
-  - Description: Users should receive email notifications upon certain actions. Currently, the email sending functionality is not working due to issues with the SMTP server configuration.
-  - Issues: SMTP server settings are not correctly configured, leading to failed email deliveries.
-  - Steps Taken: Tried updating the SMTP server details in the configuration file (`src/main/resources/application.properties`), but the issue persists.
+1. **Pause Menu Functionality**
+  - **Why is this feature needed?**
+  - The game now includes a fully functional pause menu that allows the player to pause the game, resume it, or exit to the main menu. A pause menu is a standard feature in most games, providing players with the ability to take a break, review the game state, or exit to the main menu without losing progress. It enhances the user experience by offering flexibility and control.
+
+  <br>
+
+  - **Implementation Steps:**
+    1. **Game State Management:**
+      - The `GameState` class was updated to manage the game's state, including the addition of a `PAUSED` state.
+    
+    <br>
+
+    2. **Pause Menu Initialization:**
+      - The `LevelScene` class was updated to include a `VBox` for the pause menu, which is initialized in the `initPauseMenu()` method.
+    
+    <br>
+
+    3. **Showing and Hiding the Pause Menu:**
+      - The `showPauseMenu()` method is called when the `ESCAPE` key is pressed, setting the game state to `PAUSED` and adding the pause menu to the root group.
+      ```java
+      private void showPauseMenu() {
+          Game.getInstance(null).setStatePauseGame();
+          root.getChildren().add(pauseMenu);
+      }
+      ```
+
+      - The `resumeGame()` method is called when the "Continue" button is pressed, removing the pause menu from the root group and setting the game state to `RUNNING`.
+      ```java
+      private void resumeGame() {
+          Platform.runLater(() -> {
+              root.getChildren().removeLast();
+              root.requestLayout();
+          });
+          Game.getInstance(null).setStateResumeGame();
+      }
+      ```
+
+    <br>
+    
+    4. **Key Event Handling:**
+      - The `setOnKeyPressed` method in `LevelScene` was updated to handle the `ESCAPE`key, toggling the pause menu.
+
+    <br>
+
+    5. **Button Creation:**
+      - The `createButton()` method was added to create buttons with custom styles andactions.
+    
+  <br>
+
+  - **Issues Encountered**
+    - Despite the implementation, the pause menu occasionally remains on the screen after resuming the game. This issue arises sporadically and is not consistently reproducible.
+
+  <br>
+
+  - **Steps Taken to Address the Issue**
+    1. **Initial Debugging**:
+      - The first step was to ensure that the `resumeGame()` method was correctly removing the pause menu from the scene. This was done by adding debug logs and verifying that the `root.getChildren().removeLast()` method was being called.
+
+    2. **Thread Safety**:
+      - Since JavaFX UI updates must be performed on the JavaFX Application Thread, `Platform.runLater()` was used in the `resumeGame()` method to ensure that the pause menu removal happens on the correct thread.
+
+    3. **State Consistency**:
+      - The game state was checked to ensure that it transitions correctly from `PAUSED` to `RUNNING`. However, the issue persisted, indicating that the problem might not be related to state management.
+
+    4. **UI Update Timing**:
+      - It was suspected that the UI update might be happening too quickly or too slowly, causing the pause menu to remain visible. However, adjusting the timing did not resolve the issue.
+
+    5. **Scene Graph Inspection**:
+      - The scene graph was inspected to ensure that the pause menu was being added and removed correctly. This involved logging the contents of `root.getChildren()` before and after the pause menu was removed. However, it has shown that the `pauseMenu` node has been removed but is still displayed on the screen.
+
+  <br>
+
+  - **Potential Causes of the Issue**
+    1. **Race Conditions**:
+      - There might be a race condition where the pause menu is not removed quickly enough, or the game state transitions too slowly, causing the pause menu to remain visible.
+
+    2. **UI Update Lag**:
+      - The JavaFX UI might be experiencing lag or delays in updating the scene graph, causing the pause menu to remain visible even after the `resumeGame()` method is called.
+
+  <br>
+
+  - **Conclusion**
+    - Unfortunately, despite using all methods, it is still an issue and cannot be solved with no knowed resolving method. However, the good news is that this issue only happens when the user spam pauses the game, in other words, if the user uses pause menu infrequently, this issue will normally not show up.
+
+
+<br>
+
+
+2. **Exit Button Functionality**
+  - **Why is this feature needed?**
+  - The exit button was implemented in the `LevelScene` class to allow users to exit the game gracefully. The goal was to play a sound effect (`EffectAudioType.CLICK`) before closing the application.
+
+  <br>
+
+  - **Exit Button Action**:
+    - The `setOnAction` method is used to define the behavior of the exit button. When the button is clicked, the following actions are performed:
+    - The `AudioManager.getInstance().fireEffectAudio(EffectAudioType.CLICK)` method is called to play the sound effect.
+    - The `System.exit(0)` method is called to terminate the application.
+
+  <br>
+
+  - **Issues Encountered**
+    - The primary issue is that the sound effect (`EffectAudioType.CLICK`) does not play before the application closes. Despite trying various approaches, such as asynchronous execution and delays, the sound effect is not consistently heard.
+
+  <br>
+
+  - **Steps Taken to Address the Issue**
+    1. **Initial Debugging**:
+      - The first step was to verify that the `fireEffectAudio()` method is being called when the exit button is clicked. This was done by adding debug logs and confirming that the method is invoked.
+
+    2. **Asynchronous Execution**:
+      - To ensure that the sound effect plays before the application closes, the exit action was wrapped in an asynchronous task using `Platform.runLater()` or `CompletableFuture`. However, this did not resolve the issue, as the application still closed before the sound effect could play.
+
+    3. **Delayed Execution**:
+      - A delay was introduced using `Thread.sleep()` or `Task.delay()` to give the sound effect time to play before the application closed. While this sometimes worked, it was not a reliable solution and introduced unwanted delays.
+
+    4. **AudioManager Review**:
+      - The `AudioManager` class was reviewed to ensure that the `fireEffectAudio()` method correctly plays the sound effect. No issues were found with the audio playback logic.
+
+    5. **System.exit() Behavior**:
+      - The behavior of `System.exit(0)` was investigated to understand why it terminates the application so quickly that the sound effect does not have time to play. It was determined that `System.exit(0)` forcefully terminates the JVM, which may interrupt any ongoing processes, including audio playback.
+
+  <br>
+
+  - **Potential Causes of the Issue**
+    1. **Immediate Application Termination**:
+      - The `System.exit(0)` method terminates the JVM immediately, without waiting for any ongoing processes (such as audio playback) to complete. This causes the sound effect to be cut off before it can finish playing.
+
+    2. **Thread Interruption**:
+      - The asynchronous execution of the exit action may be interrupted by the JVM shutdown, preventing the sound effect from playing.
+
+    3. **JavaFX Audio Playback Timing**:
+      - JavaFX's audio playback system may not be able to handle the rapid shutdown of the application, causing the sound effect to be skipped.
+
+  <br>
+
+  - **Conclusion**
+    - Unfortunately due to the unwanted behaviours of delays, the issue cannot be fixed.
+
+<br><br><br>
+
 
 ## Features Not Implemented
 
-- **Feature 4: Social Media Integration**
-  - Description: Integration with social media platforms for sharing content.
-  - Reason: Due to time constraints and the complexity of integrating multiple APIs, this feature was not implemented.
+1. **Kill Count Indicator**  
+  - **Description:** The kill count indicator was intended to provide real-time feedback on the player's performance by displaying the number of enemies defeated. 
+  - **Reason:** Implementing this feature required a robust system for tracking and updating the kill count dynamically during gameplay. Given the complexity of needing to refactor certain classes like LevelState and Kill manager in order to synchronize this data with the game's event-driven architecture and ensuring smooth performance, it was not feasible to include this feature within the project timeline.
+
+<br>
+
+2. **Difficulty Selector**  
+  - **Description:** A difficulty selector would have allowed players to customize their experience by adjusting the game's challenge level. 
+  - **Reason:** While the logic for varying difficulty levels (e.g., enemy speed, player health, or resource availability) was conceptually straightforward, integrating this feature required significant changes to the game's core mechanics and balancing. Due to the time-intensive nature of testing and refining these adjustments across different difficulty settings, this feature was deferred. However, in place of it, we do have multiple levels in the game which could also act as a difference in difficulty of gameplay.
+
+<br>
+
+3. **Separate Control for Muting Background Music and Effect Audio**  
+  - **Description:** Providing players with the ability to independently mute background music and sound effects was a planned enhancement for personalization.  
+  - **Reason:** The additional button mechanics needed to implement the selection would require a rehaul of the game scenes and introduced additional complexity and potential performance overhead. As a result, this feature was not included in the final version.
+
+<br>
+
+4. **In-Game Volume Control**  
+  - **Description:** An in-game volume control was intended to allow players to adjust the game's audio settings dynamically during gameplay. 
+  - **Reason:** While this feature is relatively simple in concept, integrating it required modifying the game's UI framework to accommodate a volume slider and ensuring that changes to audio levels were applied seamlessly across all audio streams. Given the time constraints and the need to prioritize core gameplay mechanics, this feature was not implemented.
+
+<br>
+
+5. **Leaderboard with Persistence Storage**  
+  - **Description:** A leaderboard system with persistent storage was planned to allow players to track their high scores and compare their performance with others. 
+  - **Reason:** However, implementing this feature required integrating a robust data storage solution, such as a database or file-based persistence, and ensuring secure and efficient data handling. Given the complexity of setting up and managing persistent storage within the JavaFX environment, this feature was not included in the final version.
+
+
+<br><br><br>
 
 
 ## New Java Class
