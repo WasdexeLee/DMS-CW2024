@@ -45,9 +45,9 @@ public class ProjectileManagerTest extends ApplicationTest {
         this.mockProjectile2 = mock(EnemyProjectile.class,
                 withSettings().useConstructor(100.0, 100.0).defaultAnswer(CALLS_REAL_METHODS));
         this.mockEnemy1 = mock(EnemyPlane.class,
-                withSettings().useConstructor(1366.0, 200.0, "enemyplane1.png", .2).defaultAnswer(CALLS_REAL_METHODS));
+                withSettings().useConstructor(1366.0, 200.0, "plane/enemyplane1.png", .2).defaultAnswer(CALLS_REAL_METHODS));
         this.mockEnemy2 = mock(EnemyPlane.class,
-                withSettings().useConstructor(1366.0, 200.0, "enemyplane1.png", .2).defaultAnswer(CALLS_REAL_METHODS));
+                withSettings().useConstructor(1366.0, 200.0, "plane/enemyplane1.png", .2).defaultAnswer(CALLS_REAL_METHODS));
         this.mockRoot = spy(new Group());
     }
 

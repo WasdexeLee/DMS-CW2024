@@ -25,7 +25,7 @@ public class EnemyPlaneTest extends ApplicationTest {
 
     @BeforeEach
     public void setUp() {
-        enemyPlane = new EnemyPlane(1000, 400, "enemyplane1.png", 0.5);
+        enemyPlane = new EnemyPlane(1000, 400, "plane/enemyplane1.png", 0.5);
     }
 
     // Test logic: Ensure the EnemyPlane is correctly initialized with the expected

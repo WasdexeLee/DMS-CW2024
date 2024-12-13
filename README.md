@@ -43,7 +43,7 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 <br>
 
 2. **Install Dependencies:**
-  - Ensure you have Java JDK 21 (21.0.5) installed.
+  - Ensure you have Java JDK 21 (21.0.5) installed. (Amazon Corretto 21.0.5 for IntelliJ)
     - **Java JDK 21 Download Link (from Oracle):** https://www.oracle.com/my/java/technologies/downloads/#jdk21-windows
     - **Java JDK Setup Tutorial:** https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html
 
@@ -61,11 +61,18 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 <br>
 
 3. **Run the Game:**
-  - Ensure that you are in the directory of `DMS-CW2024\`
+  - **Run in Command Line**
+    - Ensure that you are in the directory of `DMS-CW2024\`
 
-  ```bash
-  mvn clean javafx:run
-  ```
+    ```bash
+    mvn clean javafx:run
+    ```
+    
+  - **Run in IntelliJ**
+    - Open clone repo as project in IntelliJ
+    - Go to Maven Sidepanel
+    - Under Plugins, JavaFX, click javafx:run
+
 
   - The game should now be running.
   
@@ -74,7 +81,8 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 4. **Run JUnit Tests:**
   - Ensure that you are in the directory of `DMS-CW2024\`
   - Ensure that no other JVM instances or Java apps are running (including other coursework games) as JavaFX might give certain errors and result in Build Failure
-
+  - In Co
+  
   ```bash
   mvn clean test
   ```

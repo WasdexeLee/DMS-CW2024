@@ -44,9 +44,9 @@ public class KillManagerTest extends ApplicationTest {
         this.mockLevelView = mock(LevelView.class);
         this.mockUserPlane = mock(UserPlane.class);
         this.mockEnemy1 = mock(EnemyPlane.class,
-                withSettings().useConstructor(1366.0, 200.0, "enemyplane1.png", .2).defaultAnswer(CALLS_REAL_METHODS));
+                withSettings().useConstructor(1366.0, 200.0, "plane/enemyplane1.png", .2).defaultAnswer(CALLS_REAL_METHODS));
         this.mockEnemy2 = mock(EnemyPlane.class,
-                withSettings().useConstructor(1366.0, 200.0, "enemyplane1.png", .2).defaultAnswer(CALLS_REAL_METHODS));
+                withSettings().useConstructor(1366.0, 200.0, "plane/enemyplane1.png", .2).defaultAnswer(CALLS_REAL_METHODS));
 
         setPrivateField(null, mockLevelState, "instance");
     }
