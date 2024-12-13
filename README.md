@@ -1,6 +1,11 @@
 # Sky Battle
 
 
+## Student
+- **Full Name (as per NRIC):** Lee Jia Zhe
+- **Student ID:** 20516230
+
+
 <br>
 
 
@@ -21,54 +26,164 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 
 ## GitHub Repository
-[Link to GitHub Repository](https://github.com/yourusername/your-repo)
+[Link to GitHub Repository](https://github.com/WasdexeLee/DMS-CW2024)
+[https://github.com/WasdexeLee/DMS-CW2024](https://github.com/WasdexeLee/DMS-CW2024)
 
 
+<br>
 
 
 ## Compilation Instructions
 1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/yourusername/your-repo.git
-   cd your-repo
-   ```
+  ```bash
+  git clone https://github.com/WasdexeLee/DMS-CW2024
+  cd DMS-CW2024
+  ```
+
+<br>
 
 2. **Install Dependencies:**
-   - Ensure you have Java JDK 11 or later installed.
-   - Install Maven if not already installed:
-     ```bash
-     sudo apt-get install maven
-     ```
+  - Ensure you have Java JDK 21 (21.0.5) installed.
+    - **Java JDK 21 Download Link (from Oracle):** https://www.oracle.com/my/java/technologies/downloads/#jdk21-windows
+    - **Java JDK Setup Tutorial:** https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html
 
-3. **Compile the Code:**
-   ```bash
-   mvn clean install
-   ```
+  <br>
 
-4. **Run the Application:**
-   ```bash
-   java -jar target/your-project.jar
-   ```
+  - Ensure you have Apache Maven (3.9.8) installed.
+    - **Apache Maven 3.9.8 Download Link (from Apache Maven Project):** https://dlcdn.apache.org/maven/maven-3/3.9.8/binaries/apache-maven-3.9.8-bin.zip
+    - **Apache Maven 3.9.8 Installation Tutorial:** https://maven.apache.org/install.html
+
+  <br>
+  
+  - The game has been developed and tested to be fully functioning in <b>Java JDK 21 (21.0.5) | Apache Maven (3.9.8) | Windows 11 Home 23H2</b>. Other versions of Java JDK, Apache Maven and Windows are not officially supported and may result in unwanted behaviour. 
+  - Other dependencies such as JavaFX, JUnit, Surefire etc. have been configured in the `pom.xml`
+
+<br>
+
+3. **Run the Game:**
+  - Ensure that you are in the directory of `DMS-CW2024\`
+
+  ```bash
+  mvn clean javafx:run
+  ```
+
+  - The game should now be running.
+  
+<br>
+
+4. **Run JUnit Tests:**
+  - Ensure that you are in the directory of `DMS-CW2024\`
+  - Ensure that no other JVM instances or Java apps are running (including other coursework games) as JavaFX might give certain errors and result in Build Failure
+
+  ```bash
+  mvn clean test
+  ```
+
+  - The process make take a bit of time, and might ramp up the CPU usage to high or even 100% usage. 
+  - Such situations are totally normal as a new JVM instance is used for every JUnit Test Class.
+  - New JVM instance is use as integration testing of `JavaFX` components require `TestFX` which has been included in the `pom.xml`.
+  - The use of `TestFX` and `ApplicationTest` is a bit delicate and requires a new JVM instance to ensure no carry over setup from other Test Classes.
+  - There also may be `Build Errors`. This is infrequent but can happen. However, when checking the test cases, they should be fine and are all passed.
+  - In the case that there are `Errors` and not `Failures`, re-run the test again as it maybe due to another JVM instance causing errors.
+
+<br>
+
+5. **Viewing JavaDoc:**
+  - Navigate to the Javadoc folder included in the `COMP2042LeeJiaZhe.zip`
+  - Ensure that you are in the directory of `Javadoc\`
+  - Click / run `index.html` to view the Javadoc
 
 
+<br><br><br>
 
 
 ## Bug Fixes
-- **Fixed InvocationTargetException Thrown Alert Box**: Exception thrown due to wrong naming and not using name constant declared | fixed by renaming and using constant
+- **Fixed InvocationTargetException Thrown Alert Box:**
+  - **Issue:** 
+    -An `InvocationTargetException` was thrown due to incorrect naming and the failure to use a predefined constant for the image path, causing an alert box to appear unexpectedly.
 
-- **Added stopTimeline to Stop Game Logic**: Added and called stopTimeline method to stop timeline from running game logic endlessly, which checks and calls goToNextLevel() method, which endlesssly create new LevelTwo instances until garbage collection
+  - **Resolution:**
+    - Corrected the image path by using the predefined constant (`IMAGE_NAME`) instead of a hardcoded path.
+    - Updated the constant to reflect the correct resource location (`/com/example/demo/images/shield.png`).
 
-- **Cropped Image to Fix HitBox Too Large**: Cropped image to reduce HitBox, recalculated and reassign image scalling
+<br>
 
-- **Modified EnemyPlane Despawn**: Modified EnemyPlane to only despawn if entire plane has left screen view instead of only the front of the EnemyPlane touching the edge of screen
+- **Reduced Hitbox by Cropping Images and Recalculating Heights:**
+  - **Issue:**
+    - The hitboxes of game objects were too large, leading to unintended collisions and gameplay inconsistencies.
 
-- **Added Deletion of Projectiles**: Deletion of projectiles when projectiles have move out of the screen
+  - **Resolution:**
+    - Cropped images for various game objects (e.g., `Boss`, `EnemyPlane`, `UserPlane`, `EnemyProjectile`, `UserProjectile`) to reduce their visual size.
+    - Recalculated the `IMAGE_HEIGHT` for each object to match the new dimensions, ensuring accurate hitbox adjustments.
+    - Updated the corresponding image files in the resources to reflect the cropped versions.
 
-- **Fixed ShieldImage Display**: Fixed BossPlane ShieldImage not displaying issue
+<br>
 
-- **Fixed EnemyPlane Penetration Bug**: Fixed EnemyPlane penetration triggering kill count +1 (Penetration of EnemyPlane was previously handled as an EnemyPlane kill)
+- **Modified EnemyPlane Despawning After Entire Plane Exists Screen View:**
+  - **Issue:**
+    - Enemy planes were despawning only when their center point exited the screen, which could lead to them still being partially visible and causing unintended gameplay behavior.
 
-- **Fixed EnemyPlane Collision Bug**: Fixed EnemyPlane collision with UserPlane triggering kill count +1 (Collision of UserPlane and EnemyPlane was previously handled as an EnemyPlane kill)
+  - **Resolution:**
+    - Adjusted the condition for despawning enemy planes to ensure they are removed only after their entire plane (including its bounds) has exited the screen.
+    - Updated the `enemyHasPenetratedDefenses` method to account for the full width of the enemy plane when checking if it has left the screen.
+
+<br>
+
+- **Added Deletion of Projectiles Moving Out of Screen:**
+  - **Issue:**
+    - Projectiles (both enemy and user) were not being removed when they moved out of the screen, leading to unnecessary memory usage and potential performance issues.
+
+  - **Resolution:**
+    - Implemented a `handleProjectileOutOfScreen` method in `LevelParent` to detect and destroy projectiles that have exited the screen.
+    - Called this method for both `enemyProjectiles` and `userProjectiles` during the `updateScene` process to ensure timely removal of out-of-bounds projectiles.
+    - Added a `finalize` method to `EnemyProjectile` for memory validation during garbage collection.
+
+<br>
+
+- **Fixed BossPlane ShieldImage Not Displaying Issue:**
+  - **Issue:**
+    - The `ShieldImage` for the `BossPlane` was not displaying correctly, preventing the shield from being visually represented during gameplay.
+
+  - **Resolution:**
+    - Updated the `Boss` class to include methods for tracking the shield's state and movement.
+    - Modified the `LevelViewLevelTwo` class to properly show and hide the `ShieldImage` based on the `Boss` shield state.
+    - Ensured the `ShieldImage` moves in sync with the `BossPlane` by updating its position during each frame.
+    - Adjusted the `ShieldImage` positioning and scaling to match the `BossPlane` correctly.
+
+<br>
+
+- **Fixed EnemyPlane Penetration Handled as EnemyPlane Kill:**
+  - **Issue:**
+    - When an `EnemyPlane` penetrated the player's defenses, it was incorrectly being counted as a kill, leading to inaccurate kill counts and gameplay inconsistencies.
+
+  - **Resolution:**
+    - Adjusted the game logic to ensure that `EnemyPlane` penetration does not trigger a kill count.
+    - Moved the `removeAllDestroyedActors()` method call before `updateNumberOfEnemies()` to ensure that destroyed actors are properly removed before updating the enemy count.
+
+<br>
+
+- **Fixed Shadow of Button 'Start Game' and 'Exit' Being Clickable:**
+  - **Issue:**
+    - The shadow effect applied to the "Start Game" and "Exit" buttons was clickable, allowing users to interact with it and trigger unintended actions.
+
+  - **Resolution:**
+    - Wrapped the buttons in a `StackPane` to ensure that only the button area itself is clickable, preventing interaction with the shadow.
+    - Adjusted the shadow properties to improve visual appearance without affecting functionality.
+    - Updated the button styling to ensure proper background image rendering and alignment.
+
+<br>
+
+- **Fixed Bug of Previous Action (Left, Right, Fire) of UserPlane Continues After Pause:**
+  - **Issue:**
+    - When the game was paused, the `UserPlane` continued to perform its previous actions (e.g., moving left, right, or firing) after resuming, leading to unintended behavior.
+
+  - **Resolution:**
+    - Added calls to stop all user actions (`stopLeft()`, `stopRight()`, `stopUp()`, `stopDown()`, and `setIsFiring(false)`) when the game is paused.
+    - This ensures that the `UserPlane` remains idle during the pause and does not continue its previous actions after resuming.
+
+
+<br><br><br>
+
 
 ## Implemented and Working Properly
 
@@ -380,6 +495,7 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
       ```
 
   <br>
+
   - **Future Improvements:**
     - **Fire Rate Control:** Implementing a fire rate control system to allow players to adjust the rate of fire.
     - **Weapon Upgrades:** Adding weapon upgrades that can increase the fire rate or change the type of projectiles fired.
@@ -3532,36 +3648,155 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
     - **Reasoning for Modification:** The `LoseScene` class now handles the display of the "Game Over"  image, making the code more modular and easier to maintain.
 
 
-<br><br><br><br><br>
+<br><br><br>
 
 
 ## Unexpected Problems
 
-- **Problem 1: Dependency Conflicts**
-  - Description: During the Maven build, there were conflicts between different versions of the same dependency.
-  - Resolution: Resolved by explicitly specifying the compatible versions in the `pom.xml` file.
+1. **JavaFX Version Compatibility Issue**
+  - **Problem:** Initially, the game was unable to run due to compatibility issues with the JavaFX version specified in the Maven `pom.xml`. The default version caused runtime errors, preventing the application from launching.
+
+  - **Solution:** After diagnosing the issue, I identified that the JavaFX version needed to be updated to ensure compatibility with the JDK and other dependencies. I upgraded the JavaFX version to `19.0.2` in the Maven configuration. This involved explicitly specifying the correct version in the `pom.xml` and ensuring that the required JavaFX modules were included. The updated configuration resolved the runtime errors, allowing the game to run smoothly.
+
+  - **Technical Details:**
+    - Updated the JavaFX version in the `pom.xml` to `19.0.2`.
+    - Ensured that the correct JavaFX modules (`javafx.controls`, `javafx.fxml`, etc.) were included as dependencies.
+    - Verified compatibility with the JDK version being used.
+
+<br>
+
+2. **JUnit Testing JavaFX Core Functionality**
+  - **Problem:** Standard JUnit tests were unable to effectively test JavaFX-specific functionality, such as UI components and event handling, due to the limitations of JUnit in interacting with the JavaFX Application Thread.
+
+  - **Solution:** To address this, I integrated **TestFX**, a specialized testing framework designed for JavaFX applications. TestFX provides the `ApplicationTest` class, which allows for robust unit testing of JavaFX components by running tests on the JavaFX Application Thread. This enabled me to write comprehensive tests for UI elements, event handlers, and other core JavaFX functionality.
+
+  - **Technical Details:**
+    - Added the TestFX dependency to the `pom.xml`.
+    - Extended the `ApplicationTest` class in my test cases to ensure tests ran on the JavaFX Application Thread.
+    - Implemented test scenarios for UI components, event handling, and other JavaFX-specific features.
+
+<br>
+
+3. **Carryover Configuration in JUnit Tests**
+  - **Problem:** Running multiple JUnit test classes on a single JVM instance caused carryover configurations, particularly with TestFX, leading to inconsistent test results and potential conflicts between tests.
+
+  - **Solution:** To mitigate this issue, I disabled the reuse of JVM instances for JUnit tests. By configuring the `maven-surefire-plugin` to fork multiple JVM instances, each test class ran in isolation, eliminating the risk of carryover configurations. Additionally, I increased the number of forked JVM instances to `20` to parallelize the testing process and improve overall build speed.
+
+  - **Technical Details:**
+    - Configured the `maven-surefire-plugin` in the `pom.xml` to disable JVM reuse (`reuseForks=false`).
+    - Set the `forkCount` to `20` to parallelize test execution and speed up the testing process.
+    - Ensured that each test class ran in a separate JVM instance, preventing configuration conflicts.
+
+<br>
+
+4. **Maven Javadoc Plugin Not Generating Documentation**
+  - **Problem:** The Maven Javadoc plugin failed to generate Javadoc documentation as expected, resulting in incomplete or missing documentation for the project.
+
+  - **Solution:** After investigating the issue, I identified that the Javadoc plugin required proper configuration to function correctly. I added the `maven-javadoc-plugin` to the `pom.xml` and configured it with the necessary settings, such as specifying the output directory and enabling additional Javadoc options. This ensured that the Javadoc documentation was generated accurately and consistently.
+
+  - **Technical Details:**
+    - Added the `maven-javadoc-plugin` to the `pom.xml`.
+    - Configured the plugin with appropriate settings, including the output directory and additional Javadoc options.
+    - Verified that the Javadoc documentation was generated correctly by running `mvn javadoc:javadoc`.
+
+<br>
+
+5. **Development Environment Setup with Visual Studio Code**
+  - **Problem:** While Visual Studio Code (VS Code) is a powerful editor, its setup for JavaFX development was not as straightforward as IntelliJ IDEA. The lack of built-in Maven integration and JavaFX support required additional configuration to achieve a comparable quality of life.
+
+  - **Solution:** To overcome this, I carefully configured the `pom.xml` to ensure proper Maven integration and JavaFX support in VS Code. I also installed the necessary VS Code extensions, such as the **Java Extension Pack** and **Maven for Java**, to enhance development efficiency. While the setup required more manual effort compared to IntelliJ, it provided a functional and productive development environment.
+
+  - **Technical Details:**
+    - Configured the `pom.xml` to include all necessary dependencies and plugins for JavaFX and Maven.
+    - Installed and configured VS Code extensions for Java and Maven development.
+    - Ensured that the project structure and configurations were compatible with VS Code.
+
+
+<br><br><br>
 
 
 ## Project Structure
 
 ```
-your-repo-name/
+CW2024/
+├── .idea/
+├── .mvn/
 ├── src/
 │   ├── main/
 │   │   ├── java/
-│   │   │   ├── com/
-│   │   │   │   └── example/
-│   │   │   │       └── demo/
-│   │   │   │           ├── Main.java
-│   │   │   │           ├── Player.java
-│   │   │   │           ├── GameController.java
-│   │   │   │           └── ...
+│   │   │    ├─── com/
+│   │   │    │   └── example/
+│   │   │    │       └── demo/
+│   │   │    │           ├── actors/
+│   │   │    │           │   ├── enemy/
+│   │   │    │           │   │   ├── Boss.java
+│   │   │    │           │   │   └── EnemyPlane.java
+│   │   │    │           │   ├── projectile/
+│   │   │    │           │   │   ├── BossProjectile.java
+│   │   │    │           │   │   ├── EnemyProjectile.java
+│   │   │    │           │   │   └── UserProjectile.java
+│   │   │    │           │   ├── props/
+│   │   │    │           │   │   ├── HealthBarDisplay.java
+│   │   │    │           │   │   ├── HeartDisplay.java
+│   │   │    │           │   │   └── ShieldImage.java
+│   │   │    │           │   ├── user/
+│   │   │    │           │   │   └── UserPlane.java
+│   │   │    │           │   ├── ActiveActor.java
+│   │   │    │           │   ├── ActiveActorDestructible.java
+│   │   │    │           │   ├── Destructible.java
+│   │   │    │           │   ├── FighterPlane.java
+│   │   │    │           │   └── Projectile.java
+│   │   │    │           |
+│   │   │    │           ├── audio/
+│   │   │    │           │   ├── background/
+│   │   │    │           │   │   └── BackgroundAudio.java
+│   │   │    │           │   ├── effect/
+│   │   │    │           │   │   └── EffectAudio.java
+│   │   │    │           │   ├── services/
+│   │   │    │           │   │   ├── AudioFactory.java
+│   │   │    │           │   │   └── AudioManager.java
+│   │   │    │           │   └── Audio.java
+│   │   │    │           |
+│   │   │    │           ├── core/
+│   │   │    │           │   ├── Game.java
+│   │   │    │           │   ├── GameLoop.java
+│   │   │    │           │   └── GameState.java
+│   │   │    │           |
+│   │   │    │           ├── scenes/
+│   │   │    │           │   ├── levels/
+│   │   │    │           │   │   ├── services/
+│   │   │    │           │   │   │   ├── managers/
+│   │   │    │           │   │   │   │   ├── ActorManager.java
+│   │   │    │           │   │   │   │   ├── CollisionManager.java
+│   │   │    │           │   │   │   │   ├── EnemyManager.java
+│   │   │    │           │   │   │   │   ├── KillManager.java
+│   │   │    │           │   │   |   |   └── ProjectileManger.java
+│   │   │    │           │   │   │   ├── LevelState.java
+│   │   │    │           │   │   |   └── LevelView.java
+│   │   │    │           │   │   ├── LevelOne.java
+│   │   │    │           │   │   ├── LevelScene.java
+│   │   │    │           │   │   ├── LevelThree.java
+│   │   │    │           │   │   └── LevelTwo.java
+│   │   │    │           │   │   
+│   │   │    │           │   ├── services/
+│   │   │    │           │   │   ├── GameSceneFactory.java
+│   │   │    │           │   │   └── GameSceneManager.java
+│   │   │    │           │   ├── GameScene.java
+│   │   │    │           │   ├── LoseScene.java
+│   │   │    │           │   ├── MenuScene.java
+│   │   │    │           │   └── WinScene.java
+│   │   │    │           │   
+│   │   │    │           ├── utils/
+│   │   │    │           |   ├── EnumUtil.java
+│   │   │    │           |   └── LoggerUtil.java
+│   │   │    │           |   
+│   │   │    │           └── Main.java
+│   │   │    └── module-info.java
 │   │   └── resources/
-│   │       ├── images/
-│   │       │   └── background1.jpg
-│   │       └── ...
 ├── target/
-│   └── your-game.jar
-├── pom.xml (if using Maven)
+├── .gitignore
+├── mvnw
+├── mvnw.cmd
+├── pom.xml 
 └── README.md
 ```
