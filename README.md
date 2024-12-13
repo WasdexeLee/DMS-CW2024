@@ -27,6 +27,9 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 
 ## GitHub Repository
 [Link to GitHub Repository](https://github.com/WasdexeLee/DMS-CW2024)
+
+<br>
+
 [https://github.com/WasdexeLee/DMS-CW2024](https://github.com/WasdexeLee/DMS-CW2024)
 
 
@@ -81,8 +84,8 @@ The Git Commits in this Repo abides to the Atomic Commits style as best as possi
 4. **Run JUnit Tests:**
   - Ensure that you are in the directory of `DMS-CW2024\`
   - Ensure that no other JVM instances or Java apps are running (including other coursework games) as JavaFX might give certain errors and result in Build Failure
-  - In Co
-  
+  - In Command Line, run: 
+
   ```bash
   mvn clean test
   ```
