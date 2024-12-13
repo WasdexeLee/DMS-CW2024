@@ -24,7 +24,7 @@ import com.example.demo.utils.EnumUtil.EffectAudioType;
 public class Boss extends FighterPlane {
 
     /** The name of the image file used for the boss. */
-    private static final String IMAGE_NAME = "bossplane.png";
+    private static final String IMAGE_NAME = "plane/bossplane.png";
 
     /** The height to which the boss image should be scaled. */
     private static final int IMAGE_HEIGHT = 55;

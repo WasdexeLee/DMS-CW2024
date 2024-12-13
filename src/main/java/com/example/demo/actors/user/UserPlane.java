@@ -17,7 +17,7 @@ import com.example.demo.utils.EnumUtil.EffectAudioType;
 public class UserPlane extends FighterPlane {
 
     /** The name of the image file used for the user plane. */
-    private static final String IMAGE_NAME = "userplane.png";
+    private static final String IMAGE_NAME = "plane/userplane.png";
 
     /** The height to which the user plane image should be scaled. */
     private static final int IMAGE_HEIGHT = 39;

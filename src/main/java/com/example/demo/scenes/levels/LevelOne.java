@@ -22,7 +22,7 @@ import com.example.demo.utils.EnumUtil.SceneType;
 public class LevelOne extends LevelScene {
 
     /** The path to the background image for Level One. */
-    private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background1.jpeg";
+    private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background/background1.jpeg";
 
     /** The next scene to transition to after completing Level One. */
     private static final SceneType NEXT_SCENE = SceneType.LEVEL2;
@@ -100,7 +100,7 @@ public class LevelOne extends LevelScene {
                     newEnemyInitialYPosition = Math.random() * ENEMY_MAXIMUM_Y_POS;
                 } while (planeClumping(newEnemyInitialYPosition));
 
-                ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition, "enemyplane1.png", .27);
+                ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition, "plane/enemyplane1.png", .27);
                 enemyManager.addEnemyUnit(newEnemy, getEnemyUnits(), getRoot());
                 recentSpawnYCoord[0] = recentSpawnYCoord[1];
                 recentSpawnYCoord[1] = recentSpawnYCoord[2];

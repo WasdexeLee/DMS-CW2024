@@ -19,7 +19,7 @@ import com.example.demo.utils.EnumUtil.SceneType;
 public class LevelTwo extends LevelScene {
 
    /** The path to the background image for this level. */
-   private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background2.jpg";
+   private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background/background2.jpg";
 
    /** The next scene to transition to after completing this level. */
    private static final SceneType NEXT_SCENE = SceneType.LEVEL3;
@@ -28,7 +28,7 @@ public class LevelTwo extends LevelScene {
    private static final double ENEMY_MAXIMUM_Y_POS = 648;
 
    /** The array of enemy plane image names for this level. */
-   private static final String[] ENEMY_PLANE_IMAGE_NAME = {"enemyplane2.png", "enemyplane3.png"};
+   private static final String[] ENEMY_PLANE_IMAGE_NAME = {"plane/enemyplane2.png", "plane/enemyplane3.png"};
 
    /** The total number of enemies to spawn in this level. */
    private static final int TOTAL_ENEMIES = 7;

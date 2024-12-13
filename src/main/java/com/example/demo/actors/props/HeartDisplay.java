@@ -15,7 +15,7 @@ public class HeartDisplay {
     /**
      * The name of the image file representing a heart.
      */
-    private static final String HEART_IMAGE_NAME = "/com/example/demo/images/heart.png";
+    private static final String HEART_IMAGE_NAME = "/com/example/demo/images/props/heart.png";
 
     /**
      * The height of the heart image.

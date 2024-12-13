@@ -12,7 +12,7 @@ import com.example.demo.core.GameLoop;
 public class EnemyProjectile extends Projectile {
 
     /** The name of the image file used for the enemy projectile. */
-    private static final String IMAGE_NAME = "enemyFire.png";
+    private static final String IMAGE_NAME = "projectile/enemyFire.png";
 
     /** The height to which the enemy projectile image should be scaled. */
     private static final int IMAGE_HEIGHT = 31;

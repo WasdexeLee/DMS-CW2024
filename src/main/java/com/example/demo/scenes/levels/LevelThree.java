@@ -18,7 +18,7 @@ import com.example.demo.utils.EnumUtil.SceneType;
 public class LevelThree extends LevelScene {
 
 	/** The path to the background image for Level Three. */
-	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background3.jpeg";
+	private static final String BACKGROUND_IMAGE_NAME = "/com/example/demo/images/background/background3.jpeg";
 
 	/** The initial health of the player for this level. */
 	private static final int PLAYER_INITIAL_HEALTH = 6;

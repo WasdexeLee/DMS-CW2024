@@ -226,9 +226,9 @@ public abstract class GameScene {
         AudioManager audioManagerInstance = AudioManager.getInstance();
         Button soundButton;
         if (audioManagerInstance.getHasSound())
-            soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/sound_yes.png").toExternalForm());
+            soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/props/sound_yes.png").toExternalForm());
         else
-            soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/sound_no.png").toExternalForm());
+            soundButton = createButton(58, 57, getClass().getResource("/com/example/demo/images/props/sound_no.png").toExternalForm());
 
         soundButton.setLayoutX(getScreenWidth() - 105);
         soundButton.setLayoutY(25);
