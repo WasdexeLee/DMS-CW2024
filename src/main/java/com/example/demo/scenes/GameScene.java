@@ -240,7 +240,7 @@ public abstract class GameScene {
                         "-fx-background-size: cover;" +
                         "-fx-background-position: center;" +
                         "-fx-background-repeat: no-repeat;",
-                        getClass().getResource("/com/example/demo/images/sound_no.png").toExternalForm()));
+                        getClass().getResource("/com/example/demo/images/props/sound_no.png").toExternalForm()));
 
                 audioManagerInstance.setHasSound(false);
                 audioManagerInstance.pauseBackgroundAudio();
@@ -250,7 +250,7 @@ public abstract class GameScene {
                         "-fx-background-size: cover;" +
                         "-fx-background-position: center;" +
                         "-fx-background-repeat: no-repeat;",
-                        getClass().getResource("/com/example/demo/images/sound_yes.png").toExternalForm()));
+                        getClass().getResource("/com/example/demo/images/props/sound_yes.png").toExternalForm()));
 
                 audioManagerInstance.setHasSound(true);
                 audioManagerInstance.playBackgroundAudio();
